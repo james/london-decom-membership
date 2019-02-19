@@ -1,0 +1,91 @@
+---
+AllCops:
+    TargetRubyVersion: 2.5
+    Exclude:
+        - 'db/migrate/**/*'
+        - 'db/schema.rb'
+        - 'db/seeds.rb'
+        - 'bin/**/*'
+        - 'tmp/**/*'
+
+Rails:
+    Enabled: true
+
+Bundler/OrderedGems:
+    Enabled: false
+
+Style/AndOr:
+    Enabled: false
+
+Style/Alias:
+    Enabled: false
+
+Style/FrozenStringLiteralComment:
+    Enabled: false
+
+Style/NumericLiterals:
+    Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+    Enabled: true
+
+Style/TrailingCommaInHashLiteral:
+    Enabled: true
+
+Style/TrailingCommaInArguments:
+    Enabled: false
+
+Style/Documentation:
+    Enabled: false
+
+Style/DoubleNegation:
+    Enabled: false
+
+Style/WordArray:
+    Enabled: false
+
+Style/ClassAndModuleChildren:
+    Enabled: false
+
+Layout/AlignHash:
+    Enabled: false
+
+Layout/TrailingBlankLines:
+    Enabled: true
+
+Metrics/ClassLength:
+    Enabled: false
+
+Metrics/MethodLength:
+    Max: 50
+    Exclude:
+
+Metrics/AbcSize:
+    Max: 21
+    Exclude:
+        - 'spec/**/*'
+        - 'lib/console_helpers.rb'
+
+Metrics/LineLength:
+    Max: 120
+    Exclude:
+        - 'app/models/framework/definition/**/*'
+
+Metrics/BlockLength:
+    Max: 40
+    Exclude:
+        - 'spec/**/*'
+        - 'config/routes.rb'
+
+Naming/ClassAndModuleCamelCase:
+    Exclude:
+        - 'app/models/framework/definition/**/*'
+
+Naming/FileName:
+    Exclude:
+        - 'app/models/framework/definition/**/*'
+        - 'spec/models/framework/definition/RM1070_spec.rb'
+
+Lint/AmbiguousBlockAssociation:
+    Exclude:
+        - 'spec/**/*'
