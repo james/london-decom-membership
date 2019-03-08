@@ -15,6 +15,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rubocop'
 
 gem 'devise'
+gem 'devise-bootstrap-views', '~> 1.0'
 
 gem 'bootstrap'
 gem 'jquery-rails'
