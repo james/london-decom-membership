@@ -1,0 +1,15 @@
+{
+  "name": "Decompression Membership",
+  "description": "An app for managing membership, tickets and volunteers of a burning man decompression.",
+  "env": {
+    "EVENTBRITE_TOKEN": {
+            "description": "Your eventbrite personal OAuth token"
+    },
+    "EVENTBRIGHT_EVENT_ID": {
+            "description": "The ID of the eventbrite event"
+    }
+  },
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate"
+  }
+}
