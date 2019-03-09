@@ -61,4 +61,12 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include FactoryBot::Syntax::Methods
+
+  config.around do |example|
+    10.times do
+      MembershipCode.create!
+    end
+    example.run
+    MembershipCode.destroy_all
+  end
 end

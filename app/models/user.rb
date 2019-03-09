@@ -9,4 +9,15 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :accept_principles, acceptance: true
   validates :accept_participation, acceptance: true
+  validates :membership_code, presence: true
+
+  before_validation :set_membership_code, on: :create
+
+  has_one :membership_code, dependent: :destroy
+
+  private
+
+  def set_membership_code
+    self.membership_code = MembershipCode.available.first || MembershipCode.create!
+  end
 end
