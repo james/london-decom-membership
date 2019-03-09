@@ -1,1 +1,23 @@
 <h1>Hello <%= current_user.name %>!</h1>
+
+<% if current_event.live? %>
+  <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+  <script type="text/javascript">
+      var exampleCallback = function() {
+          console.log('Order complete!');
+      };
+
+      window.EBWidgets.createWidget({
+          widgetType: 'checkout',
+          eventId: <%= current_event.id %>,
+          modal: true,
+          modalTriggerElementId: 'eventbrite-buy-link',
+          onOrderComplete: exampleCallback,
+          promoCode: 'CODE1'
+      });
+  </script>
+
+  <button id="eventbrite-buy-link" type="button">Buy Tickets</button>
+<% else %>
+  Tickets are not on sale yet. We'll notify you by email when they are.
+<% end %>

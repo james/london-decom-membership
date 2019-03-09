@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Member signup', type: :feature do
   scenario 'successfully signup as a member' do
+    stub_eventbrite_event
     visit root_path
 
     fill_in 'Name', with: 'James Darling'

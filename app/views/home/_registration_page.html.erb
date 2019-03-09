@@ -1,3 +1,4 @@
+<%= link_to "Log in if you're already a member", new_user_session_path %>
 <%= bootstrap_form_for(@user, url: registration_path(@user)) do |f| %>
   <%= f.email_field :email, label: 'Email address', autofocus: true, autocomplete: 'email' %>
   <%= f.text_field :name %>

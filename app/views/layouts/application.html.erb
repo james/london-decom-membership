@@ -10,6 +10,11 @@
   </head>
 
   <body>
+    <% if current_user %>
+      <%= button_to 'logout', destroy_user_session_path, method: :delete %>
+    <% end %>
+    <%= flash[:notice] %>
+    <%= flash[:alert] %>
     <%= yield %>
   </body>
 </html>

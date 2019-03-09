@@ -1,24 +1,20 @@
-# README
+# London Decompression Membership
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setting up Eventbrite
 
-Things you may want to cover:
+This app uses Eventbrite to manage tickets. You will need to set up an
+Eventbrite account and retrieve some credentials to set up the integration.
 
-* Ruby version
+### Eventbrite Access Token
 
-* System dependencies
+- visit https://www.eventbrite.com/account-settings/apps
+- click 'Create a new app'
+- Fill in details and submit
+- Copy 'Your personal OAuth token' and put in .env as EVENTBRITE_TOKEN
 
-* Configuration
+### Eventbrite Event ID
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Create an event if you haven't already
+- Go to the page to manage the event
+- The URL should be something like `https://www.eventbrite.com/myevent?eid=11111`
+- Copy the ID after `eid=` and put in .env as EVENTBRIGHT_EVENT_ID
