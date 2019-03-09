@@ -1,0 +1,8 @@
+<%= bootstrap_form_for(@user, url: registration_path(@user)) do |f| %>
+  <%= f.email_field :email, label: 'Email address', autofocus: true, autocomplete: 'email' %>
+  <%= f.text_field :name %>
+  <%= f.password_field :password, autocomplete: 'current-password' %>
+  <%= f.check_box :accept_principles, label: 'I am prepared to take into consideration the principles of Burning Man' %>
+  <%= f.check_box :accept_participation, label: 'I agree to participate in the wider Burning Man community' %>
+  <%= f.submit 'Sign up' %>
+<% end %>

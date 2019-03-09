@@ -19,6 +19,7 @@ gem 'devise-bootstrap-views', '~> 1.0'
 
 gem 'bootstrap'
 gem 'jquery-rails'
+gem 'bootstrap_form'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -35,6 +36,7 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15'
+  gem 'capybara-email'
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 end
