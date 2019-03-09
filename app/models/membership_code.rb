@@ -3,6 +3,7 @@ class MembershipCode < ApplicationRecord
   before_create :set_code
 
   scope :available, -> { where('user_id IS NULL') }
+  scope :taken, -> { where('user_id IS NOT NULL') }
 
   CHARACTER_MAP = {
     '3' => ['3'],
