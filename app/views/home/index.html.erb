@@ -14,7 +14,7 @@
           modal: true,
           modalTriggerElementId: 'eventbrite-buy-link',
           onOrderComplete: exampleCallback,
-          promoCode: 'CODE1'
+          promoCode: '<%= current_user.membership_number %>'
       });
   </script>
 
