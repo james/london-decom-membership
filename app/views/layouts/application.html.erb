@@ -29,7 +29,10 @@
             <div class="logged_in_nav">
               <ul class="nav justify-content-end">
                 <li class="nav-item">
-                  <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
+                  <%= link_to 'Profile', edit_user_registration_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link' %>
                 </li>
               </ul>
               <% if current_user.admin? %>
@@ -49,8 +52,16 @@
           <% end %>
           <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <%= flash[:notice] %>
-              <%= flash[:alert] %>
+              <% if flash[:notice].present? %>
+                <div class="alert alert-success" role="alert">
+                  <%= flash[:notice] %>
+                </div>
+              <% end %>
+              <% if flash[:alert].present? %>
+                <div class="alert alert-warning" role="alert">
+                  <%= flash[:alert] %>
+                </div>
+              <% end %>
             <%= yield %>
           </div>
         </div>
