@@ -28,15 +28,23 @@
           <% if current_user %>
             <div class="logged_in_nav">
               <ul class="nav justify-content-end">
-                <% if current_user.admin? %>
-                  <li class="nav-item">
-                    <%= link_to 'Admin', admin_membership_codes_path %>
-                  </li>
-                <% end %>
                 <li class="nav-item">
                   <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
                 </li>
               </ul>
+              <% if current_user.admin? %>
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link">Admin:</a>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to 'Users', admin_users_path, class: 'nav-link' %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to 'Membership Codes', admin_membership_codes_path, class: 'nav-link' %>
+                  </li>
+                </ul>
+              <% end %>
             </div>
           <% end %>
           <div class="row">

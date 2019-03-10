@@ -1,0 +1,6 @@
+<h2>User email list</h2>
+
+<p>Use this list to import into mailing software</p>
+<textarea name="name" rows="8" cols="80">
+<%= @users.collect(&:email).join("\n") %>
+</textarea>
