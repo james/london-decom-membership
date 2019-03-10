@@ -10,11 +10,43 @@
   </head>
 
   <body>
-    <% if current_user %>
-      <%= button_to 'logout', destroy_user_session_path, method: :delete %>
-    <% end %>
-    <%= flash[:notice] %>
-    <%= flash[:alert] %>
-    <%= yield %>
+    <div class="page-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-caption">
+              <h1 class="page-title">London Decompression Membership</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section">
+      <div class="container">
+        <div class="card-block bg-white mb30">
+          <% if current_user %>
+            <div class="logged_in_nav">
+              <ul class="nav justify-content-end">
+                <% if current_user.admin? %>
+                  <li class="nav-item">
+                    <%= link_to 'Admin', admin_membership_codes_path %>
+                  </li>
+                <% end %>
+                <li class="nav-item">
+                  <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <%= flash[:notice] %>
+              <%= flash[:alert] %>
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

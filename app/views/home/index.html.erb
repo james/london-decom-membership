@@ -1,4 +1,5 @@
-<h1>Hello <%= current_user.name %>!</h1>
+<h2>Hello <%= current_user.name %>!</h2>
+<p>Your membership number is <%= current_user.membership_number %></p>
 
 <% if current_event.live? %>
   <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
@@ -17,7 +18,13 @@
       });
   </script>
 
-  <button id="eventbrite-buy-link" type="button">Buy Tickets</button>
+  <button id="eventbrite-buy-link" type="button" class="btn btn-primary">Buy Tickets</button>
 <% else %>
   Tickets are not on sale yet. We'll notify you by email when they are.
 <% end %>
+
+<hr />
+
+<h2>Sign up to volunteer</h2>
+
+<p>We will soon be opening up registrations to volunteer. We'll notify you by email when we do.</p>

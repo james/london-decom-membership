@@ -15,6 +15,10 @@ class User < ApplicationRecord
 
   has_one :membership_code, dependent: :destroy
 
+  def membership_number
+    membership_code.code
+  end
+
   private
 
   def set_membership_code

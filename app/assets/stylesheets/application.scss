@@ -1,1 +1,17 @@
 @import "bootstrap";
+
+body {
+  background-color: #eee;
+}
+
+.page-header { background: url(https://londondecom.org/wp-content/uploads/2018/09/decom-Bkgr.png)no-repeat; position: relative; background-size: cover; background-position: center;}
+.page-caption { padding-top: 50px; padding-bottom: 74px; }
+.page-title { font-size: 46px; line-height: 1; color: #fff; font-weight: 600; text-align: center; }
+
+.card-section { position: relative; bottom: 50px; }
+.card-block { padding: 80px; }
+.section-title { margin-bottom: 60px; }
+
+.logged_in_nav {
+  margin-top: -60px;
+}
