@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def current_event
-    @event = Event.new
+    @current_event ||= Event.new
   end
   helper_method :current_event
 
