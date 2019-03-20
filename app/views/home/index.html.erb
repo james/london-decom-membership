@@ -2,23 +2,41 @@
 <p>Your membership number is <%= current_user.membership_number %></p>
 
 <% if current_event.live? %>
-  <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
-  <script type="text/javascript">
-      var exampleCallback = function() {
-          console.log('Order complete!');
-      };
+  <% if current_event.available_tickets_for_code(current_user.membership_number) > 0 %>
+    <p>
+      <% if current_event.tickets_sold_for_code(current_user.membership_number) > 0 %>
+        You have already bought
+        <%= pluralize(current_event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>.
+        You can buy
+        <%= pluralize(current_event.available_tickets_for_code(current_user.membership_number), 'more ticket') %>.
+      <% else %>
+        You can buy
+        <%= pluralize(current_event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
+      <% end %>
+    </p>
+    <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+    <script type="text/javascript">
+        var exampleCallback = function() {
+            console.log('Order complete!');
+        };
 
-      window.EBWidgets.createWidget({
-          widgetType: 'checkout',
-          eventId: <%= current_event.id %>,
-          modal: true,
-          modalTriggerElementId: 'eventbrite-buy-link',
-          onOrderComplete: exampleCallback,
-          promoCode: '<%= current_user.membership_number %>'
-      });
-  </script>
-
-  <button id="eventbrite-buy-link" type="button" class="btn btn-primary">Buy Tickets</button>
+        window.EBWidgets.createWidget({
+            widgetType: 'checkout',
+            eventId: <%= current_event.id %>,
+            modal: true,
+            modalTriggerElementId: 'eventbrite-buy-link',
+            onOrderComplete: exampleCallback,
+            promoCode: '<%= current_user.membership_number %>'
+        });
+    </script>
+    <button id="eventbrite-buy-link" type="button" class="btn btn-primary">Buy Tickets</button>
+  <% else %>
+    <p>
+      You have bought the
+      <%= pluralize(current_event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
+      available to you.
+    </p>
+  <% end %>
 <% else %>
   Tickets are not on sale yet. We'll notify you by email when they are.
 <% end %>

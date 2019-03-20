@@ -22,6 +22,7 @@ gem 'jquery-rails'
 gem 'bootstrap_form'
 
 gem 'eventbrite_sdk'
+gem 'http'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
