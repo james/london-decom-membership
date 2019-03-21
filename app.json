@@ -3,12 +3,18 @@
   "description": "An app for managing membership, tickets and volunteers of a burning man decompression.",
   "env": {
     "EVENTBRITE_TOKEN": {
-            "description": "Your eventbrite personal OAuth token"
+      "description": "Your eventbrite personal OAuth token"
     },
     "EVENTBRIGHT_EVENT_ID": {
-            "description": "The ID of the eventbrite event"
+      "description": "The ID of the eventbrite event"
+    },
+    "HOST_NAME": {
+      "description": "The hostname of the application, e.g. members.londondecom.org"
     }
   },
+  "addons": [
+    "sendgrid:starter"
+  ],
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate"
   }
