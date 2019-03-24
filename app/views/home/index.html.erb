@@ -15,7 +15,7 @@
     </p>
     <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
     <script type="text/javascript">
-        var exampleCallback = function() {
+        var modalCloseCallback = function() {
           location.reload();
         };
 
@@ -24,7 +24,7 @@
             eventId: <%= current_event.id %>,
             modal: true,
             modalTriggerElementId: 'eventbrite-buy-link',
-            onOrderComplete: exampleCallback,
+            onWidgetModalClose: modalCloseCallback,
             promoCode: '<%= current_user.membership_number %>'
         });
     </script>
