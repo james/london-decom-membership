@@ -7,7 +7,6 @@ RSpec.feature 'Membership Code Admin', type: :feature do
     # A used membership code is generated when we create this admin user
     login(admin: true)
     visit admin_membership_codes_path
-    expect(page).to have_text(MembershipCode.first.code)
     expect(page).to have_text('9 available')
     expect(page).to have_text('1 codes have been assigned')
     fill_in 'number', with: '2'
