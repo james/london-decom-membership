@@ -61,7 +61,7 @@ For members to be able to buy tickets using their accounts, membership codes nee
 * Make sure you have set up a ticket type for the event in Eventbrite, and ensure 'Hide this ticket type' is checked for it. This is to ensure that non-members cannot buy this ticket.
 * It is possible to have multiple tickets that are hidden in this way.
 * Log into the membership app with an admin account, and go to the admin 'Membership Codes' page.
-* Ensure you have enough membership codes generated for your need. Be generous (if you have 1,000 people, maybe generate 1,500 codes). This is to ensure we don't run out of access tokens. If not, 'Pre generate some more membership codes'
+* Ensure you have enough membership codes generated for your need. Be generous (if you have 1,000 people, maybe generate 1,500 codes). This is to ensure we don't run out of access tokens. If not, generate some codes.
 * Download the CSV file on that page.
 * Go to "Manage" for your Eventbrite event. Go to "Invite & Promote" then "Discount & Access Codes".
 * Click "New Code" > "This event only" > "Coded access to hidden tickets" > Choose the ticket or tickets you want to be made available to members > Choose "CSV list of codes", and upload the CSV file you downloaded previously.
