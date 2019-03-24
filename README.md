@@ -1,5 +1,7 @@
 # London Decompression Membership
 
+Test status: [![CircleCI](https://circleci.com/gh/james/london-decom-membership.svg?style=svg)](https://circleci.com/gh/james/london-decom-membership)
+
 ## Setting up Eventbrite
 
 This app uses Eventbrite to manage tickets. You will need to set up an Eventbrite account and retrieve some credentials to set up the integration.
