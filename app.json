@@ -13,7 +13,8 @@
     }
   },
   "addons": [
-    "sendgrid:starter"
+    "sendgrid:starter",
+    "rollbar:free"
   ],
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate"
