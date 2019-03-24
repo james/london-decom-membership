@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'rubocop'
+gem 'rollbar'
 
 gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
