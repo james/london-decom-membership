@@ -1,5 +1,4 @@
 <h2>Hello <%= current_user.name %>!</h2>
-<p>Your membership number is <%= current_user.membership_number %></p>
 
 <% if current_event.live? %>
   <% if current_event.available_tickets_for_code(current_user.membership_number) > 0 %>
