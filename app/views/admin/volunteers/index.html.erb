@@ -6,7 +6,10 @@
 
 <ul>
   <% @leads.each do |lead| %>
-    <li><%= lead.user.name %> (<%= lead.user.email %>)</li>
+    <li>
+      <%= lead.user.name %> (<%= lead.user.email %>)
+      <%= link_to 'remove', admin_volunteer_role_volunteer_path(lead.volunteer_role, lead), method: :delete, data: {confirm: 'Are you sure?'} %>
+    </li>
   <% end %>
 </ul>
 

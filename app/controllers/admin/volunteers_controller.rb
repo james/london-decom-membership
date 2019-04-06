@@ -18,6 +18,13 @@ class Admin::VolunteersController < AdminController
     redirect_to admin_volunteer_role_volunteers_path
   end
 
+  def destroy
+    @lead = @volunteer_role.leads.find(params[:id])
+    @lead.update(lead: false)
+    flash[:notice] = "#{@lead.user.name} has been removed as a lead to #{@lead.volunteer_role.name}"
+    redirect_to admin_volunteer_role_volunteers_path
+  end
+
   private
 
   def find_volunteer_role

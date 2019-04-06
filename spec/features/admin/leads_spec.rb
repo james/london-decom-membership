@@ -31,5 +31,16 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     expect(role.leads.count).to eq(1)
   end
 
-  scenario 'removing a leader'
+  scenario 'removing a leader' do
+    login(admin: true)
+    user = create(:user, email: 'lead@example.com', name: 'New Lead')
+    role = create(:volunteer_role, name: 'Role1')
+    create(:volunteer, user: user, volunteer_role: role, lead: true)
+    click_link 'Volunteer Roles'
+    click_link '1 lead'
+    click_link 'remove'
+    expect(page).to have_content('New Lead has been removed as a lead to Role1')
+    expect(role.volunteers.count).to eq(1)
+    expect(role.leads.count).to eq(0)
+  end
 end
