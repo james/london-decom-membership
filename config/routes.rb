@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :membership_codes
-    resources :volunteer_roles
+    resources :volunteer_roles do
+      resources :volunteers
+    end
   end
 
   resources :volunteer_roles, only: [] do
