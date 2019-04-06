@@ -1,0 +1,4 @@
+<%= bootstrap_form_for [:admin, @volunteer_role] do |form| %>
+  <%= render partial: 'form', locals: {form: form} %>
+  <%= form.submit 'Create Volunteer Role' %>
+<% end %>
