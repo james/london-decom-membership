@@ -14,6 +14,12 @@ class VolunteersController < ApplicationController
     end
   end
 
+  def destroy
+    @volunteer = current_user.volunteers.find_by(volunteer_role: @volunteer_role)
+    @volunteer.destroy
+    redirect_to root_path
+  end
+
   private
 
   def find_volunteer_role
