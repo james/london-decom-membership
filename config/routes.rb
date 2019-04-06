@@ -8,5 +8,8 @@ Rails.application.routes.draw do
     resources :volunteer_roles
   end
 
+  resources :volunteer_roles, only: [] do
+    resources :volunteers, only: %i[new create]
+  end
   root to: 'home#index'
 end

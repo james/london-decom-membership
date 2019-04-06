@@ -13,6 +13,7 @@ class User < ApplicationRecord
   before_validation :set_membership_code, on: :create
 
   has_one :membership_code, dependent: :destroy
+  has_many :volunteers, dependent: :destroy
 
   def membership_number
     membership_code.code

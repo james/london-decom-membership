@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :volunteer do
+    user { nil }
+    volunteer_role { nil }
+  end
+
   factory :volunteer_role do
     name { 'MyString' }
     description { 'MyText' }

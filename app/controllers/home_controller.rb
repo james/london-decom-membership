@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     if current_user
-
+      @volunteer_roles = VolunteerRole.available_for_user(current_user).all
     else
       @user = User.new
       render :registration
