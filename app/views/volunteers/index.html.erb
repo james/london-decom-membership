@@ -1,0 +1,14 @@
+<h2><%= @volunteer_role.name %> Volunteers</h2>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+  </tr>
+  <% @volunteers.each do |volunteer| %>
+    <tr>
+      <td><%= volunteer.user.name %></td>
+      <td><%= volunteer.user.email %></td>
+    </tr>
+  <% end %>
+</table>

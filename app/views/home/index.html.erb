@@ -52,6 +52,12 @@
           <h5><%= volunteer.volunteer_role.name %></h5>
           <p>The leads for this role should be in contact with you very soon.</p>
           <%= link_to 'cancel', volunteer_role_volunteer_path(volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
+          <% if volunteer.lead? %>
+            <p>
+              You are a lead for this role:
+              <%= link_to 'view volunteers', volunteer_role_volunteers_path(volunteer.volunteer_role) %>
+            </p>
+          <% end %>
         </div>
       </div>
     <% end %>

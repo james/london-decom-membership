@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :volunteer do
-    user { nil }
-    volunteer_role { nil }
+    user
+    volunteer_role
   end
 
   factory :volunteer_role do
