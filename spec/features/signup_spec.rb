@@ -9,6 +9,7 @@ RSpec.feature 'Member signup', type: :feature do
     fill_in 'Email address', with: 'james@abscond.org'
     fill_in 'Password', with: 'password'
     check 'I am prepared'
+    check 'I would like to receive marketing'
     click_button 'Sign up'
 
     expect(page).to have_text('Check your email')
