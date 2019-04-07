@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :volunteer_roles, only: [] do
-    resources :volunteers, only: %i[index new create destroy]
+    resources :volunteers, only: %i[index new create destroy update]
   end
   root to: 'home#index'
 end

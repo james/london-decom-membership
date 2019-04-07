@@ -25,6 +25,12 @@ class VolunteersController < ApplicationController
     redirect_to root_path
   end
 
+  def update
+    @volunteer = @volunteer_role.volunteers.find(params[:id])
+    @volunteer.update(state: params[:volunteer][:state])
+    redirect_to volunteer_role_volunteers_path(@volunteer_role)
+  end
+
   private
 
   def find_volunteer_role

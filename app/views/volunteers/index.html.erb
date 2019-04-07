@@ -4,11 +4,21 @@
   <tr>
     <th>Name</th>
     <th>Email</th>
+    <th>State</th>
   </tr>
   <% @volunteers.each do |volunteer| %>
     <tr>
       <td><%= volunteer.user.name %></td>
       <td><%= volunteer.user.email %></td>
+      <td>
+        <%= volunteer.state %>
+        <% if volunteer.next_state %>
+          <%= form_for [@volunteer_role, volunteer] do |form| %>
+            <%= form.hidden_field :state, value: volunteer.next_state %>
+            <%= form.submit "Mark as #{volunteer.next_state}" %>
+          <% end %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
