@@ -31,6 +31,7 @@ RSpec.feature 'Volunteering', type: :feature do
 
   scenario 'cancelling a volunteering' do
     volunteer_role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
+    lead = create(:volunteer, volunteer_role: volunteer_role, lead: true).user
     stub_eventbrite_event
     login
     create(:volunteer, user: @user, volunteer_role: volunteer_role)
@@ -39,5 +40,8 @@ RSpec.feature 'Volunteering', type: :feature do
     click_link 'cancel'
     expect(page).to have_content('You are no longer volunteering for Ranger')
     expect(@user.volunteers.count).to eq(0)
+
+    open_email(lead.email)
+    expect(current_email).to have_content('James Darling has cancelled their volunteering')
   end
 end

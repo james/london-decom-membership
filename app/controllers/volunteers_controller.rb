@@ -22,15 +22,9 @@ class VolunteersController < ApplicationController
 
   def destroy
     if current_user.lead_for?(@volunteer_role)
-      @volunteer = @volunteer_role.volunteers.find(params[:id])
-      @volunteer.destroy
-      flash[:notice] = "#{@volunteer.user.name} has been removed as a volunteer"
-      redirect_to volunteer_role_volunteers_path(@volunteer_role)
+      lead_deleting_volunteer
     else
-      @volunteer = current_user.volunteers.find_by(volunteer_role: @volunteer_role)
-      @volunteer.destroy
-      flash[:notice] = "You are no longer volunteering for #{@volunteer_role.name}"
-      redirect_to root_path
+      volunteer_cancelling
     end
   end
 
@@ -41,6 +35,21 @@ class VolunteersController < ApplicationController
   end
 
   private
+
+  def lead_deleting_volunteer
+    @volunteer = @volunteer_role.volunteers.find(params[:id])
+    @volunteer.destroy
+    flash[:notice] = "#{@volunteer.user.name} has been removed as a volunteer"
+    redirect_to volunteer_role_volunteers_path(@volunteer_role)
+  end
+
+  def volunteer_cancelling
+    @volunteer = current_user.volunteers.find_by(volunteer_role: @volunteer_role)
+    @volunteer.destroy
+    LeadsMailer.cancelled_volunteer(@volunteer).deliver_now
+    flash[:notice] = "You are no longer volunteering for #{@volunteer_role.name}"
+    redirect_to root_path
+  end
 
   def find_volunteer_role
     @volunteer_role = VolunteerRole.find(params[:volunteer_role_id])
