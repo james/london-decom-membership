@@ -19,6 +19,11 @@
           <% end %>
         <% end %>
       </td>
+      <td>
+        <%= form_for [@volunteer_role, volunteer], method: :delete do |form| %>
+          <%= form.submit "remove", data: {confirm: 'Are you sure?'} %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>

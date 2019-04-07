@@ -19,6 +19,10 @@ class User < ApplicationRecord
     membership_code.code
   end
 
+  def lead_for?(volunteer_role)
+    volunteers.where(volunteer_role: volunteer_role, lead: true).present?
+  end
+
   private
 
   def set_membership_code

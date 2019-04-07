@@ -24,6 +24,7 @@ RSpec.feature 'Volunteering', type: :feature do
 
     visit root_path
     click_link 'cancel'
+    expect(page).to have_content('You are no longer volunteering for Ranger')
     expect(@user.volunteers.count).to eq(0)
   end
 end

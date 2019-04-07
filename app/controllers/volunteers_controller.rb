@@ -20,9 +20,17 @@ class VolunteersController < ApplicationController
   end
 
   def destroy
-    @volunteer = current_user.volunteers.find_by(volunteer_role: @volunteer_role)
-    @volunteer.destroy
-    redirect_to root_path
+    if current_user.lead_for?(@volunteer_role)
+      @volunteer = @volunteer_role.volunteers.find(params[:id])
+      @volunteer.destroy
+      flash[:notice] = "#{@volunteer.user.name} has been removed as a volunteer"
+      redirect_to volunteer_role_volunteers_path(@volunteer_role)
+    else
+      @volunteer = current_user.volunteers.find_by(volunteer_role: @volunteer_role)
+      @volunteer.destroy
+      flash[:notice] = "You are no longer volunteering for #{@volunteer_role.name}"
+      redirect_to root_path
+    end
   end
 
   def update

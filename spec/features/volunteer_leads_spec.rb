@@ -32,6 +32,19 @@ RSpec.feature 'Volunteering leads', type: :feature do
     expect(page).to have_content('confirmed')
   end
 
+  scenario 'removing a volunteer' do
+    stub_eventbrite_event
+    login
+    role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
+    create(:volunteer, volunteer_role: role, user: @user, lead: true)
+    volunteer1 = create(:volunteer, volunteer_role: role).user
+
+    visit volunteer_role_volunteers_path(role)
+    page.all('input[value="remove"]')[1].click
+    expect(page).to have_content("#{volunteer1.name} has been removed as a volunteer")
+    expect(page).to_not have_content(volunteer1.email)
+  end
+
   scenario 'viewing the volunteers when not a lead' do
     stub_eventbrite_event
     login
