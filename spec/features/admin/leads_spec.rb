@@ -15,6 +15,9 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     expect(page).to have_content('New Lead added as a lead to Role1')
     expect(role.volunteers.count).to eq(1)
     expect(role.leads.count).to eq(1)
+
+    open_email('lead@example.com')
+    expect(current_email).to have_content('You have been made a lead of Role1')
   end
 
   scenario 'assigning a leader when they are already a volunteer' do
@@ -29,6 +32,9 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     expect(page).to have_content('New Lead added as a lead to Role1')
     expect(role.volunteers.count).to eq(1)
     expect(role.leads.count).to eq(1)
+
+    open_email('lead@example.com')
+    expect(current_email).to have_content('You have been made a lead of Role1')
   end
 
   scenario 'removing a leader' do

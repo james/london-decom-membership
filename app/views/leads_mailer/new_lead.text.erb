@@ -1,0 +1,9 @@
+Hi <%= @volunteer.user.name %>
+
+You have been made a lead of <%= @volunteer.volunteer_role.name %>.
+
+You will be able to see everyone who has volunteered for this role at <%= volunteer_role_volunteers_url(@volunteer.volunteer_role) %>.
+
+Thanks,
+Volunteer Team,
+London Decompression.

@@ -16,4 +16,13 @@ class LeadsMailer < ApplicationMailer
       subject: 'Decom volunteer cancellation'
     )
   end
+
+  def new_lead(volunteer)
+    @volunteer = volunteer
+    mail(
+      to: volunteer.user.email,
+      from: 'volunteers@londondecom.org',
+      subject: "You've been made a lead of #{@volunteer.volunteer_role.name} for London Decom"
+    )
+  end
 end

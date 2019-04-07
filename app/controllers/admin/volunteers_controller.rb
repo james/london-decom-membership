@@ -15,6 +15,7 @@ class Admin::VolunteersController < AdminController
       )
     end
     flash[:notice] = "#{@lead.user.name} added as a lead to #{@lead.volunteer_role.name}"
+    LeadsMailer.new_lead(@lead).deliver_now
     redirect_to admin_volunteer_role_volunteers_path
   end
 
