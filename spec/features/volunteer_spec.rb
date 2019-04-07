@@ -14,6 +14,15 @@ RSpec.feature 'Volunteering', type: :feature do
     click_button 'Volunteer'
     expect(page).to have_text("You've signed up to volunteer for")
     expect(@user.volunteers.count).to eq(1)
+
+    expect(page).to have_text('The leads for this role should be in contact with you very soon')
+    volunteer = @user.volunteers.last
+    volunteer.update(state: 'contacted')
+    visit root_path
+    expect(page).to have_text('You have been contacted by a lead')
+    volunteer.update(state: 'confirmed')
+    visit root_path
+    expect(page).to have_text('You are confirmed as a volunteer')
   end
 
   scenario 'cancelling a volunteering' do
