@@ -5,4 +5,8 @@ class VolunteerRole < ApplicationRecord
   def leads
     volunteers.where(lead: true)
   end
+
+  def lead_emails
+    leads.collect { |l| l.user.email }
+  end
 end

@@ -13,6 +13,7 @@ class VolunteersController < ApplicationController
   def create
     @volunteer = current_user.volunteers.build(volunteer_params)
     if @volunteer.save
+      LeadsMailer.new_volunteer(@volunteer).deliver_now
       redirect_to root_path
     else
       render action: :new

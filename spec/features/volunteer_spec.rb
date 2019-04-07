@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'Volunteering', type: :feature do
   scenario 'signing up to volunteer successfully' do
-    create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
+    role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
+    lead = create(:volunteer, volunteer_role: role, lead: true).user
     stub_eventbrite_event
     login
 
@@ -14,6 +15,9 @@ RSpec.feature 'Volunteering', type: :feature do
     click_button 'Volunteer'
     expect(page).to have_text("You've signed up to volunteer for")
     expect(@user.volunteers.count).to eq(1)
+
+    open_email(lead.email)
+    expect(current_email).to have_content('James Darling just volunteered for Ranger')
 
     expect(page).to have_text('The leads for this role should be in contact with you very soon')
     volunteer = @user.volunteers.last
