@@ -1,0 +1,34 @@
+<h2><%= @volunteer_role.name %> Volunteers</h2>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Comments</th>
+    <th>State</th>
+    <th></th>
+  </tr>
+  <% @volunteers.each do |volunteer| %>
+    <tr>
+      <td><%= volunteer.user.name %></td>
+      <td><%= volunteer.user.email %></td>
+      <td><%= volunteer.phone %></td>
+      <td><%= volunteer.additional_comments %></td>
+      <td>
+        <%= volunteer.state %>
+        <% if volunteer.next_state %>
+          <%= form_for [@volunteer_role, volunteer] do |form| %>
+            <%= form.hidden_field :state, value: volunteer.next_state %>
+            <%= form.submit "Mark as #{volunteer.next_state}" %>
+          <% end %>
+        <% end %>
+      </td>
+      <td>
+        <%= form_for [@volunteer_role, volunteer], method: :delete do |form| %>
+          <%= form.submit "remove", data: {confirm: 'Are you sure?'} %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

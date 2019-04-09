@@ -1,0 +1,11 @@
+<h2>Signup to volunteer for <%= @volunteer_role.name %></h2>
+
+<%= simple_format @volunteer_role.description %>
+
+<%= bootstrap_form_for [@volunteer_role, @volunteer] do |form| %>
+  <%= form.phone_field :phone %>
+  <%= form.text_area :additional_comments %>
+  <%= form.check_box :accept_code_of_conduct, label: 'I agree to the Decom Code of Conduct' %>
+  <%= form.check_box :accept_health_and_safety, label: "I confirm that I've read the Decom Health and Safety Guidelines" %>
+  <%= form.submit 'Volunteer' %>
+<% end %>

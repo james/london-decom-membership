@@ -1,0 +1,25 @@
+<h2>Leads for <%= @volunteer_role.name %></h2>
+
+<p>Leads can see the contact details of every member who has registered to volunteer for this role</p>
+
+<h3>Current leads</h3>
+
+<ul>
+  <% @leads.each do |lead| %>
+    <li>
+      <%= lead.user.name %> (<%= lead.user.email %>)
+      <%= link_to 'remove', admin_volunteer_role_volunteer_path(lead.volunteer_role, lead), method: :delete, data: {confirm: 'Are you sure?'} %>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Add a new lead</h3>
+
+<%= bootstrap_form_for [:admin, @volunteer_role, Volunteer.new] do |form| %>
+  <%= form.select :user_id,
+                  User.pluck(:id, :name, :email).collect {|u| ["#{u[1]} (#{u[2]})", u[0]]},
+                  {label: 'Find member to make a lead'},
+                  {class: 'selectpicker', data: { 'live-search': 'true' }}
+  %>
+  <%= form.submit 'Make Lead' %>
+<% end %>

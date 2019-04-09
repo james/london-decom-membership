@@ -1,4 +1,14 @@
 FactoryBot.define do
+  factory :volunteer do
+    user
+    volunteer_role
+  end
+
+  factory :volunteer_role do
+    name { 'MyString' }
+    description { 'MyText' }
+  end
+
   factory :membership_code do
     code { '1234' }
     user { nil }

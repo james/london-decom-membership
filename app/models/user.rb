@@ -13,9 +13,14 @@ class User < ApplicationRecord
   before_validation :set_membership_code, on: :create
 
   has_one :membership_code, dependent: :destroy
+  has_many :volunteers, dependent: :destroy
 
   def membership_number
     membership_code.code
+  end
+
+  def lead_for?(volunteer_role)
+    volunteers.where(volunteer_role: volunteer_role, lead: true).present?
   end
 
   private
