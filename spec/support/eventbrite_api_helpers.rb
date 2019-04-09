@@ -8,6 +8,6 @@ def stub_eventbrite_event(opts = {})
       tickets_sold_for_code: 0
     }.merge(opts)
   )
-  allow(Event).to receive(:new).and_return(event)
+  allow(EventbriteEvent).to receive(:new).and_return(event)
   event
 end

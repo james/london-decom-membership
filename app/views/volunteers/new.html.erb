@@ -2,7 +2,7 @@
 
 <%= simple_format @volunteer_role.description %>
 
-<%= bootstrap_form_for [@volunteer_role, @volunteer] do |form| %>
+<%= bootstrap_form_for [@event, @volunteer_role, @volunteer] do |form| %>
   <%= form.phone_field :phone %>
   <%= form.text_area :additional_comments %>
   <%= form.check_box :accept_code_of_conduct, label: 'I agree to the Decom Code of Conduct' %>

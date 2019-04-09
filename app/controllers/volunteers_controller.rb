@@ -1,4 +1,5 @@
 class VolunteersController < ApplicationController
+  before_action :find_event
   before_action :find_volunteer_role
   before_action :authenticate_lead, except: %i[new create destroy]
 
@@ -14,7 +15,7 @@ class VolunteersController < ApplicationController
     @volunteer = current_user.volunteers.build(volunteer_params)
     if @volunteer.save
       LeadsMailer.new_volunteer(@volunteer).deliver_now
-      redirect_to root_path
+      redirect_to event_path(@event)
     else
       render action: :new
     end
@@ -31,7 +32,7 @@ class VolunteersController < ApplicationController
   def update
     @volunteer = @volunteer_role.volunteers.find(params[:id])
     @volunteer.update(state: params[:volunteer][:state])
-    redirect_to volunteer_role_volunteers_path(@volunteer_role)
+    redirect_to event_volunteer_role_volunteers_path(@event, @volunteer_role)
   end
 
   private
@@ -40,7 +41,7 @@ class VolunteersController < ApplicationController
     @volunteer = @volunteer_role.volunteers.find(params[:id])
     @volunteer.destroy
     flash[:notice] = "#{@volunteer.user.name} has been removed as a volunteer"
-    redirect_to volunteer_role_volunteers_path(@volunteer_role)
+    redirect_to event_volunteer_role_volunteers_path(@event, @volunteer_role)
   end
 
   def volunteer_cancelling
@@ -48,11 +49,15 @@ class VolunteersController < ApplicationController
     @volunteer.destroy
     LeadsMailer.cancelled_volunteer(@volunteer).deliver_now
     flash[:notice] = "You are no longer volunteering for #{@volunteer_role.name}"
-    redirect_to root_path
+    redirect_to event_path(@event)
+  end
+
+  def find_event
+    @event = Event.find(params[:event_id])
   end
 
   def find_volunteer_role
-    @volunteer_role = VolunteerRole.find(params[:volunteer_role_id])
+    @volunteer_role = @event.volunteer_roles.find(params[:volunteer_role_id])
   end
 
   def volunteer_params

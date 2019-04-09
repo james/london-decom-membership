@@ -1,0 +1,88 @@
+<% if @event.live? %>
+  <% if @event.available_tickets_for_code(current_user.membership_number) > 0 %>
+    <p>
+      <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
+        You have already bought
+        <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>.
+        You can buy
+        <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'more ticket') %>.
+      <% else %>
+        You can buy
+        <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
+      <% end %>
+    </p>
+    <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+    <script type="text/javascript">
+        var modalCloseCallback = function() {
+          location.reload();
+        };
+
+        window.EBWidgets.createWidget({
+            widgetType: 'checkout',
+            eventId: <%= @event.id %>,
+            modal: true,
+            modalTriggerElementId: 'eventbrite-buy-link',
+            onWidgetModalClose: modalCloseCallback,
+            promoCode: '<%= current_user.membership_number %>'
+        });
+    </script>
+    <button id="eventbrite-buy-link" type="button" class="btn btn-primary">Buy Tickets</button>
+  <% else %>
+    <p>
+      You have bought the
+      <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
+      available to you.
+    </p>
+  <% end %>
+<% else %>
+  Tickets are not on sale yet. We'll notify you by email when they are.
+<% end %>
+
+<hr />
+
+<% if current_user.volunteers.any? %>
+  <h2>You've signed up to volunteer for:</h2>
+
+  <div class="list-group">
+    <% current_user.volunteers.each do |volunteer| %>
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <h5><%= volunteer.volunteer_role.name %></h5>
+          <% if volunteer.state == 'confirmed' %>
+            <p>You are confirmed as a volunteer</p>
+          <% elsif volunteer.state == 'contacted' %>
+            <p>You have been contacted by a lead</p>
+          <% else %>
+            <p>The leads for this role should be in contact with you very soon.</p>
+          <% end %>
+          <%= link_to 'cancel', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
+          <% if volunteer.lead? %>
+            <p>
+              You are a lead for this role:
+              <%= link_to 'view volunteers', event_volunteer_role_volunteers_path(@event, volunteer.volunteer_role) %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <hr />
+<% end %>
+
+<h2>Sign up to volunteer</h2>
+
+<p>To get the most out of Decom, get involved. Shifts are usually a few hours and you'll have plenty of time to party - and working at Decom is really, really fun!</p>
+
+<p>Volunteering is optional. Choose which roles you're interested in, and the volunteer leads will get back to you.</p>
+
+<div class="list-group">
+  <% @volunteer_roles.each do |volunteer_role| %>
+    <a href="<%= new_event_volunteer_role_volunteer_path(@event, volunteer_role) %>" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+      <div>
+        <h5><%= volunteer_role.name %></h5>
+        <%= simple_format volunteer_role.description %>
+      </div>
+      <span class="badge badge-primary badge-pill">Sign up now</span>
+    </a>
+  <% end %>
+</div>

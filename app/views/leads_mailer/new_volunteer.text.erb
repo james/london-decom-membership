@@ -1,3 +1,3 @@
 <%= @volunteer.user.name %> just volunteered for <%= @volunteer.volunteer_role.name %>.
 
-Visit <%= volunteer_role_volunteers_url(@volunteer.volunteer_role) %> to see their details and contact them.
+Visit <%= event_volunteer_role_volunteers_url(@volunteer.volunteer_role.event, @volunteer.volunteer_role) %> to see their details and contact them.
