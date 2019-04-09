@@ -7,7 +7,7 @@
       <td><%= volunteer_role.description %></td>
       <td><%= link_to 'edit', edit_admin_volunteer_role_path(volunteer_role) %></td>
       <td><%= link_to pluralize(volunteer_role.leads.count, 'lead'), admin_volunteer_role_volunteers_path(volunteer_role) %></td>
-      <td><%= link_to pluralize(volunteer_role.volunteers.count, 'volunteers'), volunteer_role_volunteers_path(volunteer_role) %></td>
+      <td><%= link_to pluralize(volunteer_role.volunteers.count, 'volunteer'), volunteer_role_volunteers_path(volunteer_role) %></td>
       <td><%= button_to 'destroy', admin_volunteer_role_path(volunteer_role), method: :delete, data: {confirm: 'Are you sure? This is irreversible'} %></td>
     </tr>
   <% end %>
