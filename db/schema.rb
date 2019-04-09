@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_213706) do
+ActiveRecord::Schema.define(version: 2019_04_09_201206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.string "eventbrite_token"
+    t.string "eventbrite_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "membership_codes", force: :cascade do |t|
     t.string "code"
@@ -51,6 +59,8 @@ ActiveRecord::Schema.define(version: 2019_04_07_213706) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id"
+    t.index ["event_id"], name: "index_volunteer_roles_on_event_id"
   end
 
   create_table "volunteers", force: :cascade do |t|
@@ -67,6 +77,7 @@ ActiveRecord::Schema.define(version: 2019_04_07_213706) do
   end
 
   add_foreign_key "membership_codes", "users"
+  add_foreign_key "volunteer_roles", "events"
   add_foreign_key "volunteers", "users"
   add_foreign_key "volunteers", "volunteer_roles"
 end

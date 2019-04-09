@@ -8,14 +8,14 @@
   <% @leads.each do |lead| %>
     <li>
       <%= lead.user.name %> (<%= lead.user.email %>)
-      <%= link_to 'remove', admin_volunteer_role_volunteer_path(lead.volunteer_role, lead), method: :delete, data: {confirm: 'Are you sure?'} %>
+      <%= link_to 'remove', admin_event_volunteer_role_volunteer_path(@event, lead.volunteer_role, lead), method: :delete, data: {confirm: 'Are you sure?'} %>
     </li>
   <% end %>
 </ul>
 
 <h3>Add a new lead</h3>
 
-<%= bootstrap_form_for [:admin, @volunteer_role, Volunteer.new] do |form| %>
+<%= bootstrap_form_for [:admin, @event, @volunteer_role, Volunteer.new] do |form| %>
   <%= form.select :user_id,
                   User.pluck(:id, :name, :email).collect {|u| ["#{u[1]} (#{u[2]})", u[0]]},
                   {label: 'Find member to make a lead'},

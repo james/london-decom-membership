@@ -18,14 +18,14 @@
       <td>
         <%= volunteer.state %>
         <% if volunteer.next_state %>
-          <%= form_for [@volunteer_role, volunteer] do |form| %>
+          <%= form_for [@event, @volunteer_role, volunteer] do |form| %>
             <%= form.hidden_field :state, value: volunteer.next_state %>
             <%= form.submit "Mark as #{volunteer.next_state}" %>
           <% end %>
         <% end %>
       </td>
       <td>
-        <%= form_for [@volunteer_role, volunteer], method: :delete do |form| %>
+        <%= form_for [@event, @volunteer_role, volunteer], method: :delete do |form| %>
           <%= form.submit "remove", data: {confirm: 'Are you sure?'} %>
         <% end %>
       </td>

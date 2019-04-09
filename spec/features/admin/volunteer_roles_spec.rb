@@ -8,6 +8,8 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
   scenario 'should list existing codes, and can create more' do
     login(admin: true)
     create(:volunteer_role, name: 'Role1')
+    click_link 'Events'
+    click_link 'London Decompression 2019'
     click_link 'Volunteer Roles'
     expect(page).to have_content('Role1')
     click_link 'Add new'
@@ -21,6 +23,8 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
   scenario 'editing a role' do
     login(admin: true)
     create(:volunteer_role, name: 'Role1', description: 'First Role')
+    click_link 'Events'
+    click_link 'London Decompression 2019'
     click_link 'Volunteer Roles'
     click_link 'edit'
     fill_in 'Name', with: 'Role1 edited'
@@ -33,6 +37,8 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
   scenario 'deleting a role' do
     login(admin: true)
     create(:volunteer_role, name: 'Role1', description: 'First Role')
+    click_link 'Events'
+    click_link 'London Decompression 2019'
     click_link 'Volunteer Roles'
     click_button 'destroy'
     expect(page).to_not have_content('Role1')
@@ -40,9 +46,10 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
 
   scenario 'as not an admin' do
     stub_eventbrite_event
+    event = create(:event)
     login(admin: false)
     expect(page).to_not have_link('Roles')
-    visit admin_volunteer_roles_path
+    visit admin_event_volunteer_roles_path(event)
     expect(page).to have_text('You are not permitted to view this')
   end
 end
