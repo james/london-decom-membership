@@ -56,8 +56,12 @@ class VolunteersController < ApplicationController
   end
 
   def volunteer_params
-    params.require(:volunteer).permit(:accept_code_of_conduct, :accept_health_and_safety)
-          .merge(volunteer_role: @volunteer_role)
+    params.require(:volunteer).permit(
+      :accept_code_of_conduct,
+      :accept_health_and_safety,
+      :additional_comments,
+      :phone
+    ).merge(volunteer_role: @volunteer_role)
   end
 
   def authenticate_lead

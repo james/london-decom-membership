@@ -8,13 +8,17 @@ RSpec.feature 'Volunteering', type: :feature do
     login
 
     expect(page).to have_text('Ranger')
-    expect(page).to have_text('A description of rangering')
     click_link 'Ranger'
+    expect(page).to have_text('A description of rangering')
+    fill_in 'Phone', with: '07777777'
+    fill_in 'Additional comments', with: 'some addition comments'
     check 'I agree to the Decom Code of Conduct'
     check "I confirm that I've read the Decom Health and Safety Guidelines"
     click_button 'Volunteer'
     expect(page).to have_text("You've signed up to volunteer for")
     expect(@user.volunteers.count).to eq(1)
+    expect(@user.volunteers.first.phone).to eq('07777777')
+    expect(@user.volunteers.first.additional_comments).to eq('some addition comments')
 
     open_email(lead.email)
     expect(current_email).to have_content('James Darling just volunteered for Ranger')
