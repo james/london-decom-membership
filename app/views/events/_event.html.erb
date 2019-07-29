@@ -21,7 +21,7 @@
 
         window.EBWidgets.createWidget({
             widgetType: 'checkout',
-            eventId: <%= @event.id %>,
+            eventId: <%= @event.eventbrite_id %>,
             modal: true,
             modalTriggerElementId: 'eventbrite-buy-link',
             onWidgetModalClose: modalCloseCallback,
