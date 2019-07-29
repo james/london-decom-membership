@@ -1,3 +1,5 @@
+<h1><%= @event.name %></h1>
+
 <% if @event.live? %>
   <% if @event.available_tickets_for_code(current_user.membership_number) > 0 %>
     <p>

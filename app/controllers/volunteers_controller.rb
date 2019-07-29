@@ -15,7 +15,7 @@ class VolunteersController < ApplicationController
     @volunteer = current_user.volunteers.build(volunteer_params)
     if @volunteer.save
       LeadsMailer.new_volunteer(@volunteer).deliver_now
-      redirect_to event_path(@event)
+      redirect_to root_path
     else
       render action: :new
     end
@@ -49,7 +49,7 @@ class VolunteersController < ApplicationController
     @volunteer.destroy
     LeadsMailer.cancelled_volunteer(@volunteer).deliver_now
     flash[:notice] = "You are no longer volunteering for #{@volunteer_role.name}"
-    redirect_to event_path(@event)
+    redirect_to root_path
   end
 
   def find_event

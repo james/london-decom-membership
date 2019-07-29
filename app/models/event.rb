@@ -1,6 +1,10 @@
 class Event < ApplicationRecord
   has_many :volunteer_roles, dependent: :destroy
 
+  def self.active
+    where(active: true).first
+  end
+
   def eventbrite_event
     EventbriteEvent.new(eventbrite_token, eventbrite_id)
   end

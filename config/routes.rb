@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :events, only: %i[show] do
+  resources :events, only: %i[] do
     resources :volunteer_roles, only: [] do
       resources :volunteers, only: %i[index new create destroy update]
     end

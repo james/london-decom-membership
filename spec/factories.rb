@@ -3,6 +3,7 @@ FactoryBot.define do
     eventbrite_token { 'MyString' }
     eventbrite_id { 'MyString' }
     name { 'London Decompression 2019' }
+    active { true }
   end
 
   factory :volunteer do

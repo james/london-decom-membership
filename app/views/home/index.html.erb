@@ -1,11 +1,7 @@
-<h2>Hello <%= current_user.name %>!</h2>
-
-<h3>Events</h3>
-
-<ul>
-  <% Event.all.each do |event| %>
-    <li>
-      <%= link_to event.name, event_path(event) %>
-    </li>
-  <% end %>
-</ul>
+<% if @event %>
+  <%= render partial: '/events/event' %>
+<% else %>
+  <h1>Hello <%= current_user.name %>!</h1>
+  <p>You are a member of London Decompression.</p>
+  <p>We do not have any events currently active, but check back soon.</p>
+<% end %>
