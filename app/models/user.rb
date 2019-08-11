@@ -23,9 +23,41 @@ class User < ApplicationRecord
     volunteers.where(volunteer_role: volunteer_role, lead: true).present?
   end
 
+  def email_hash
+    Digest::MD5.hexdigest(email)
+  end
+
+  def update_mailchimp
+    return if ENV['MAILCHIMP_TOKEN'].blank?
+
+    gibbon.lists(list_id).members(email_hash).upsert(
+      body: {
+        email_address: email,
+        status: 'subscribed',
+        merge_fields: { NAME: name }
+      }
+    )
+    gibbon.lists(list_id).members(email_hash).tags.create(
+      body: {
+        tags: [
+          { name: 'member', status: 'active' },
+          { name: 'member-marketing', status: (marketing_opt_in ? 'active' : 'inactive') }
+        ]
+      }
+    )
+  end
+
   private
 
   def set_membership_code
     self.membership_code = MembershipCode.available.first || MembershipCode.create!
+  end
+
+  def gibbon
+    @gibbon ||= Gibbon::Request.new(api_key: ENV['MAILCHIMP_TOKEN'])
+  end
+
+  def list_id
+    @list_id ||= gibbon.lists.retrieve.body['lists'].first['id']
   end
 end

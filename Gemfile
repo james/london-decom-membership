@@ -24,6 +24,7 @@ gem 'bootstrap_form'
 
 gem 'eventbrite_sdk'
 gem 'http'
+gem 'gibbon'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -31,6 +32,7 @@ group :development, :test do
   gem 'brakeman', require: false
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
+  gem 'climate_control'
 end
 
 group :development do

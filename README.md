@@ -20,6 +20,19 @@ This app uses Eventbrite to manage tickets. You will need to set up an Eventbrit
 - The URL should be something like `https://www.eventbrite.com/myevent?eid=11111`
 - Copy the ID after `eid=` and put in .env as EVENTBRIGHT_EVENT_ID
 
+### MAILCHIMP_TOKEN
+
+Optionally, if you want members to be added to a Mailchimp account:
+
+- Go to your Mailchimp account page
+- Go to 'API keys' under 'Extras'
+- Create a key, and then copy to value into your .env as MAILCHIMP_TOKEN
+
+Members will then be added to your first mailchimp list when they confirm their email address.
+
+They will have the tag `member`, and additionally will have the tag `mailchimp-marketing` if they opted in for marketing.
+
+
 ### Running locally
 
 To run this application locally for development, you will need to install:
