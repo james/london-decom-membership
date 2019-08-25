@@ -52,7 +52,7 @@ RSpec.feature 'Volunteering leads', type: :feature do
     role2 = create(:volunteer_role)
     create(:volunteer, volunteer_role: role, user: @user, lead: true)
     volunteer1 = create(:volunteer, volunteer_role: role, phone: '077777', additional_comments: 'A comment').user
-    volunteer2 = create(:volunteer, volunteer_role: role2, additional_comments: 'Another role').user
+    create(:volunteer, volunteer_role: role2, additional_comments: 'Another role').user
 
     visit event_volunteer_role_volunteers_path(role.event, role)
     click_link 'Download CSV'

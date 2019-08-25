@@ -27,7 +27,7 @@ RSpec.feature 'Member signup', type: :feature do
     check 'I would like to receive marketing'
     click_button 'Sign up'
 
-    expect(page).to have_text('Check your email')
+    expect(page).to have_text('A message with a confirmation link has been sent to your email address')
     open_email('james@abscond.org')
     current_email.click_link 'Confirm my account'
     expect(page).to have_text('Hello James Darling!')

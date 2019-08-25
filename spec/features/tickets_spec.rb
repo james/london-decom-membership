@@ -4,7 +4,7 @@ RSpec.feature 'Tickets', type: :feature do
   scenario 'there is no active event' do
     login
 
-    expect(page).to have_text('We do not have any events currently active')
+    expect(page).to have_text('Tickets and volunteering are not live yet')
   end
 
   scenario 'eventbrite event is not live' do
