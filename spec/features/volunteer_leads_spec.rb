@@ -45,6 +45,22 @@ RSpec.feature 'Volunteering leads', type: :feature do
     expect(page).to_not have_content(volunteer1.email)
   end
 
+  scenario 'downloading CSV of volunteers' do
+    stub_eventbrite_event
+    login
+    role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
+    role2 = create(:volunteer_role)
+    create(:volunteer, volunteer_role: role, user: @user, lead: true)
+    volunteer1 = create(:volunteer, volunteer_role: role, phone: '077777', additional_comments: 'A comment').user
+    volunteer2 = create(:volunteer, volunteer_role: role2, additional_comments: 'Another role').user
+
+    visit event_volunteer_role_volunteers_path(role.event, role)
+    click_link 'Download CSV'
+
+    expect(page).to have_content("#{volunteer1.name},#{volunteer1.email},077777,A comment,new")
+    expect(page).to_not have_content('Another role')
+  end
+
   scenario 'viewing the volunteers when not a lead' do
     stub_eventbrite_event
     login

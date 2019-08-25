@@ -5,6 +5,10 @@ class VolunteersController < ApplicationController
 
   def index
     @volunteers = @volunteer_role.volunteers
+    respond_to do |format|
+      format.html
+      format.csv { send_data @volunteers.to_csv, filename: "volunteers-#{@volunteer_role.name}-#{Date.today}.csv" }
+    end
   end
 
   def new

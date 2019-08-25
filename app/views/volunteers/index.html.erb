@@ -1,5 +1,7 @@
 <h2><%= @volunteer_role.name %> Volunteers</h2>
 
+<%= link_to 'Download CSV', event_volunteer_role_volunteers_path(@event, @volunteer_role, format: :csv) %>
+
 <table class="table">
   <tr>
     <th>Name</th>
