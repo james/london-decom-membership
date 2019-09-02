@@ -8,6 +8,10 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :accept_principles, acceptance: true
+  validates :accept_emails, acceptance: true
+  validates :accept_no_ticket, acceptance: true
+  validates :accept_code_of_conduct, acceptance: true
+  validates :accept_health_and_safety, acceptance: true
   validates :membership_code, presence: true
 
   before_validation :set_membership_code, on: :create
