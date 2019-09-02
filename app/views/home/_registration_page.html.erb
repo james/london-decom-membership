@@ -16,12 +16,12 @@
   <%= f.email_field :email, label: 'Email address', autofocus: true, autocomplete: 'email' %>
   <%= f.text_field :name %>
   <%= f.password_field :password, autocomplete: 'current-password' %>
-  <%= f.check_box :accept_principles, label: 'I have read and am prepared to take into consideration <a href="https://burningman.org/culture/philosophical-center/10-principles/">the principles of Burning Man</a>'.html_safe %>
-  <%= f.check_box :accept_emails, label: 'I agree to receiving emails from London Decompression letting me know when tickets to London Decompression events are available.' %>
-  <%= f.check_box :accept_code_of_conduct, label: ' I have read and agree to abide by the London Decompression <a href="https://tinyurl.com/londondecom-codeofconduct">volunteers and participants code of conduct</a>'.html_safe %>
-  <%= f.check_box :accept_health_and_safety, label: ' I have read and agree to abide by the London Decompression <a href="https://tinyurl.com/londondecom-healthsafety">Health and Safety Guidelines</a>'.html_safe %>
+  <%= f.check_box :accept_principles, label: 'I have read and am prepared to take into consideration <a href="https://burningman.org/culture/philosophical-center/10-principles/" target="_blank">the principles of Burning Man</a>'.html_safe %>
+  <%= f.check_box :accept_code_of_conduct, label: ' I have read and agree to abide by the London Decompression <a href="https://tinyurl.com/londondecom-codeofconduct" target="_blank">volunteers and participants code of conduct</a>'.html_safe %>
+  <%= f.check_box :accept_health_and_safety, label: ' I have read and agree to abide by the London Decompression <a href="https://tinyurl.com/londondecom-healthsafety" target="_blank">Health and Safety Guidelines</a>'.html_safe %>
   <%= f.check_box :accept_no_ticket, label: 'I understand that being a member of London Decompression does not automatically qualify me to receive tickets to London Decompression events.  These must be bought separately, and are only available to London Decompression members.' %>
-  <%= f.check_box :marketing_opt_in, label: 'I agree to receiving emails from third parties relating to other burner events and activities. (optional)' %>
+  <%= f.check_box :accept_emails, label: 'I agree to receive emails from London Decompression letting me know when tickets to London Decompression events are available.' %>
+  <%= f.check_box :marketing_opt_in, label: 'I agree to receive emails from third parties relating to other burner events and activities. (optional)' %>
   <p><br/>
     By signing up you are joining London Decompression as a member.
   </p>
