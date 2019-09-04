@@ -24,7 +24,7 @@ RSpec.feature 'Member signup', type: :feature do
     fill_in 'Email address', with: 'james@abscond.org'
     fill_in 'Password', with: 'password'
     check 'I have read and am prepared to take into consideration'
-    check 'volunteers and participants code of conduct'
+    check 'Volunteers and Participants Code of Conduct'
     check 'Health and Safety Guidelines'
     check 'I agree to receive emails from London Decompression'
     check 'I understand that being a member'
