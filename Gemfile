@@ -26,6 +26,9 @@ gem 'eventbrite_sdk'
 gem 'http'
 gem 'gibbon'
 
+gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
+
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails'

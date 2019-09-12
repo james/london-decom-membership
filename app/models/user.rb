@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_one :membership_code, dependent: :destroy
   has_many :volunteers, dependent: :destroy
 
+  scope :confirmed, -> { where('confirmed_at IS NOT NULL') }
+
   def membership_number
     membership_code.code
   end
