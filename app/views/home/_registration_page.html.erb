@@ -7,13 +7,17 @@
 </p>
 
 <p>
+  You will need to register as a member again for 2019 even if you registered last year.
+</p>
+
+<p>
   <%= link_to "Log in if you're already a member.", new_user_session_path %>
 </p>
 
 <h3>Sign up</h3>
 <%= bootstrap_form_for(@user, url: registration_path(@user)) do |f| %>
   <%= f.email_field :email, label: 'Email address', autofocus: true, autocomplete: 'email' %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, label: 'Name (as it appears on your ID)' %>
   <%= f.password_field :password, autocomplete: 'current-password' %>
   <%= f.check_box :accept_principles, label: 'I have read and am prepared to take into consideration <a href="https://burningman.org/culture/philosophical-center/10-principles/" target="_blank">the principles of Burning Man</a>'.html_safe %>
   <%= f.check_box :accept_code_of_conduct, label: ' I have read and agree to abide by the London Decompression <a href="https://tinyurl.com/londondecom-codeofconduct" target="_blank">Volunteers and Participants Code of Conduct</a>'.html_safe %>
