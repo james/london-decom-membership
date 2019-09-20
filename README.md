@@ -37,7 +37,7 @@ They will have the tag `member`, and additionally will have the tag `mailchimp-m
 
 To run this application locally for development, you will need to install:
 
-- ruby (I recommend `rvm`, but you could use `rbenv` or any other technique)
+- ruby (I recommend `rvm`, but you could use `rbenv` or any other technique. The version is specified in `.ruby-version`)
 - Postgresql (I use Postgres.app on OSX)
 
 You then need to navigate to the repository's root and run:
