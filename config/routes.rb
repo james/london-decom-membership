@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :membership_codes
+    resources :low_income_codes
     resources :events, only: %i[index show] do
       resources :volunteer_roles do
         resources :volunteers

@@ -66,7 +66,11 @@ RSpec.configure do |config|
     10.times do
       MembershipCode.create!
     end
+    10.times do
+      LowIncomeCode.create!
+    end
     example.run
     MembershipCode.destroy_all
+    LowIncomeCode.destroy_all
   end
 end

@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :low_income_code do
+    code { '1234' }
+    low_income_request { nil }
+  end
+
   factory :event do
     eventbrite_token { 'MyString' }
     eventbrite_id { 'MyString' }

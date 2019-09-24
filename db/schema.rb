@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 2019_07_29_204931) do
     t.boolean "active", default: false, null: false
   end
 
+  create_table "low_income_codes", force: :cascade do |t|
+    t.string "code"
+    t.bigint "low_income_request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["low_income_request_id"], name: "index_low_income_codes_on_low_income_request_id"
+  end
+
   create_table "membership_codes", force: :cascade do |t|
     t.string "code"
     t.bigint "user_id"

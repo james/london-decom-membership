@@ -1,0 +1,16 @@
+<h2>Generate low income codes</h2>
+<%= bootstrap_form_tag url: admin_low_income_codes_path do |f| %>
+  <%= f.number_field :number, label: 'Number of codes to generate' %>
+  <%= f.submit 'Create' %>
+<% end %>
+
+<h2>All of the low income codes</h2>
+
+<p><%= LowIncomeCode.taken.count %> codes have been assigned. There are <%= LowIncomeCode.available.count %> available codes left</p>
+
+<p>
+  Use this list to import into Eventbrite:
+  <%= link_to "Download codes CSV", admin_low_income_codes_path(format: :csv) %>
+</p>
+
+<p>To find out more, see the <a href="https://github.com/james/london-decom-membership#codes">README</a></p>
