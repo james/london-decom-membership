@@ -6,3 +6,17 @@
   <p>Thanks for being a member. Tickets and volunteering are not live yet, but we will email you as soon as they are.</p>
   <p>In the meantime, get news from our <a href="https://londondecom.org/">website</a>.</p>
 <% end %>
+
+<% if current_user.low_income_request %>
+  <% if current_user.low_income_request.status == 'approved' %>
+    <p>Your request for Low Income has been approved.</p>
+  <% elsif current_user.low_income_request.status == 'rejected' %>
+    <p>Your request for Low Income has been rejected.</p>
+  <% else %>
+    <p>You have applied for Low Income Tickets. You will be notified when it has been reviewed.</p>
+  <% end %>
+<% else %>
+  <% if !@event || @event.available_tickets_for_code(current_user.membership_number) > 0 %>
+    <%= link_to 'Apply for low income', new_low_income_request_path %>
+  <% end %>
+<% end %>

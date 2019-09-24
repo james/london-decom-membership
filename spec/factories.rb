@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :low_income_request do
+    user
+    request_reason { 'MyText' }
+    status { '' }
+  end
+
   factory :low_income_code do
     code { '1234' }
     low_income_request { nil }

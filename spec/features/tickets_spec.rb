@@ -33,7 +33,7 @@ RSpec.feature 'Tickets', type: :feature do
     expect(page).to have_text('You have already bought 1 ticket. You can buy 1 more ticket')
   end
 
-  scenario 'eventbrite event is live and user has 2 available tickets and bought none' do
+  scenario 'eventbrite event is live and user has 2 available tickets and bought 2' do
     stub_eventbrite_event('live?': true, available_tickets_for_code: 0, tickets_sold_for_code: 2)
     create(:event)
     login

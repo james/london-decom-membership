@@ -18,11 +18,16 @@ class User < ApplicationRecord
 
   has_one :membership_code, dependent: :destroy
   has_many :volunteers, dependent: :destroy
+  has_one :low_income_request, dependent: :destroy
 
   scope :confirmed, -> { where('confirmed_at IS NOT NULL') }
 
   def membership_number
-    membership_code.code
+    if low_income_request && low_income_request.status == 'approved'
+      low_income_request.low_income_code.code
+    else
+      membership_code.code
+    end
   end
 
   def lead_for?(volunteer_role)

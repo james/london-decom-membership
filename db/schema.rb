@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_29_204931) do
+ActiveRecord::Schema.define(version: 2019_09_20_202355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 2019_07_29_204931) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["low_income_request_id"], name: "index_low_income_codes_on_low_income_request_id"
+  end
+
+  create_table "low_income_requests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.text "request_reason"
+    t.string "status"
+    t.text "status_reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_low_income_requests_on_user_id"
   end
 
   create_table "membership_codes", force: :cascade do |t|
@@ -85,6 +95,8 @@ ActiveRecord::Schema.define(version: 2019_07_29_204931) do
     t.index ["volunteer_role_id"], name: "index_volunteers_on_volunteer_role_id"
   end
 
+  add_foreign_key "low_income_codes", "low_income_requests"
+  add_foreign_key "low_income_requests", "users"
   add_foreign_key "membership_codes", "users"
   add_foreign_key "volunteer_roles", "events"
   add_foreign_key "volunteers", "users"

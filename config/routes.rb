@@ -6,6 +6,12 @@ Rails.application.routes.draw do
     resources :users
     resources :membership_codes
     resources :low_income_codes
+    resources :low_income_requests, only: %i[index] do
+      member do
+        post :approve
+        post :reject
+      end
+    end
     resources :events, only: %i[index show] do
       resources :volunteer_roles do
         resources :volunteers
@@ -17,5 +23,6 @@ Rails.application.routes.draw do
       resources :volunteers, only: %i[index new create destroy update]
     end
   end
+  resources :low_income_requests
   root to: 'home#index'
 end
