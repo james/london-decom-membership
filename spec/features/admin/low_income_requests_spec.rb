@@ -12,6 +12,10 @@ RSpec.feature 'Low Income Requests Admin', type: :feature do
     expect(page).to have_text(low_income_request.user.name)
     click_button 'Approve'
     expect(page).to have_text('Approved')
+
+    open_email(low_income_request.user.email)
+    expect(current_email).to have_content("Hi #{low_income_request.user.name}")
+    expect(current_email).to have_content('Your request for low income tickets has been approved')
   end
 
   scenario 'can be rejected' do
@@ -25,6 +29,10 @@ RSpec.feature 'Low Income Requests Admin', type: :feature do
     expect(page).to have_text(low_income_request.user.name)
     click_button 'Reject'
     expect(page).to have_text('Rejected')
+
+    open_email(low_income_request.user.email)
+    expect(current_email).to have_content("Hi #{low_income_request.user.name}")
+    expect(current_email).to have_content('Your request for low income tickets has been rejected')
   end
 
   scenario 'as not an admin' do
