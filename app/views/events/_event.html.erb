@@ -27,7 +27,10 @@
           promoCode: '<%= current_user.membership_number %>'
       });
   </script>
-  <button id="eventbrite-buy-link" type="button" class="btn btn-primary">Buy Tickets</button>
+  <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
+    Buy
+    <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
+  </button>
 <% else %>
   <p>
     You have bought the

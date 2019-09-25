@@ -7,6 +7,8 @@
   <p>In the meantime, get news from our <a href="https://londondecom.org/">website</a>.</p>
 <% end %>
 
+<hr />
+
 <% if current_user.low_income_request %>
   <% if current_user.low_income_request.status == 'approved' %>
     <p>Your request for Low Income has been approved.</p>

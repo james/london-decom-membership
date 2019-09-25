@@ -31,7 +31,7 @@ RSpec.feature 'Tickets', type: :feature do
     create(:event)
     login
 
-    expect(page).to have_text('Buy Tickets')
+    expect(page).to have_text('Buy Ticket')
     expect(page).to have_text('You have already bought 1 ticket. You can buy 1 more ticket')
   end
 
