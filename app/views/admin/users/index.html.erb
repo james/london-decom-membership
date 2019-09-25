@@ -6,13 +6,19 @@
   <tr>
     <th>Name</th>
     <th>Email</th>
+    <th>Admin</th>
+    <th>Early Access</th>
     <th>Created</th>
+    <th>Actions</th>
   </tr>
   <% @users.each do |user| %>
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
+      <td><%= user.admin? %></td>
+      <td><%= user.early_access? %></td>
       <td><%= user.created_at.to_s(:short) %></td>
+      <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
     </tr>
   <% end %>
 </table>
