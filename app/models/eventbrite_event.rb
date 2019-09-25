@@ -11,10 +11,6 @@ class EventbriteEvent
     @eventbrite_event ||= EventbriteSDK::Event.retrieve(id: eventbrite_id)
   end
 
-  def live?
-    eventbrite_event.status == 'live'
-  end
-
   delegate :organization_id, to: :eventbrite_event
 
   def discount_code(code)

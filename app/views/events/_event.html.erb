@@ -1,43 +1,39 @@
 <h1><%= @event.name %></h1>
 
-<% if @event.live? %>
-  <% if @event.available_tickets_for_code(current_user.membership_number) > 0 %>
-    <p>
-      <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
-        You have already bought
-        <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>.
-        You can buy
-        <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'more ticket') %>.
-      <% else %>
-        You can buy
-        <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
-      <% end %>
-    </p>
-    <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
-    <script type="text/javascript">
-        var modalCloseCallback = function() {
-          location.reload();
-        };
+<% if @event.available_tickets_for_code(current_user.membership_number) > 0 %>
+  <p>
+    <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
+      You have already bought
+      <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>.
+      You can buy
+      <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'more ticket') %>.
+    <% else %>
+      You can buy
+      <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
+    <% end %>
+  </p>
+  <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+  <script type="text/javascript">
+      var modalCloseCallback = function() {
+        location.reload();
+      };
 
-        window.EBWidgets.createWidget({
-            widgetType: 'checkout',
-            eventId: <%= @event.eventbrite_id %>,
-            modal: true,
-            modalTriggerElementId: 'eventbrite-buy-link',
-            onWidgetModalClose: modalCloseCallback,
-            promoCode: '<%= current_user.membership_number %>'
-        });
-    </script>
-    <button id="eventbrite-buy-link" type="button" class="btn btn-primary">Buy Tickets</button>
-  <% else %>
-    <p>
-      You have bought the
-      <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
-      available to you.
-    </p>
-  <% end %>
+      window.EBWidgets.createWidget({
+          widgetType: 'checkout',
+          eventId: <%= @event.eventbrite_id %>,
+          modal: true,
+          modalTriggerElementId: 'eventbrite-buy-link',
+          onWidgetModalClose: modalCloseCallback,
+          promoCode: '<%= current_user.membership_number %>'
+      });
+  </script>
+  <button id="eventbrite-buy-link" type="button" class="btn btn-primary">Buy Tickets</button>
 <% else %>
-  Tickets are not on sale yet. We'll notify you by email when they are.
+  <p>
+    You have bought the
+    <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
+    available to you.
+  </p>
 <% end %>
 
 <hr />

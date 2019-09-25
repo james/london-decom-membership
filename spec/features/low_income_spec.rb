@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 RSpec.feature 'Low Income', type: :feature do
-  scenario 'eventbrite event is live and user has 2 available tickets and bought 2' do
-    stub_eventbrite_event('live?': true, available_tickets_for_code: 0, tickets_sold_for_code: 2)
+  scenario 'user has 2 available tickets and bought 2' do
+    stub_eventbrite_event(available_tickets_for_code: 0, tickets_sold_for_code: 2)
     create(:event)
     login
 
     expect(page).to_not have_text('Apply for low income')
   end
 
-  scenario 'eventbrite event is live and user has 1 available tickets and bought none' do
-    stub_eventbrite_event('live?': true, available_tickets_for_code: 1, tickets_sold_for_code: 0)
+  scenario 'user has 1 available tickets and bought none' do
+    stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
     create(:event)
     login
 
