@@ -1,10 +1,17 @@
 require 'rails_helper'
 
 RSpec.feature 'Volunteering', type: :feature do
+  scenario "don't have a ticket yet" do
+    stub_eventbrite_event(tickets_sold_for_code: 0)
+    create(:event)
+    login
+    expect(page).to_not have_text('Sign up to volunteer')
+  end
+
   scenario 'signing up to volunteer successfully' do
     role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
     lead = create(:volunteer, volunteer_role: role, lead: true).user
-    stub_eventbrite_event
+    stub_eventbrite_event(tickets_sold_for_code: 1)
     login
 
     expect(page).to have_text('Ranger')
@@ -36,7 +43,7 @@ RSpec.feature 'Volunteering', type: :feature do
   scenario 'cancelling a volunteering' do
     volunteer_role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
     lead = create(:volunteer, volunteer_role: volunteer_role, lead: true).user
-    stub_eventbrite_event
+    stub_eventbrite_event(tickets_sold_for_code: 1)
     login
     create(:volunteer, user: @user, volunteer_role: volunteer_role)
 

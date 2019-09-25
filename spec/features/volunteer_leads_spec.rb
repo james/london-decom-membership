@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Volunteering leads', type: :feature do
   scenario 'viewing the volunteers for their role' do
-    stub_eventbrite_event
+    stub_eventbrite_event(tickets_sold_for_code: 1)
     login
     role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
     volunteer1 = create(:volunteer, volunteer_role: role).user
@@ -19,7 +19,7 @@ RSpec.feature 'Volunteering leads', type: :feature do
   end
 
   scenario 'marking volunteers as contacted and confirmed' do
-    stub_eventbrite_event
+    stub_eventbrite_event(tickets_sold_for_code: 1)
     login
     role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
     create(:volunteer, volunteer_role: role, user: @user, lead: true)
@@ -33,7 +33,7 @@ RSpec.feature 'Volunteering leads', type: :feature do
   end
 
   scenario 'removing a volunteer' do
-    stub_eventbrite_event
+    stub_eventbrite_event(tickets_sold_for_code: 1)
     login
     role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
     create(:volunteer, volunteer_role: role, user: @user, lead: true)
@@ -46,7 +46,7 @@ RSpec.feature 'Volunteering leads', type: :feature do
   end
 
   scenario 'downloading CSV of volunteers' do
-    stub_eventbrite_event
+    stub_eventbrite_event(tickets_sold_for_code: 1)
     login
     role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
     role2 = create(:volunteer_role)
@@ -62,7 +62,7 @@ RSpec.feature 'Volunteering leads', type: :feature do
   end
 
   scenario 'viewing the volunteers when not a lead' do
-    stub_eventbrite_event
+    stub_eventbrite_event(tickets_sold_for_code: 1)
     login
     role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
     create(:volunteer, volunteer_role: role, user: @user, lead: false)
