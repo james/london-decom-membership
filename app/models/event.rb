@@ -1,8 +1,12 @@
 class Event < ApplicationRecord
   has_many :volunteer_roles, dependent: :destroy
 
-  def self.active
-    where(active: true).first
+  def self.active(early_access: false)
+    if early_access
+      order('created_at DESC').first
+    else
+      where(active: true).first
+    end
   end
 
   def eventbrite_event

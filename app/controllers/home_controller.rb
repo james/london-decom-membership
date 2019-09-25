@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     if current_user
-      @event = Event.active
+      @event = Event.active(early_access: current_user.early_access)
       @volunteer_roles = @event.volunteer_roles.available_for_user(current_user).all if @event
     else
       @user = User.new

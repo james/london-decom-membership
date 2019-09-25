@@ -3,8 +3,18 @@ require 'rails_helper'
 RSpec.feature 'Tickets', type: :feature do
   scenario 'there is no active event' do
     login
+    create(:event, active: false)
 
     expect(page).to have_text('Tickets and volunteering are not live yet')
+  end
+
+  scenario 'there is no active event, but the member has early access' do
+    stub_eventbrite_event(available_tickets_for_code: 2, tickets_sold_for_code: 0)
+    create(:event, active: false)
+    login(early_access: true)
+
+    expect(page).to have_text('Buy Tickets')
+    expect(page).to have_text('You can buy 2 tickets')
   end
 
   scenario 'user has 2 available tickets and bought none' do
