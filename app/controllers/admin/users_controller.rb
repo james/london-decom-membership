@@ -1,6 +1,11 @@
 class Admin::UsersController < AdminController
   def index
-    @users = User.confirmed.order(:created_at).page params[:page]
+    if params[:q]
+      q = "%#{params[:q]}%"
+      @users = User.confirmed.where('name ILIKE ? OR email ILIKE ?', q, q).order(:created_at).page params[:page]
+    else
+      @users = User.confirmed.order(:created_at).page params[:page]
+    end
   end
 
   def edit

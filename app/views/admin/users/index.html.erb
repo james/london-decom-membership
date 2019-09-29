@@ -2,6 +2,11 @@
 
 <p>There are currently <%= User.confirmed.count %> members</p>
 
+<%= form_tag nil, method: :get do %>
+  <%= text_field_tag :q, params[:q] %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
 <table class="table">
   <tr>
     <th>Name</th>
