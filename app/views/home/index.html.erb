@@ -11,7 +11,7 @@
 
 <% if current_user.low_income_request %>
   <% if current_user.low_income_request.status == 'approved' %>
-    <p>Your request for Low Income has been approved.</p>
+    <p>Your request for Low Income has been approved. When tickets are available, you will be able to purchase a low income ticket.</p>
   <% elsif current_user.low_income_request.status == 'rejected' %>
     <p>Your request for Low Income has been rejected.</p>
   <% else %>

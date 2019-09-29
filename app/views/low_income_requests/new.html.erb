@@ -1,4 +1,4 @@
 <%= bootstrap_form_for @low_income_request do |form| %>
-  <%= form.text_area :request_reason %>
+  <%= form.text_area :request_reason, label: 'Please let us know why you believe you need a low income ticket' %>
   <%= form.submit 'Submit request' %>
 <% end %>

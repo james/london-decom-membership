@@ -15,7 +15,7 @@ RSpec.feature 'Low Income', type: :feature do
     login
 
     click_link 'Apply for low income'
-    fill_in 'Request reason', with: 'My reason'
+    fill_in 'Please let us know why you believe you need a low income ticket', with: 'My reason'
     click_button 'Submit request'
 
     expect(page).to_not have_text('Apply for low income')
