@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_114130) do
+ActiveRecord::Schema.define(version: 2019_10_03_123245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,9 @@ ActiveRecord::Schema.define(version: 2019_09_25_114130) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "event_id"
+    t.boolean "hidden"
+    t.text "brief_description"
+    t.integer "priority"
     t.index ["event_id"], name: "index_volunteer_roles_on_event_id"
   end
 

@@ -40,7 +40,7 @@ class Admin::VolunteerRolesController < AdminController
   private
 
   def volunteer_role_params
-    params.require(:volunteer_role).permit(:name, :description)
+    params.require(:volunteer_role).permit(:name, :description, :brief_description, :hidden, :priority)
   end
 
   def find_event
