@@ -3,9 +3,10 @@
 <%= simple_format @volunteer_role.description %>
 
 <%= bootstrap_form_for [@event, @volunteer_role, @volunteer] do |form| %>
-  <%= form.phone_field :phone %>
+  <%= form.phone_field :phone, label: 'Phone number (optional)' %>
   <%= form.text_area :additional_comments %>
-  <%= form.check_box :accept_code_of_conduct, label: 'I agree to the Decom Code of Conduct' %>
-  <%= form.check_box :accept_health_and_safety, label: "I confirm that I've read the Decom Health and Safety Guidelines" %>
+  <%= form.check_box :accept_code_of_conduct, label: 'I agree to the <a href="https://docs.google.com/document/d/1B1X4dMYqeGwwfnC5RpOUUKr0CzsQhS6SPQB-0FwkvrA/view">Decom Code of Conduct</a>'.html_safe %>
+  <%= form.check_box :accept_health_and_safety, label: "I confirm that I've read the <a href=\"https://docs.google.com/document/d/1rmtSlK0wif3a1Dr7cAFhsC0-z5ewfV-sRHacdBdjw9w/edit\">Decom Health and Safety Guidelines</a>".html_safe %>
+  <br />
   <%= form.submit 'Volunteer' %>
 <% end %>
