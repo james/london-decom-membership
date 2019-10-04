@@ -35,7 +35,7 @@
   <p>
     You have bought the
     <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
-    available to you.
+    available to you. Look below to see how you can participate.
   </p>
 <% end %>
 
@@ -77,9 +77,11 @@
   <% else %>
     <h2>Sign up to participate</h2>
 
-    <p>Congratulations you’ve got your ticket for Decom! Now how would you like to participate? There’s opportunities to get involved before the day, on the day in the creation of the venue and throughout the event from entry to strike with a special shout out for those both willing and able to do some sober hours.</p>
+    <p>Congratulations, you’ve got your ticket for Decom! Now how would you like to participate? Participation and Communal Effort are two of the 10 Burning Man principles, and volunteering at the event is the perfect way to get into the spirit of the event as well as give the Gift of your time back to your Decompression community.</p>
 
-    <p>We welcome and respect the stranger with no prerequisites for participation so take a little look and see what tickles your fancy - Shifts are usually 2 hours long so fear not plenty of time left to party</p>
+    <p>There’s opportunities to get involved before the day, on the day in the creation of the venue and throughout the event from entry to strike with a special shout out for those both willing and able to do some sober hours.</p>
+
+    <p>We welcome and respect the stranger with no prerequisites for participation, so take a little look and see what tickles your fancy - shifts are usually 2 hours long, so fear not - plenty of time left to party!</p>
   <% end %>
 
   <div class="list-group">
