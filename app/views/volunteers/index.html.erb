@@ -1,6 +1,12 @@
 <h2><%= @volunteer_role.name %> Volunteers</h2>
 
-<%= link_to 'Download CSV', event_volunteer_role_volunteers_path(@event, @volunteer_role, format: :csv) %>
+<p>Welcome to your volunteers! These people have requested to volunteer for your role.</p>
+
+<p>Please contact them as soon as possible, and then mark them as 'contacted' so that we know that you have. We may pester you otherwise!</p>
+
+<p>If you have confirmed that they will be volunteering with you, then mark them as confirmed. Otherwise you can remove them from this list.</p>
+
+<p>Feel free to contact your volunteers however you want. Email, whatsapp, facebook, post. You can <%= link_to 'download a CSV', event_volunteer_role_volunteers_path(@event, @volunteer_role, format: :csv) %> of this list if that's helpful.</p>
 
 <table class="table">
   <tr>

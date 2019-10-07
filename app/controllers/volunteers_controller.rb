@@ -4,7 +4,7 @@ class VolunteersController < ApplicationController
   before_action :authenticate_lead, except: %i[new create destroy]
 
   def index
-    @volunteers = @volunteer_role.volunteers
+    @volunteers = @volunteer_role.volunteers.order(:created_at)
     respond_to do |format|
       format.html
       format.csv { send_data @volunteers.to_csv, filename: "volunteers-#{@volunteer_role.name}-#{Date.today}.csv" }
