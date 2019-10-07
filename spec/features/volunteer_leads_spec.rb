@@ -55,7 +55,7 @@ RSpec.feature 'Volunteering leads', type: :feature do
     create(:volunteer, volunteer_role: role2, additional_comments: 'Another role').user
 
     visit event_volunteer_role_volunteers_path(role.event, role)
-    click_link 'Download CSV'
+    click_link 'download a CSV'
 
     expect(page).to have_content("#{volunteer1.name},#{volunteer1.email},077777,A comment,new")
     expect(page).to_not have_content('Another role')
