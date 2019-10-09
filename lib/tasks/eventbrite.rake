@@ -13,3 +13,19 @@ task tickets_bought: :environment do
     end
   end
 end
+
+desc 'returns emails of ticket purchasers who have not yet volunteered. Run rake tickets_bought first'
+task attendees_who_have_not_volunteered: :environment do
+  attendees_who_have_not_volunteered = User.where(ticket_bought: true)
+                                           .includes(:volunteers)
+                                           .where(volunteers: { user_id: nil })
+  p attendees_who_have_not_volunteered.pluck(:email).join(',')
+end
+
+desc 'returns emails user who have low income but not used yet. Run rake tickets_bought first'
+task unused_low_income: :environment do
+  unused_low_income = User.where('ticket_bought IS NOT true')
+                          .includes(:low_income_request)
+                          .where(low_income_requests: { status: 'approved' })
+  p unused_low_income.pluck(:email).join(',')
+end
