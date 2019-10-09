@@ -13,6 +13,25 @@ class EventbriteEvent
 
   delegate :organization_id, to: :eventbrite_event
 
+  def fetch_all_discounts
+    discounts = []
+    page = 1
+    finished = false
+    while finished == false
+      response = HTTP.get(
+        "https://www.eventbriteapi.com/v3/organizations/#{organization_id}/discounts/" \
+        "?scope=event&event_id=#{eventbrite_id}&token=#{eventbrite_token}&page_size=200&page=#{page}"
+      )
+      if JSON.parse(response)['error'] == 'BAD_PAGE'
+        finished = true
+      else
+        discounts << JSON.parse(response)['discounts']
+        page += 1
+      end
+    end
+    discounts.flatten
+  end
+
   def discount_code(code)
     return @discount_code if @discount_code
 
