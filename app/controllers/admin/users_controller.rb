@@ -18,6 +18,13 @@ class Admin::UsersController < AdminController
     redirect_to action: :index
   end
 
+  def give_direct_sale
+    @user = User.find(params[:id])
+    direct_sale_code = DirectSaleCode.available.first
+    direct_sale_code.update(user: @user)
+    redirect_to edit_admin_user_path(@user)
+  end
+
   private
 
   def user_params

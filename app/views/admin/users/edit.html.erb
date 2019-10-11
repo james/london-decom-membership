@@ -5,3 +5,13 @@
   <%= form.check_box :early_access %>
   <%= form.submit 'Update user details' %>
 <% end %>
+
+<hr>
+
+<% if @user.ticket_type == :direct %>
+  Has direct sale
+<% else %>
+  <%= bootstrap_form_for [:admin, @user], url: give_direct_sale_admin_user_path(@user) do |form| %>
+    <%= form.submit 'Give direct access' %>
+  <% end %>
+<% end %>

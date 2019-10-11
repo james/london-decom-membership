@@ -19,12 +19,26 @@ class User < ApplicationRecord
   has_one :membership_code, dependent: :destroy
   has_many :volunteers, dependent: :destroy
   has_one :low_income_request, dependent: :destroy
+  has_one :direct_sale_code, dependent: :destroy
 
   scope :confirmed, -> { where('confirmed_at IS NOT NULL') }
 
-  def membership_number
+  def ticket_type
     if low_income_request && low_income_request.status == 'approved'
+      :low_income
+    elsif direct_sale_code.present?
+      :direct
+    else
+      :general
+    end
+  end
+
+  def membership_number
+    case ticket_type
+    when :low_income
       low_income_request.low_income_code.code
+    when :direct
+      direct_sale_code.code
     else
       membership_code.code
     end

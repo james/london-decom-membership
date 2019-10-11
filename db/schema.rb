@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_145857) do
+ActiveRecord::Schema.define(version: 2019_10_11_154721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "direct_sale_codes", force: :cascade do |t|
+    t.string "code"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_direct_sale_codes_on_user_id"
+  end
 
   create_table "events", force: :cascade do |t|
     t.string "eventbrite_token"
@@ -100,6 +108,7 @@ ActiveRecord::Schema.define(version: 2019_10_05_145857) do
     t.index ["volunteer_role_id"], name: "index_volunteers_on_volunteer_role_id"
   end
 
+  add_foreign_key "direct_sale_codes", "users"
   add_foreign_key "low_income_codes", "low_income_requests"
   add_foreign_key "low_income_requests", "users"
   add_foreign_key "membership_codes", "users"

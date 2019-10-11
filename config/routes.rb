@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   get 'confirmation_notice', to: 'home#confirmation_notice', as: :confirmation_notice
 
   namespace :admin do
-    resources :users
+    resources :users do
+      member do
+        patch :give_direct_sale
+      end
+    end
     resources :membership_codes
     resources :low_income_codes
     resources :low_income_requests, only: %i[index] do

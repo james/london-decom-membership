@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :direct_sale_code do
+    user { nil }
+  end
+
   factory :low_income_request do
     user
     request_reason { 'MyText' }

@@ -9,6 +9,18 @@ RSpec.feature 'Users Admin', type: :feature do
     expect(page).to have_text('test_mail_user@example.com')
   end
 
+  scenario 'can give user direct access' do
+    stub_eventbrite_event
+    login(admin: true)
+    user = create(:user, email: 'test_mail_user@example.com')
+    direct_sale_code = create(:direct_sale_code)
+    click_link 'Users'
+    find_all("a[text()='Edit']").last.click
+    click_button 'Give direct access'
+    expect(page).to have_content('Has direct sale')
+    expect(user.membership_number).to eq(direct_sale_code.code)
+  end
+
   scenario 'as not an admin' do
     stub_eventbrite_event
     login(admin: false)
