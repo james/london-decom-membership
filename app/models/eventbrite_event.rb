@@ -56,4 +56,16 @@ class EventbriteEvent
   rescue EventbriteDiscountCodeNotFound
     0
   end
+
+  def ticket_class_for_discount_code(code)
+    discount_code(code)['ticket_class_ids'].first
+  end
+
+  def ticket_class(id)
+    @ticket_class ||= EventbriteSDK::TicketClass.retrieve(id: id, event_id: eventbrite_id)
+  end
+
+  def sold_out_for_ticket_class?(id)
+    ticket_class(id).on_sale_status == 'SOLD_OUT'
+  end
 end

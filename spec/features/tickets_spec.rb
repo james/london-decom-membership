@@ -43,4 +43,20 @@ RSpec.feature 'Tickets', type: :feature do
     expect(page).to_not have_text('Buy Tickets')
     expect(page).to have_text('You have bought the 2 tickets available to you')
   end
+
+  scenario 'tickets have sold out' do
+    stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 1, sold_out_for_ticket_class?: true)
+    create(:event)
+    login
+    expect(page).to have_text('sold out')
+    expect(page).to_not have_text('Buy Ticket')
+  end
+
+  scenario 'tickets have sold out but member has early_access' do
+    stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 1, sold_out_for_ticket_class?: true)
+    create(:event)
+    login(early_access: true)
+    expect(page).to_not have_text('sold out')
+    expect(page).to have_text('Buy Ticket')
+  end
 end
