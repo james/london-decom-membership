@@ -13,7 +13,7 @@ jobs:
         environment:
           POSTGRES_USER: london-decom-membership
           POSTGRES_DB: london-decom-membership_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
 
