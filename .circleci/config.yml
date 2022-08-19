@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/london-decom-membership
     docker:
-      - image: circleci/ruby:2.6.3-node-browsers
+      - image: circleci/ruby:2.7.6-browsers
         environment:
           PGHOST: localhost
           PGUSER: london-decom-membership
