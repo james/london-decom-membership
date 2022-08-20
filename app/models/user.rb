@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_one :direct_sale_code, dependent: :destroy
 
   scope :confirmed, -> { where('confirmed_at IS NOT NULL') }
+  scope :unconfirmed, -> { where('confirmed_at IS NULL') }
 
   def ticket_type
     if low_income_request && low_income_request.status == 'approved'

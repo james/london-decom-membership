@@ -21,6 +21,16 @@ RSpec.feature 'Users Admin', type: :feature do
     expect(user.membership_number).to eq(direct_sale_code.code)
   end
 
+  scenario 'should list all unconfirmed email addresses' do
+    stub_eventbrite_event
+    login(admin: true)
+    create(:user, email: 'test_mail_user@example.com', confirmed_at: nil)
+    click_link 'Users'
+    expect(page).to_not have_text('test_mail_user@example.com')
+    click_link 'Unconfirmed accounts'
+    expect(page).to have_text('test_mail_user@example.com')
+  end
+
   scenario 'as not an admin' do
     stub_eventbrite_event
     login(admin: false)

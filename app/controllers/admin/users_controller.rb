@@ -8,6 +8,10 @@ class Admin::UsersController < AdminController
     end
   end
 
+  def unconfirmed
+    @users = User.unconfirmed.order(created_at: :desc)
+  end
+
   def edit
     @user = User.find(params[:id])
   end

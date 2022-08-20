@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users do
+      collection do
+        get :unconfirmed
+      end
       member do
         patch :give_direct_sale
       end
