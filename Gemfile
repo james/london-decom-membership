@@ -21,6 +21,7 @@ gem 'devise-bootstrap-views', '~> 1.0'
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'bootstrap_form'
+gem 'select2-rails'
 
 gem 'eventbrite_sdk'
 gem 'http'

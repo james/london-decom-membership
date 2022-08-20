@@ -15,5 +15,11 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
-//= require bootstrap-select.min
+//= require select2
 //= require_tree .
+
+
+$(document).ready(function() {
+  $( ".selectpicker" ).select2({
+  })
+});
