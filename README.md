@@ -32,6 +32,9 @@ Members will then be added to your first mailchimp list when they confirm their 
 
 They will have the tag `member`, and additionally will have the tag `mailchimp-marketing` if they opted in for marketing.
 
+### POSTMARK_API_TOKEN
+
+This app currently uses postmark to send emails. Set your API token using this env variable.
 
 ### Running locally
 
