@@ -21,6 +21,8 @@
   <%= f.check_box :accept_no_ticket, label: 'I understand that being a member of London Decompression does not automatically qualify me to receive tickets to London Decompression events.  These must be bought separately, and are only available to London Decompression members.' %>
   <%= f.check_box :accept_emails, label: 'I agree to receive emails from London Decompression letting me know when tickets to London Decompression events are available.' %>
   <%= f.check_box :marketing_opt_in, label: 'I agree to receive emails from third parties relating to other burner events and activities. (optional)' %>
+  <%= flash[:recaptcha_error] %>
+  <%= recaptcha_v3(action: 'signup') %>
   <p><br/>
     By signing up you are joining London Decompression as a member.
   </p>

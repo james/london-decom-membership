@@ -36,6 +36,10 @@ They will have the tag `member`, and additionally will have the tag `mailchimp-m
 
 This app currently uses postmark to send emails. Set your API token using this env variable.
 
+## RECAPTCHA_SITE_KEY & RECAPTCHA_SECRET_KEY
+
+Unfortunately we were getting too many spam registrations, so we're now using Google recaptcha. Register for a v3 account at https://www.google.com/recaptcha/about/
+
 ### Running locally
 
 To run this application locally for development, you will need to install:
