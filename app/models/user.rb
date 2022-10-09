@@ -71,6 +71,8 @@ class User < ApplicationRecord
         ]
       }
     )
+  rescue Gibbon::MailChimpError => e
+    Rollbar.error(e)
   end
 
   private
