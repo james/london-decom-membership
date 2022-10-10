@@ -4,7 +4,8 @@ class Admin::MembershipCodesController < AdminController
       f.html
       f.csv do
         require 'csv'
-        send_data MembershipCode.all.collect(&:code).to_csv, filename: "Decom-membership-codes-#{Time.zone.today}.csv"
+        send_data MembershipCode.all.collect(&:code).join("\n"),
+                  filename: "Decom-membership-codes-#{Time.zone.today}.csv"
       end
     end
   end

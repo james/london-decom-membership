@@ -4,7 +4,8 @@ class Admin::LowIncomeCodesController < AdminController
       f.html
       f.csv do
         require 'csv'
-        send_data LowIncomeCode.all.collect(&:code).to_csv, filename: "Decom-low-income-codes-#{Time.zone.today}.csv"
+        send_data LowIncomeCode.all.collect(&:code).join("\n"),
+                  filename: "Decom-low-income-codes-#{Time.zone.today}.csv"
       end
     end
   end
