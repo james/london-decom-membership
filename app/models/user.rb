@@ -45,6 +45,10 @@ class User < ApplicationRecord
     end
   end
 
+  def volunteers_for_event(event)
+    volunteers.select { |volunteer| volunteer.volunteer_role.event == event }
+  end
+
   def lead_for?(volunteer_role)
     volunteers.where(volunteer_role: volunteer_role, lead: true).present?
   end
