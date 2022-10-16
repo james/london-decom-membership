@@ -1,45 +1,24 @@
 <h1><%= @event.name %></h1>
 
-<% if @event.available_tickets_for_code(current_user.membership_number) > 0 %>
-  <p>
-    <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
-      You have already bought
-      <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>.
-      You can buy
-      <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'more ticket') %>.
-    <% else %>
-      You can buy
-      <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
-    <% end %>
-  </p>
-  <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
-  <script type="text/javascript">
-      var modalCloseCallback = function() {
-        location.reload();
-      };
+<script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+<script type="text/javascript">
+    var modalCloseCallback = function() {
+      location.reload();
+    };
 
-      window.EBWidgets.createWidget({
-          widgetType: 'checkout',
-          eventId: <%= @event.eventbrite_id %>,
-          modal: true,
-          modalTriggerElementId: 'eventbrite-buy-link',
-          onWidgetModalClose: modalCloseCallback,
-          promoCode: '<%= current_user.membership_number %>'
-      });
-  </script>
-  <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
-    Buy
-    <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
-  </button>
-<% else %>
-  <p>
-    You have bought the
-    <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
-    available to you. Look below to see how you can participate.
-  </p>
-<% end %>
+    window.EBWidgets.createWidget({
+        widgetType: 'checkout',
+        eventId: <%= @event.eventbrite_id %>,
+        modal: true,
+        modalTriggerElementId: 'eventbrite-buy-link',
+        onWidgetModalClose: modalCloseCallback,
+        promoCode: '<%= current_user.membership_number %>'
+    });
+</script>
+<button id="eventbrite-buy-link" type="button" class="btn btn-primary">
+  Buy Ticket
+</button>
 
-<% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
   <hr />
   <% if current_user.volunteers_for_event(@event).any? %>
     <h2>You've signed up to volunteer for:</h2>
@@ -77,7 +56,7 @@
   <% else %>
     <h2>Sign up to participate</h2>
 
-    <p>Congratulations, you’ve got your ticket for Decom! Now how would you like to participate? Participation and Communal Effort are two of the 10 Burning Man principles, and volunteering at the event is the perfect way to get into the spirit of the event as well as give the Gift of your time back to your Decompression community.</p>
+    <p>If you’ve got your ticket for Decom, how would you like to participate? Participation and Communal Effort are two of the 10 Burning Man principles, and volunteering at the event is the perfect way to get into the spirit of the event as well as give the Gift of your time back to your Decompression community.</p>
 
     <p>There’s opportunities to get involved before the day, on the day in the creation of the venue and throughout the event from entry to strike with a special shout out for those both willing and able to do some sober hours.</p>
 
@@ -95,6 +74,5 @@
       </a>
     <% end %>
   </div>
-<% end %>
 <br />
 <p>If you have any questions about volunteering, feel free to email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a></p>
