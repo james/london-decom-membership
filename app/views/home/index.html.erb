@@ -18,5 +18,7 @@
     <p>You have applied for Low Income Tickets. You will be notified when it has been reviewed.</p>
   <% end %>
 <% else %>
-  <%= link_to 'Apply for low income', new_low_income_request_path %>
+  <% if !@event || @event.available_tickets_for_code(current_user.membership_number) > 0 %>
+    <%= link_to 'Apply for low income', new_low_income_request_path %>
+  <% end %>
 <% end %>
