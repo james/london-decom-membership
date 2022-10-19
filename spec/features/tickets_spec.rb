@@ -9,6 +9,7 @@ RSpec.feature 'Tickets', type: :feature do
   end
 
   scenario 'there is no active event, but the member has early access' do
+    pending 'deactivated for the year'
     stub_eventbrite_event(available_tickets_for_code: 2, tickets_sold_for_code: 0)
     create(:event, active: false)
     login(early_access: true)
@@ -18,6 +19,7 @@ RSpec.feature 'Tickets', type: :feature do
   end
 
   scenario 'user has 2 available tickets and bought none' do
+    pending 'deactivated for the year'
     stub_eventbrite_event(available_tickets_for_code: 2, tickets_sold_for_code: 0)
     create(:event)
     login
@@ -27,6 +29,7 @@ RSpec.feature 'Tickets', type: :feature do
   end
 
   scenario 'user has 2 available tickets and bought 1' do
+    pending 'deactivated for the year'
     stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 1)
     create(:event)
     login

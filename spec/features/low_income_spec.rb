@@ -10,6 +10,7 @@ RSpec.feature 'Low Income', type: :feature do
   end
 
   scenario 'user has 1 available tickets and bought none' do
+    pending 'deactivated for the year'
     stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
     create(:event)
     login
