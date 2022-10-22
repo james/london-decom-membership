@@ -1,15 +1,35 @@
 <h1><%= @event.name %></h1>
 
-<% if @event.available_tickets_for_code(current_user.membership_number) > 0 %>
-  <p>
-    London Decompression 2022 is sold out!
-    <%= link_to "Check the official ticketswap facebook thread for resales.", "https://www.facebook.com/events/606272201206574?post_id=645474913952969&view=permalink" %>
-  </p>
-<% else %>
+<% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
   <p>
     You have bought the
     <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
     available to you. Look below to see how you can participate.
+  </p>
+<% elsif current_user.ticket_type != :general %>
+  <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+  <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
+    Buy
+    <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
+  </button>
+  <script type="text/javascript">
+      var modalCloseCallback = function() {
+        location.reload();
+      };
+
+      window.EBWidgets.createWidget({
+          widgetType: 'checkout',
+          eventId: <%= @event.eventbrite_id %>,
+          modal: true,
+          modalTriggerElementId: 'eventbrite-buy-link',
+          onWidgetModalClose: modalCloseCallback,
+          promoCode: '<%= current_user.membership_number %>'
+      });
+  </script>
+<% else %>
+  <p>
+    London Decompression 2022 is sold out!
+    <%= link_to "Check the official ticketswap facebook thread for resales.", "https://www.facebook.com/events/606272201206574?post_id=645474913952969&view=permalink" %>
   </p>
 <% end %>
 
