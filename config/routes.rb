@@ -19,7 +19,7 @@ Rails.application.routes.draw do
         post :reject
       end
     end
-    resources :events, only: %i[index show] do
+    resources :events, only: %i[index show new create update edit] do
       resources :volunteer_roles do
         resources :volunteers
       end

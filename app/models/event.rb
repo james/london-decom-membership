@@ -1,5 +1,8 @@
 class Event < ApplicationRecord
   has_many :volunteer_roles, dependent: :destroy
+  validates :name, presence: true
+  validates :eventbrite_token, presence: true
+  validates :eventbrite_id, presence: true
 
   def self.active(early_access: false)
     if early_access

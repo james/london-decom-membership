@@ -1,1 +1,37 @@
-<%= link_to 'Volunteer Roles', admin_event_volunteer_roles_path(@event) %>
+<h1><%= @event.name %></h1>
+
+<% if @event.active %>
+  <p>Event is currently active (publicly viewable)</p>
+<% else %>
+  <p>Event is currently in-active</p>
+<% end %>
+
+<%= link_to 'Volunteer Roles', admin_event_volunteer_roles_path(@event), class: "btn btn-secondary mb-3" %>
+<%= link_to 'Edit Event', edit_admin_event_path(@event), class: "btn btn-danger mb-3" %>
+<p>
+  <small class="text-muted">
+    Right now events cannot be deleted, if it is desperately needed, click: <%= mail_to "geeks@londondecom.org", "geeks@londondecom.org", subject: "Event Deletion from Members website (Event ID #{@event.id})" %> to send an email to us!
+  </small>
+</p>
+
+<%# TODO: Make this section for developer admins only or super users %>
+<div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Technical Information
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <pre>Eventbrite Event ID: <%= @event.eventbrite_id %></pre>
+        <pre>Eventbrite Token: <%= @event.eventbrite_token %></pre>
+        <pre>Event Created At: <%= @event.created_at %></pre>
+        <pre>Event Last Updated At: <%= @event.updated_at %></pre>
+      </div>
+    </div>
+  </div>
+</div>

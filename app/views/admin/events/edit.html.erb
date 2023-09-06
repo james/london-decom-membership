@@ -1,0 +1,5 @@
+<%= bootstrap_form_for [:admin, @event] do |form| %>
+  <%= render partial: 'form', locals: {form: form} %>
+  <%= form.submit 'Update Event' %>
+  <%= link_to 'Back', :back, class: "btn btn-secondary" %>
+<% end %>
