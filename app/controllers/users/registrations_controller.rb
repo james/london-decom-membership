@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   private
 
@@ -16,7 +17,40 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update_resource(resource, params)
+    result = resource.update_with_password(params)
+    resource.update_mailchimp
+    result
+  end
+
   protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(
+      :sign_up,
+      keys: %i[
+        name
+        accept_principles
+        marketing_opt_in
+        accept_emails
+        accept_no_ticket
+        accept_code_of_conduct
+        accept_health_and_safety
+      ]
+    )
+
+    devise_parameter_sanitizer.permit(
+      :account_update,
+      keys: %i[
+        name
+        email
+        password
+        password_confirmation
+        current_password
+        marketing_opt_in
+      ]
+    )
+  end
 
   def after_inactive_sign_up_path_for(_resource)
     confirmation_notice_path
