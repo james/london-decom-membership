@@ -40,6 +40,16 @@ This app currently uses postmark to send emails. Set your API token using this e
 
 Unfortunately we were getting too many spam registrations, so we're now using Google recaptcha. Register for a v3 account at https://www.google.com/recaptcha/about/
 
+## ENABLE_PLAUSIBLE_IO_ANALYTICS
+
+To give the lightest weight analytics of what goes on with the website, you can use [plausible.io analytics](https://plausible.io), it allows for minimal analytics on a website.
+
+You will need an account with them to be able to use the system, but as this should only run in production, it should be left as false.
+
+Once enabled, it uses the `HOST_NAME` environment variable to populate the `data-domain` for the script.
+
+In your Plausible analytics account, from the logged in page, click `add website`, fill in the data for the site e.g `members.londondecom.org` and you are done! Once the site is live and analytics are enabled it will start recording!
+
 ### Running locally
 
 To run this application locally for development, you will need to install:
