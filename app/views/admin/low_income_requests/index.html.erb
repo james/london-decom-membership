@@ -1,12 +1,12 @@
-<%= LowIncomeRequest.where(status: 'approved').count %> requests approved so far.
+<%= t('.approved_so_far', approved: LowIncomeRequest.where(status: 'approved').count) %>
 
 <table class="table">
   <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Created</th>
-    <th>Reason</th>
-    <th>Status</th>
+    <th><%= t('.name') %></th>
+    <th><%= t('.email') %></th>
+    <th><%= t('.created') %></th>
+    <th><%= t('.reason') %></th>
+    <th><%= t('.status') %></th>
   </tr>
   <% @low_income_requests.each do |low_income_request| %>
     <tr>
@@ -16,12 +16,12 @@
       <td><%= low_income_request.request_reason %></td>
       <td>
         <% if low_income_request.status == 'approved' %>
-          Approved
+          <%= t('.approved') %>
         <% elsif low_income_request.status == 'rejected' %>
-          Rejected
+          <%= t('.rejected') %>
         <% else %>
-          <%= button_to 'Approve', approve_admin_low_income_request_path(low_income_request) %>
-          <%= button_to 'Reject', reject_admin_low_income_request_path(low_income_request) %>
+          <%= button_to t('.approve'), approve_admin_low_income_request_path(low_income_request) %>
+          <%= button_to t('.reject'), reject_admin_low_income_request_path(low_income_request) %>
         <% end %>
       </td>
     </tr>

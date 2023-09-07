@@ -29,37 +29,32 @@
             <div class="logged_in_nav">
               <ul class="nav justify-content-end">
                 <li class="nav-item">
-                  <%= link_to 'Home', root_path, class: 'nav-link' %>
+                  <%= link_to t('.home'), root_path, class: 'nav-link' %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to 'Profile', edit_user_registration_path, class: 'nav-link' %>
+                  <%= link_to t('.profile'), edit_user_registration_path, class: 'nav-link' %>
                 </li>
+                <% if current_user.admin? %>
+                  <li class="nav-item">
+                    <%= link_to t('.users'), admin_users_path, class: 'nav-link' %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to t('.membership_codes'), admin_membership_codes_path, class: 'nav-link' %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to t('.low_income_codes'), admin_low_income_codes_path, class: 'nav-link' %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to t('.low_income_requests'), admin_low_income_requests_path, class: 'nav-link' %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to t('.events'), admin_events_path, class: 'nav-link' %>
+                  </li>
+                <% end %>
                 <li class="nav-item">
                   <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link' %>
                 </li>
               </ul>
-              <% if current_user.admin? %>
-                <ul class="nav">
-                  <li class="nav-item">
-                    <a class="nav-link">Admin:</a>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Users', admin_users_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Membership Codes', admin_membership_codes_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Low Income Codes', admin_low_income_codes_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Low Income Requests', admin_low_income_requests_path, class: 'nav-link' %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to 'Events', admin_events_path, class: 'nav-link' %>
-                  </li>
-                </ul>
-              <% end %>
             </div>
           <% end %>
           <div class="row">

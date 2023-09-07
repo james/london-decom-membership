@@ -1,18 +1,18 @@
-<h2>Unconfirmed Members</h2>
+<h2><%= t('.title') %></h2>
 
-<p>There are currently <%= @users.count %> members</p>
+<p><%= t('.member_count', count: @users.count) %></p>
 
 <table class="table">
   <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Confirmation Link</th>
+    <th><%= t('.name') %></th>
+    <th><%= t('.email') %></th>
+    <th><%= t('.confirmation_link') %></th>
   </tr>
   <% @users.each do |user| %>
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-      <td><%= link_to 'Link', confirmation_url(user, confirmation_token: user.confirmation_token) %></td>
+      <td><%= link_to t('.link'), confirmation_url(user, confirmation_token: user.confirmation_token) %></td>
     </tr>
   <% end %>
 </table>

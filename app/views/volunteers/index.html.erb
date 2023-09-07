@@ -1,20 +1,18 @@
-<h2><%= @volunteer_role.name %> Volunteers</h2>
+<h2><%= t('.title', position: @volunteer_role.name) %></h2>
 
-<p>Welcome to your volunteers! These people have requested to volunteer for your role.</p>
-
-<p>Please contact them as soon as possible, and then mark them as 'contacted' so that we know that you have. We may pester you otherwise!</p>
-
-<p>If you have confirmed that they will be volunteering with you, then mark them as confirmed. Otherwise you can remove them from this list.</p>
-
-<p>Feel free to contact your volunteers however you want. Email, whatsapp, facebook, post. You can <%= link_to 'download a CSV', event_volunteer_role_volunteers_path(@event, @volunteer_role, format: :csv) %> of this list if that's helpful.</p>
+<p><%= t('.welcome') %></p>
+<p><%= t('.contact_notice') %></p>
+<p><%= t('.update_status') %></p>
+<p><%= t('.contact_html', volunteer_list_link: (link_to t('.download_csv'), event_volunteer_role_volunteers_path(@event, @volunteer_role, format: :csv))) %></p>
 
 <table class="table">
   <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Comments</th>
-    <th>State</th>
+    <th><%= t('.name') %></th>
+    <th><%= t('.email') %></th>
+    <th><%= t('.phone') %></th>
+    <th><%= t('.comments') %></th>
+    <th><%= t('.state') %></th>
+    <th></th>
     <th></th>
   </tr>
   <% @volunteers.each do |volunteer| %>
@@ -23,18 +21,18 @@
       <td><%= volunteer.user.email %></td>
       <td><%= volunteer.phone %></td>
       <td><%= volunteer.additional_comments %></td>
+      <td><%= volunteer.state %></td>
       <td>
-        <%= volunteer.state %>
         <% if volunteer.next_state %>
           <%= form_for [@event, @volunteer_role, volunteer] do |form| %>
             <%= form.hidden_field :state, value: volunteer.next_state %>
-            <%= form.submit "Mark as #{volunteer.next_state}" %>
+            <%= form.submit t('.mark_as', state: volunteer.next_state) %>
           <% end %>
         <% end %>
       </td>
       <td>
         <%= form_for [@event, @volunteer_role, volunteer], method: :delete do |form| %>
-          <%= form.submit "remove", data: {confirm: 'Are you sure?'} %>
+          <%= form.submit t('.remove'), data: {confirm: t('.are_you_sure')} %>
         <% end %>
       </td>
     </tr>

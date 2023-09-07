@@ -30,4 +30,210 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  home:
+    index:
+      intro_text_user: "Hello %{user}"
+      intro_text_paragraph_1: "Congratulations! You are a member of London Decompression"
+      intro_text_paragraph_2: "Thanks for being a member. Tickets and volunteering are not live yet, but we will email you as soon as they are"
+      intro_text_paragraph_3_html: In the meantime, get news from our <a href="https://londondecom.org/">website</a>
+      low_income_request_approved: "Your request for Low Income has been approved. When tickets are available, you will be able to purchase a low income ticket."
+      low_income_request_rejected: "Your request for Low Income has been rejected."
+      low_income_request_no_status: "You have applied for Low Income Tickets. You will be notified when it has been reviewed."
+    registration_page:
+      join: "Join London Decompression"
+      intro_text_members_owned: "London Decompression is a members owned organisation."
+      intro_text_members_requirement: "You need to be a member of London Decompression to buy tickets to events."
+      intro_text_membership_free: "Membership is free."
+      login: "Log in if you're already a member."
+      agreement: "By signing up you are joining London Decompression as a member."
+      no_confirmation_email: "Haven't received your confirmation email?"
+      questions: "Questions? Email us at"
+      sign_up: "Sign up"
+      email_address: "Email Address"
+      full_name: "Full Name"
+      accept_principles_html: I have read and am prepared to take into consideration <a href="https://burningman.org/culture/philosophical-center/10-principles/" target="_blank">the principles of Burning Man</a>
+      accept_code_of_conduct_html: I have read and agree to abide by the London Decompression <a href="https://londondecom.org/code-of-conduct/" target="_blank">Volunteers and Participants Code of Conduct</a>
+      accept_health_and_safety_html: I have read and agree to abide by the London Decompression <a href="https://londondecom.org/health-and-safety/" target="_blank">Health and Safety Guidelines</a>
+      accept_no_ticket: "I understand that being a member of London Decompression does not automatically qualify me to receive tickets to London Decompression events.  These must be bought separately, and are only available to London Decompression members."
+      accept_emails: "I agree to receive emails from London Decompression letting me know when tickets to London Decompression events are available."
+      marketing_opt_in: "I agree to receive emails from third parties relating to other burner events and activities. (optional)"
+    confirmation_notice:
+      nearly_there: "Nearly there."
+  layouts:
+    application:
+      home: "Home"
+      profile: "Profile"
+      users: "Users"
+      membership_codes: "Membership Codes"
+      low_income_codes: "Low Income Codes"
+      low_income_requests: "Low Income Requests"
+      events: "Events"
+      logout: "Logout"
+  low_income_requests:
+    low_income_reason_label: "Please let us know why you believe you need a low income ticket"
+    submit: "Submit Request"
+  volunteers:
+    new:
+      title: "Sign up to volunteer for %{position}"
+      phone_number: "Phone number (optional)"
+      code_of_conduct_html: I agree to the <a href="https://docs.google.com/document/d/1B1X4dMYqeGwwfnC5RpOUUKr0CzsQhS6SPQB-0FwkvrA/view">Decom Code of Conduct</a>
+      health_and_safety_html: I confirm that I've read the <a href="https://docs.google.com/document/d/1rmtSlK0wif3a1Dr7cAFhsC0-z5ewfV-sRHacdBdjw9w/edit">Decom Health and Safety Guidelines</a>
+      volunteer: "Volunteer"
+    index:
+      title: "%{position} Volunteers"
+      mark_as: "Mark as %{state}"
+      remove: "Remove"
+      are_you_sure: "Are you sure?"
+      welcome: "Welcome to your volunteers! These people have requested to volunteer for your role."
+      contact_notice: "Please contact them as soon as possible, and then mark them as 'contacted' so that we know that you have. We may pester you otherwise!"
+      update_status: "If you have confirmed that they will be volunteering with you, then mark them as confirmed. Otherwise you can remove them from this list."
+      contact_html: "Feel free to contact your volunteers however you want. Email, WhatsApp, Facebook, Telegram or Burner Mail. You can %{volunteer_list_link} of this list if that's helpful."
+      download_csv: "download a CSV"
+      # Table Headers
+      name: "Name"
+      email: "Email"
+      phone: "Phone"
+      comments: "Comments"
+      state: "State"
+  events:
+    event:
+      ticket_brought_count:
+        one: "You have bought the 1 ticket available to you. Look below to see how you can participate"
+        other: "You have bought the %{count} tickets available to you. Look below to see how you can participate"
+      buy_ticket:
+        one: "Buy ticket"
+        other: "Buy tickets"
+      sign_up: "Sign up now"
+      signup_to_participate: "Sign up to participate"
+      signup_to_participate_details_1: "Congratulations, you've got your ticket for Decom! Now how would you like to participate? Participation and Communal Effort are two of the 10 Burning Man principles, and volunteering at the event is the perfect way to get into the spirit of the event as well as give the Gift of your time back to your Decompression community."
+      signup_to_participate_details_2: "There's opportunities to get involved before the day, on the day in the creation of the venue and throughout the event from entry to strike with a special shout out for those both willing and able to do some sober hours."
+      signup_to_participate_details_3: "We welcome and respect the stranger with no prerequisites for participation, so take a little look and see what tickles your fancy - shifts are usually 2 hours long, so fear not - plenty of time left to party!"
+      more_to_give: "Have you more to give?"
+      more_to_give_detail_text: "You can apply for more than one role if you like."
+      event_sold_out: "%{event_name} is sold out!"
+      resale_thread: "Check the official ticketswap facebook thread for resales."
+      roles_signed_up_for: "You've signed up to volunteer for:"
+      volunteer_state_confirmed: "You are confirmed as a volunteer"
+      volunteer_state_contacted: "You have been contacted by a lead, please check your email"
+      volunteer_state_unknown: "The leads for this role should be in contact with you very soon."
+      remove_self: "Remove role application"
+      are_you_sure: "Are you sure?"
+      user_is_lead: "You are a lead for this role!"
+      view_volunteers: "View Volunteers"
+      questions_about_volunteering_html: If you have any questions about volunteering, feel free to email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a>
+  admin:
+    events:
+      index:
+        title: "Events"
+        yes_label: "Yes"
+        no_label: "No"
+        edit: "Edit"
+        create: "Create"
+        # Table Headers
+        event_name: "Event Name"
+        active: "Active"
+      show:
+        update_event: "Update Event"
+        volunteer_roles: "Volunteer Roles"
+      new:
+        create_event: "Create Event"
+    low_income_codes:
+      index:
+        generate_codes: "Generate low income codes"
+        codes_to_generate: "Number of codes to generate"
+        create: "Create"
+        all_codes: "All of the low income codes"
+        code_count: "%{assigned} codes have been assigned. There are %{remaining} available codes left"
+        import_to_eventbrite: "Use this list to import into Eventbrite:"
+        download_csv: "Download codes CSV"
+        readme_html: To find out more, see the <a href="https://github.com/james/london-decom-membership#codes">README</a>
+    low_income_requests:
+      index:
+        approved_so_far: "%{approved} requests approved so far"
+        approve: "Approve"
+        approved: "Approved"
+        reject: "Reject"
+        rejected: "Rejected"
+        # Table Headers
+        name: "Name"
+        email: "Email"
+        created: "Created"
+        reason: "Reason"
+        status: "Status"
+    membership_codes:
+      index:
+        generate_codes: "Generate membership codes"
+        codes_to_generate: "Number of codes to generate"
+        create: "Create"
+        all_codes: "All of the membership codes"
+        code_count: "%{assigned} codes have been assigned. There are %{remaining} available codes left"
+        import_to_eventbrite: "Use this list to import into Eventbrite:"
+        download_csv: "Download codes CSV"
+        readme_html: To find out more, see the <a href="https://github.com/james/london-decom-membership#codes">README</a>
+    users:
+      index:
+        title: "Members"
+        search: "Seach"
+        edit: "Edit"
+        member_count:
+          zero: "There are currently no members"
+          one: "There is currently 1 member"
+          other: "There are currently %{count} members"
+        unconfirmed_accounts: "Unconfirmed accounts"
+        # Table Headers
+        name: "Name"
+        email: "Email"
+        admin: "Admin"
+        early_access: "Early Access"
+        created: "Created"
+        actions: "Actions"
+      unconfirmed:
+        title: "Members"
+        link: "Link"
+        member_count:
+          zero: "There are currently no members"
+          one: "There is currently 1 member"
+          other: "There are currently %{count} members"
+          unconfirmed_accounts: "Unconfirmed accounts"
+        # Table Headers
+        name: "Name"
+        email: "Email"
+        confirmation_link: "Confirmation Link"
+      edit:
+        has_direct_sale: "Has direct sale"
+        give_direct_access: "Give direct access"
+        update_user_details: "Update user details"
+    volunteers:
+      index:
+        title: "Leads for %{position}"
+        info: "Leads can see the contact details of every member who has registered to volunteer for this role"
+        current_leads: "Current leads"
+        remove: "Remove"
+        add: "Add a New Lead"
+        find_a_member: "Find member to make a lead"
+        make_lead: "Make Lead"
+    volunteer_roles:
+      edit:
+        save: "Save Volunteer Role"
+      new:
+        create: "Create Volunteer Role"
+      index:
+        title: "Volunteer roles"
+        destroy_role: "Destroy Role"
+        are_you_sure: "Are you sure? This is irreversible"
+        edit: "Edit"
+        add_new: "Add new"
+        lead_count:
+          zero: "0 leads"
+          one: "1 lead"
+          other: "%{count} leads"
+        volunteer_count:
+          zero: "0 volunteers"
+          one: "1 volunteer"
+          other: "%{count} volunteers"
+        # Table Headers
+        name: "Name"
+        brief_description: "Brief Description"
+        description: "Description"
+        priority: "Priority"
+        hidden: "Hidden"

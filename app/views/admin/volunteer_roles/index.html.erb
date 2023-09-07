@@ -1,12 +1,12 @@
-<h1>Volunteer roles</h1>
+<h1><%= t('.title') %></h1>
 
 <table class="table">
   <tr>
-    <th>Name</th>
-    <th>Brief descriptioin</th>
-    <th>Description</th>
-    <th>Priority</th>
-    <th>Hidden</th>
+    <th><%= t('.name') %></th>
+    <th><%= t('.brief_description') %></th>
+    <th><%= t('.description') %></th>
+    <th><%= t('.priority') %></th>
+    <th><%= t('.hidden') %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -19,12 +19,15 @@
       <td><%= volunteer_role.description %></td>
       <td><%= volunteer_role.priority %></td>
       <td><%= volunteer_role.hidden %></td>
-      <td><%= link_to 'edit', edit_admin_event_volunteer_role_path(@event, volunteer_role) %></td>
-      <td><%= link_to pluralize(volunteer_role.leads.count, 'lead'), admin_event_volunteer_role_volunteers_path(@event, volunteer_role) %></td>
-      <td><%= link_to pluralize(volunteer_role.volunteers.count, 'volunteer'), event_volunteer_role_volunteers_path(@event, volunteer_role) %></td>
-      <td><%= button_to 'destroy', admin_event_volunteer_role_path(@event, volunteer_role), method: :delete, data: {confirm: 'Are you sure? This is irreversible'} %></td>
+      <td><%= link_to t('.edit'), edit_admin_event_volunteer_role_path(@event, volunteer_role) %></td>
+      <td><%= link_to t('.lead_count', count: volunteer_role.leads.count), admin_event_volunteer_role_volunteers_path(@event, volunteer_role) %></td>
+      <td><%= link_to t('.volunteer_count', count: volunteer_role.volunteers.count), event_volunteer_role_volunteers_path(@event, volunteer_role) %></td>
+      <td><%= button_to t('.destroy_role'), admin_event_volunteer_role_path(@event, volunteer_role), method: :delete, data: {confirm: t('.are_you_sure') } %></td>
     </tr>
   <% end %>
+  <tr>
+    <td colspan="9">
+      <%= link_to t('.add_new'), new_admin_event_volunteer_role_path(@event) %>
+    </td>
+  </tr>
 </table>
-
-<%= link_to 'Add new', new_admin_event_volunteer_role_path(@event) %>

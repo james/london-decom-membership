@@ -1,20 +1,20 @@
-<h2>Members</h2>
+<h2><%= t('.title') %></h2>
 
-<p>There are currently <%= User.confirmed.count %> members</p>
+<p><%= t('.member_count', count: User.confirmed.count) %></p>
 
 <%= form_tag nil, method: :get do %>
   <%= text_field_tag :q, params[:q] %>
-  <%= submit_tag 'Search' %>
+  <%= submit_tag t('.search') %>
 <% end %>
 
 <table class="table">
   <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Admin</th>
-    <th>Early Access</th>
-    <th>Created</th>
-    <th>Actions</th>
+    <th><%= t('.name') %></th>
+    <th><%= t('.email') %></th>
+    <th><%= t('.admin') %></th>
+    <th><%= t('.early_access') %></th>
+    <th><%= t('.created') %></th>
+    <th><%= t('.actions') %></th>
   </tr>
   <% @users.each do |user| %>
     <tr>
@@ -23,11 +23,11 @@
       <td><%= user.admin? %></td>
       <td><%= user.early_access? %></td>
       <td><%= user.created_at.to_s(:short) %></td>
-      <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
+      <td><%= link_to t('.edit'), edit_admin_user_path(user) %></td>
     </tr>
   <% end %>
 </table>
 
 <%= paginate @users, theme: 'twitter-bootstrap-4' %>
 
-<%= link_to 'Unconfirmed accounts', unconfirmed_admin_users_path %>
+<%= link_to t('.unconfirmed_acounts'), unconfirmed_admin_users_path %>

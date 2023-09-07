@@ -2,15 +2,12 @@
 
 <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
   <p>
-    You have bought the
-    <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
-    available to you. Look below to see how you can participate.
+    <%= t('.ticket_brought_count', count: @event.tickets_sold_for_code(current_user.membership_number)) %>
   </p>
 <% elsif current_user.ticket_type != :general %>
   <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
   <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
-    Buy
-    <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
+    <%= t('.buy_ticket', count: @event.available_tickets_for_code(current_user.membership_number)) %>
   </button>
   <script type="text/javascript">
       var modalCloseCallback = function() {
@@ -28,35 +25,36 @@
   </script>
 <% else %>
   <p>
-    London Decompression 2022 is sold out!
-    <%= link_to "Check the official ticketswap facebook thread for resales.", "https://www.facebook.com/events/606272201206574?post_id=645474913952969&view=permalink" %>
+    <%= t('.event_sold_out', event_name: @event.name) %>
+    <%= link_to t('.resale_thread'), "https://www.facebook.com/events/606272201206574?post_id=645474913952969&view=permalink" %>
   </p>
 <% end %>
 
 <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
   <hr />
   <% if current_user.volunteers_for_event(@event).any? %>
-    <h2>You've signed up to volunteer for:</h2>
+    <h2><%= t('.roles_signed_up_for') %></h2>
 
     <div class="list-group">
       <% current_user.volunteers_for_event(@event).each do |volunteer| %>
         <div class="list-group-item d-flex justify-content-between align-items-center">
           <div>
             <h5><%= volunteer.volunteer_role.name %></h5>
-            <% if volunteer.state == 'confirmed' %>
-              <p>You are confirmed as a volunteer</p>
-            <% elsif volunteer.state == 'contacted' %>
-              <p>You have been contacted by a lead</p>
-            <% else %>
-              <p>The leads for this role should be in contact with you very soon.</p>
-            <% end %>
-            <%= link_to 'cancel', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
             <% if volunteer.lead? %>
               <p>
-                You are a lead for this role:
-                <%= link_to 'view volunteers', event_volunteer_role_volunteers_path(@event, volunteer.volunteer_role) %>
+                <%= t('.user_is_lead') %>
               </p>
+              <%= link_to t('.view_volunteers'), event_volunteer_role_volunteers_path(@event, volunteer.volunteer_role), class: "btn btn-secondary" %>
+            <% else %>
+              <% if volunteer.state == 'confirmed' %>
+                <p><%= t('.volunteer_state_confirmed') %></p>
+              <% elsif volunteer.state == 'contacted' %>
+                <p><%= t('.volunteer_state_contacted') %></p>
+              <% else %>
+                <p><%= t('.volunteer_state_unknown') %></p>
+              <% end %>
             <% end %>
+            <%= link_to t('.remove_self'), event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: t('.are_you_sure')}, class: "btn btn-danger" %>
           </div>
         </div>
       <% end %>
@@ -65,17 +63,13 @@
   <% end %>
 
   <% if current_user.volunteers_for_event(@event).any? %>
-    <h2>Have you more to give?</h2>
-
-    <p>You can apply for more than one role if you like.</p>
+    <h2><%= t('.more_to_give') %></h2>
+    <p><%= t('.more_to_give_detail_text') %></p>
   <% else %>
-    <h2>Sign up to participate</h2>
-
-    <p>Congratulations, you’ve got your ticket for Decom! Now how would you like to participate? Participation and Communal Effort are two of the 10 Burning Man principles, and volunteering at the event is the perfect way to get into the spirit of the event as well as give the Gift of your time back to your Decompression community.</p>
-
-    <p>There’s opportunities to get involved before the day, on the day in the creation of the venue and throughout the event from entry to strike with a special shout out for those both willing and able to do some sober hours.</p>
-
-    <p>We welcome and respect the stranger with no prerequisites for participation, so take a little look and see what tickles your fancy - shifts are usually 2 hours long, so fear not - plenty of time left to party!</p>
+    <h2><%= t('.signup_to_participate') %></h2>
+    <p><%= t('.signup_to_participate_details_1') %></p>
+    <p><%= t('.signup_to_participate_details_2') %></p>
+    <p><%= t('.signup_to_participate_details_3') %></p>
   <% end %>
 
   <div class="list-group">
@@ -85,10 +79,10 @@
           <h5><%= volunteer_role.name %></h5>
           <%= simple_format volunteer_role.brief_description %>
         </div>
-        <span class="badge badge-primary badge-pill">Sign up now</span>
+        <span class="badge badge-primary badge-pill"><%= t('.sign_up') %></span>
       </a>
     <% end %>
   </div>
 <% end %>
 
-<p>If you have any questions about volunteering, feel free to email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a></p>
+<p><%= t('.questions_about_volunteering_html') %></p>

@@ -1,24 +1,20 @@
 <% if @event %>
   <%= render partial: '/events/event' %>
 <% else %>
-  <h1>Hello <%= current_user.name %></h1>
-  <p>You are a member of London Decompression.</p>
-  <p>Thanks for being a member. Tickets and volunteering are not live yet, but we will email you as soon as they are.</p>
-  <p>In the meantime, get news from our <a href="https://londondecom.org/">website</a>.</p>
+  <h1 style="text-align: center;"><%= t('.intro_text_user', user: current_user.name) %></h1>
+  <p><%= t('.intro_text_paragraph_1') %></p>
+  <p><%= t('.intro_text_paragraph_2') %></p>
+  <p><%= t('.intro_text_paragraph_3_html') %></p>
 <% end %>
 
 <hr />
 
 <% if current_user.low_income_request %>
   <% if current_user.low_income_request.status == 'approved' %>
-    <p>Your request for Low Income has been approved. When tickets are available, you will be able to purchase a low income ticket.</p>
+    <p>t('.low_income_request_approved')</p>
   <% elsif current_user.low_income_request.status == 'rejected' %>
-    <p>Your request for Low Income has been rejected.</p>
+    <p>t('.low_income_request_rejected')</p>
   <% else %>
-    <p>You have applied for Low Income Tickets. You will be notified when it has been reviewed.</p>
-  <% end %>
-<% else %>
-  <% if !@event || @event.available_tickets_for_code(current_user.membership_number) > 0 %>
-    Low Income Ticket Applications have now closed
+    <p>t('.low_income_request_no_status')</p>
   <% end %>
 <% end %>

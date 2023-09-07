@@ -1,12 +1,12 @@
-<h2>Signup to volunteer for <%= @volunteer_role.name %></h2>
+<h2><%= t('.title', position: @volunteer_role.name) %></h2>
 
 <%= simple_format @volunteer_role.description %>
 
 <%= bootstrap_form_for [@event, @volunteer_role, @volunteer] do |form| %>
-  <%= form.phone_field :phone, label: 'Phone number (optional)' %>
+  <%= form.phone_field :phone, label: t('.phone_number') %>
   <%= form.text_area :additional_comments %>
-  <%= form.check_box :accept_code_of_conduct, label: 'I agree to the <a href="https://docs.google.com/document/d/1B1X4dMYqeGwwfnC5RpOUUKr0CzsQhS6SPQB-0FwkvrA/view">Decom Code of Conduct</a>'.html_safe %>
-  <%= form.check_box :accept_health_and_safety, label: "I confirm that I've read the <a href=\"https://docs.google.com/document/d/1rmtSlK0wif3a1Dr7cAFhsC0-z5ewfV-sRHacdBdjw9w/edit\">Decom Health and Safety Guidelines</a>".html_safe %>
+  <%= form.check_box :accept_code_of_conduct, label: t('.code_of_conduct_html') %>
+  <%= form.check_box :accept_health_and_safety, label: t('.health_and_safety_html') %>
   <br />
-  <%= form.submit 'Volunteer' %>
+  <%= form.submit t('.volunteer') %>
 <% end %>
