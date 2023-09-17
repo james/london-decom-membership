@@ -5,7 +5,7 @@ ruby '2.7.6'
 
 gem 'rails', '~> 6.1'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 5'
 gem 'sass-rails', '~> 5.0'
 gem 'terser'
 gem 'coffee-rails', '~> 4.2'
