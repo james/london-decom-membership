@@ -30,15 +30,24 @@ RSpec.describe User, type: :model do
                        'merge_fields': { 'NAME': 'James Darling' }
                      }
                    )
-      @tag_stub = stub_request(:post, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623/tags')
-                  .with(
-                    body: {
-                      'tags': [
-                        { 'name': 'member', 'status': 'active' },
-                        { 'name': 'member-marketing', 'status': 'inactive' }
-                      ]
-                    }
-                  )
+      @full_tag_stub = stub_request(:post, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623/tags')
+                       .with(
+                         body: {
+                           'tags': [
+                             { 'name': 'member', 'status': 'active' },
+                             { 'name': 'member-marketing', 'status': 'active' }
+                           ]
+                         }
+                       )
+      @member_only_tag_stub = stub_request(:post, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623/tags')
+                              .with(
+                                body: {
+                                  'tags': [
+                                    { 'name': 'member', 'status': 'active' },
+                                    { 'name': 'member-marketing', 'status': 'inactive' }
+                                  ]
+                                }
+                              )
     end
 
     it 'should create a user on Mailchimp' do
@@ -47,10 +56,16 @@ RSpec.describe User, type: :model do
       expect(@user_stub).to have_been_requested
     end
 
-    it 'should create tag the user on Mailchimp' do
-      new_user = create(:user, email: 'james@abscond.org', name: 'James Darling')
+    it 'should create both tags on the user on Mailchimp' do
+      new_user = create(:user, email: 'james@abscond.org', name: 'James Darling', marketing_opt_in: true)
       new_user.update_mailchimp
-      expect(@tag_stub).to have_been_requested
+      expect(@full_tag_stub).to have_been_requested
+    end
+
+    it 'should create only member tag the user on Mailchimp' do
+      new_user = create(:user, email: 'james@abscond.org', name: 'James Darling', marketing_opt_in: false)
+      new_user.update_mailchimp
+      expect(@member_only_tag_stub).to have_been_requested
     end
   end
 end
