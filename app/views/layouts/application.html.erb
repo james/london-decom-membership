@@ -7,6 +7,10 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+
+    <% if ENV['ENABLE_PLAUSIBLE_IO_ANALYTICS'] == true %>
+      <%= javascript_include_tag "https://plausible.io/js/script.js", "data-turbo-track": "reload", defer: true, "data-domain": "#{ENV['HOST_NAME']}"%>
+    <% end %>
   </head>
 
   <body>
