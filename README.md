@@ -11,14 +11,14 @@ This app uses Eventbrite to manage tickets. You will need to set up an Eventbrit
 - visit https://www.eventbrite.com/account-settings/apps
 - click 'Create a new app'
 - Fill in details and submit
-- Copy 'Your personal OAuth token' and put in .env as EVENTBRITE_TOKEN
+- Copy 'Private token' and set it as `eventbrite_token` in your `Event`
 
 ### Eventbrite Event ID
 
 - Create an event if you haven't already
 - Go to the page to manage the event
 - The URL should be something like `https://www.eventbrite.com/myevent?eid=11111`
-- Copy the ID after `eid=` and put in .env as EVENTBRIGHT_EVENT_ID
+- Copy the ID after `eid=` and set it as `eventbrite_id` in your `Event`
 
 ### MAILCHIMP_TOKEN
 
@@ -72,6 +72,8 @@ To get started click the button below.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+Update: we have since moved London Decompression to be hosted with fly.io
+
 ## Making admin users
 
 There is a small admin interface to this application. To access it, you need to be logged in as a user with admin privileges. Currently this can only be done over the command line.
@@ -93,10 +95,13 @@ For members to be able to buy tickets using their accounts, membership codes nee
 * Log into the membership app with an admin account, and go to the admin 'Membership Codes' page.
 * Ensure you have enough membership codes generated for your need. Be generous (if you have 1,000 people, maybe generate 1,500 codes). This is to ensure we don't run out of access tokens. If not, generate some codes.
 * Download the CSV file on that page.
-* Go to "Manage" for your Eventbrite event. Go to "Invite & Promote" then "Discount & Access Codes".
-* Click "New Code" > "This event only" > "Coded access to hidden tickets" > Choose the ticket or tickets you want to be made available to members > Choose "CSV list of codes", and upload the CSV file you downloaded previously.
-* From "Uses", choose "Limited To", and then input the number of tickets you want each member to be allowed to buy. Our current plan is to allow 2 tickets per member.
-* Click "Continue" > "Save & Finish" > Done!
+* Update: Eventbrite has restricted uploads to 500 at a time, so use a (CSV splitter)[https://extendsclass.com/csv-splitter.html] to split your file if you have more than 500 codes
+* Go to "Manage" for your Eventbrite event. Go to "Tickets" then "Promo Codes".
+* Add your first file
+* From "Ticket Limit", choose "Limited To", and then input the number of tickets you want each member to be allowed to buy. Our current plan is to allow 1 ticket per member.
+* Check "Reveal hidden tickets during checkout"
+* Choose "Apply code to" "Only certain hidden tickets", then click "Select" and choose the ticket type you want.
+* Click "Save" > Done!
 
 ## Contributing
 
