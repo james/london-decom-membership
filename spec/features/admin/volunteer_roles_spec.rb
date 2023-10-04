@@ -24,6 +24,17 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     expect(page).to have_content('10')
   end
 
+  scenario 'validation prevents creating a blank role' do
+    login(admin: true)
+    create(:event)
+    click_link 'Events'
+    click_link 'London Decompression 2019'
+    click_link 'Volunteer Roles'
+    click_link 'Add new'
+    click_button 'Create Volunteer Role'
+    expect(page).to have_content('can\'t be blank')
+  end
+
   scenario 'editing a role' do
     login(admin: true)
     create(:volunteer_role, name: 'Role1', description: 'First Role')
