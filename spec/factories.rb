@@ -29,6 +29,7 @@ FactoryBot.define do
   factory :volunteer_role do
     name { 'MyString' }
     description { 'MyText' }
+    brief_description { 'MyText' }
     event
   end
 
