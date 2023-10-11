@@ -14,6 +14,11 @@
   </head>
 
   <body>
+    <% if !Rails.env.production? %>
+      <div class="alert alert-danger dev_notice" role="alert">
+        This is a non-prod instance of the memebers website, changes are to be expected!
+      </div>
+    <% end %>
     <div class="page-header">
       <div class="container">
         <div class="row">
