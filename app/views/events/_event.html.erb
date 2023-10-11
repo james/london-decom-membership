@@ -12,6 +12,7 @@
     Buy
     <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
   </button>
+  <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
   <script type="text/javascript">
       var modalCloseCallback = function() {
         location.reload();
@@ -57,6 +58,7 @@
     Buy
     <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
   </button>
+  <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
 <% end %>
 
 <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
