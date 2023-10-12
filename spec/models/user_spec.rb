@@ -68,4 +68,41 @@ RSpec.describe User, type: :model do
       expect(@member_only_tag_stub).to have_been_requested
     end
   end
+
+  describe '#delete_mailchimp_user' do
+    around do |example|
+      ClimateControl.modify MAILCHIMP_TOKEN: '12345678901234567890123456789012-us3' do
+        example.run
+      end
+    end
+
+    before do
+      stub_request(:get, 'https://us3.api.mailchimp.com/3.0/lists').to_return(body: '{"lists":[{"id":"1234"}]}')
+      @user_stub = stub_request(:put, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623')
+                   .with(
+                     body: {
+                       'email_address': 'james@abscond.org',
+                       'status': 'subscribed',
+                       'merge_fields': { 'NAME': 'James Darling' }
+                     }
+                   )
+      @member_only_tag_stub = stub_request(:post, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623/tags')
+                              .with(
+                                body: {
+                                  'tags': [
+                                    { 'name': 'member', 'status': 'active' },
+                                    { 'name': 'member-marketing', 'status': 'inactive' }
+                                  ]
+                                }
+                              )
+      @deleted_stub = stub_request(:post, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623/actions/delete-permanent').with(body: "null")
+    end
+
+    it 'should delete a user on Mailchimp' do
+      new_user = create(:user, email: 'james@abscond.org', name: 'James Darling')
+      new_user.update_mailchimp
+      new_user.delete_mailchimp_user
+      expect(@deleted_stub).to have_been_requested
+    end
+  end
 end

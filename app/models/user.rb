@@ -24,6 +24,8 @@ class User < ApplicationRecord
   scope :confirmed, -> { where('confirmed_at IS NOT NULL') }
   scope :unconfirmed, -> { where('confirmed_at IS NULL') }
 
+  before_destroy :delete_mailchimp_user
+
   def ticket_type
     if low_income_request && low_income_request.status == 'approved'
       :low_income
@@ -55,6 +57,17 @@ class User < ApplicationRecord
 
   def email_hash
     Digest::MD5.hexdigest(email)
+  end
+
+  def delete_mailchimp_user
+    return if ENV['MAILCHIMP_TOKEN'].blank?
+
+    # To ensure we don't have any issues, delete the user fully.
+    # This will mean they will need to resubscribe and fill out a form, but we can address
+    # that later on, this is more important
+    gibbon.lists(list_id).members(email_hash).actions.delete_permanent.create
+  rescue Gibbon::MailChimpError => e
+    Rollbar.error(e)
   end
 
   def update_mailchimp
