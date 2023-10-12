@@ -4,6 +4,8 @@ class Event < ApplicationRecord
   validates :eventbrite_token, presence: true
   validates :eventbrite_id, presence: true
 
+  enum event_mode: [:draft, :prerelease, :live, :ended]
+
   def self.active(early_access: false)
     if early_access
       order('created_at DESC').first

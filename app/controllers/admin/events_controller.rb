@@ -37,7 +37,11 @@ class Admin::EventsController < AdminController
   #  private
 
   def event_params
-    params.require(:event).permit(:name, :eventbrite_token, :eventbrite_id, :active)
+    params.require(:event).permit(
+      :name, :eventbrite_token, :eventbrite_id, :active,
+      :ticket_sale_start_date, :theme, :theme_details, :theme_image_url,
+      :location, :maps_location_url, :event_timings, :further_information,
+      :event_date, :event_mode)
   end
 
 end
