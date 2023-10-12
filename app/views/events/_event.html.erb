@@ -100,7 +100,7 @@
             <% else %>
               <p>The leads for this role should be in contact with you very soon.</p>
             <% end %>
-            <%= link_to 'cancel', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
+            <%= link_to 'Click here to remove yourself from this role', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
             <% if volunteer.lead? %>
               <p>
                 You are a lead for this role:
