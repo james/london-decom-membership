@@ -1,7 +1,36 @@
-<%= form.text_field :name %>
 <section>
-<h1>Eventbrite</h1>
+<h1>Basic Info</h1>
+<%= form.text_field :name %>
+<%= form.check_box :active %>
+<%= form.select(:event_mode, Event.event_modes.keys.map {|event_mode| [event_mode.titleize, event_mode]}) %>
+</section>
+
+<section>
+<h1>Location</h1>
+<%= form.text_field :location %>
+<%= form.text_field :maps_location_url %>
+</section>
+
+<section>
+<h1>Date and Time</h1>
+<%= form.datetime_local_field :ticket_sale_start_date %>
+<%= form.text_area :event_timings %>
+</section>
+
+<section>
+<h1>Theme</h1>
+<%= form.text_field :theme %>
+<%= form.text_area :theme_details %>
+<%= form.text_field :theme_image_url %>
+</section>
+
+<section>
+<h1>Further Information</h1>
+<%= form.text_area :further_information %>
+</section>
+
+<section>
+<h1>Eventbrite Data</h1>
 <%= form.text_field :eventbrite_id, label: 'Eventbrite ID' %>
 <%= form.text_field :eventbrite_token %>
 </section>
-<%= form.check_box :active %>

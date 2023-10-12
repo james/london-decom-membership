@@ -1,9 +1,10 @@
-<h2>Title</h2>
+<h2>Events</h2>
 
 <table class="table">
   <tr>
     <th>Event Name</th>
     <th>Active</th>
+    <th>Status</th>
     <th></th>
   </tr>
   <% @events.each do |event| %>
@@ -16,11 +17,12 @@
         <span class="badge bg-danger">No</span>
       <% end %>
       </td>
-      <td><%= link_to 'Show', admin_event_path(event) %></td>
+      <td><%= event.event_mode.to_s.titleize %></td>
+      <td><%= link_to 'Open', admin_event_path(event) %></td>
     </tr>
   <% end %>
   <tr>
-    <td colspan="3">
+    <td colspan="4">
       <%= link_to 'Create Event', new_admin_event_path() %>
     </td>
   </tr>
