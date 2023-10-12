@@ -1,19 +1,27 @@
 <h2>Unconfirmed Members</h2>
 
-<p>There are currently <%= @users.count %> members</p>
+<p>There is currently <%= pluralize(@users.count, 'unconfirmed member') %></p>
 
 <table class="table">
   <tr>
     <th>Name</th>
     <th>Email</th>
-    <th>Confirmation Link</th>
+    <th>Unconfirmed Duration</th>
+    <th>Resend Confirmation</th>
     <th>Delete</th>
   </tr>
   <% @users.each do |user| %>
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-      <td><%= link_to 'Link', confirmation_url(user, confirmation_token: user.confirmation_token) %></td>
+      <td><%= distance_of_time_in_words(user.created_at.to_time - Time.now) %></td>
+      <td>
+        <% if user.has_confirmation_period_expired? %>
+          <%= button_to 'Resend Confirmation', resend_email_admin_user_path(user), method: :post %>
+        <% else %>
+          Last confirmation sent <%= distance_of_time_in_words(user.confirmation_sent_at.to_time - Time.now) %> ago
+        <% end %>
+      </td>
       <td><%= button_to 'Delete', admin_user_path(user), method: :delete, data: {confirm: 'Are you sure? This is irreversible'}, class: "btn btn-danger" %></td>
     </tr>
   <% end %>
