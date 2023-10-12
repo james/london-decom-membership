@@ -23,6 +23,12 @@ class Admin::UsersController < AdminController
     redirect_to action: :index
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to action: :index
+  end
+
   def give_direct_sale
     @user = User.find(params[:id])
     direct_sale_code = DirectSaleCode.available.first

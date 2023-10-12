@@ -7,12 +7,14 @@
     <th>Name</th>
     <th>Email</th>
     <th>Confirmation Link</th>
+    <th>Delete</th>
   </tr>
   <% @users.each do |user| %>
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
       <td><%= link_to 'Link', confirmation_url(user, confirmation_token: user.confirmation_token) %></td>
+      <td><%= button_to 'Delete', admin_user_path(user), method: :delete, data: {confirm: 'Are you sure? This is irreversible'}, class: "btn btn-danger" %></td>
     </tr>
   <% end %>
 </table>
