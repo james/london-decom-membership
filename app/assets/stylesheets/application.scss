@@ -31,7 +31,7 @@ body {
 }
 
 .card-block {
-  padding: 80px;
+  padding: 20px;
 }
 
 .section-title {
@@ -39,7 +39,77 @@ body {
 }
 
 .logged_in_nav {
-  margin-top: -60px;
+  margin-top: 0px;
+}
+
+.dev_notice {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.navbar {
+  a {
+    color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
+  }
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--bs-accordion-btn-bg);
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .card-block {
+    padding: 30px;
+  }
+
+  .logged_in_nav {
+    margin-top: -10px;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .card-block {
+    padding: 40px;
+  }
+
+  .logged_in_nav {
+    margin-top: -20px;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .card-block {
+    padding: 50px;
+  }
+
+  .logged_in_nav {
+    margin-top: -20px;
+  }
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .card-block {
+    padding: 75px;
+  }
+
+  .logged_in_nav {
+    margin-top: -40px;
+  }
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@media (min-width: 1400px) {
+  .card-block {
+    padding: 80px;
+  }
+
+  .logged_in_nav {
+    margin-top: -40px;
+  }
 }
 
 .dev_notice {
