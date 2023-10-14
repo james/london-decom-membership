@@ -1,13 +1,13 @@
 <h1><%= @event.name %></h1>
 
 <p>
-  <% if @event.prerelease? %>
+  <% if @event.prerelease? && !current_user.early_access %>
     <% if @event.ticket_sale_start_date.nil? %>
       Tickets for our next event will be available to buy here soon, watch this space!.
     <% else %>
       Tickets for our next event will be available to buy here on <%= @event.ticket_sale_start_date.strftime("%d/%m/%Y at %I:%M:%S %p") %>.
     <% end %>
-  <% elsif @event.live? %>
+  <% elsif @event.live? || current_user.early_access %>
     <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
       <p>
         You have bought the
@@ -142,6 +142,8 @@
     <% end %>
   </div>
 <% end %>
+
+<hr>
 
 <p>Here is the crucial info</p>
 <% if @event.theme_image_url %>
