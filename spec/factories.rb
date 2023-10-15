@@ -19,6 +19,7 @@ FactoryBot.define do
     eventbrite_id { 'MyString' }
     name { 'London Decompression 2019' }
     active { true }
+    event_mode { :live }
   end
 
   factory :volunteer do
