@@ -9,7 +9,7 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     login(admin: true)
     create(:volunteer_role, name: 'Role1')
     click_link 'Events'
-    click_link 'London Decompression 2019'
+    click_link 'Open'
     click_link 'Volunteer Roles'
     expect(page).to have_content('Role1')
     click_link 'Add new'
@@ -28,7 +28,7 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     login(admin: true)
     create(:event)
     click_link 'Events'
-    click_link 'London Decompression 2019'
+    click_link 'Open'
     click_link 'Volunteer Roles'
     click_link 'Add new'
     click_button 'Create Volunteer Role'
@@ -39,7 +39,7 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     login(admin: true)
     create(:volunteer_role, name: 'Role1', description: 'First Role')
     click_link 'Events'
-    click_link 'London Decompression 2019'
+    click_link 'Open'
     click_link 'Volunteer Roles'
     click_link 'edit'
     fill_in 'Name', with: 'Role1 edited'
@@ -58,7 +58,7 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     login(admin: true)
     create(:volunteer_role, name: 'Role1', description: 'First Role')
     click_link 'Events'
-    click_link 'London Decompression 2019'
+    click_link 'Open'
     click_link 'Volunteer Roles'
     click_button 'destroy'
     expect(page).to_not have_content('Role1')

@@ -34,7 +34,7 @@ RSpec.feature 'Member signup', type: :feature do
     expect(page).to have_text('A message with a confirmation link has been sent to your email address')
     open_email('james@abscond.org')
     current_email.click_link 'Confirm my account'
-    expect(page).to have_text('Hello James Darling')
+    expect(page).to have_text('Hey James Darling')
   end
 
   scenario 'validation errors' do
