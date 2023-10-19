@@ -19,7 +19,7 @@ RSpec.feature 'Low Income', type: :feature do
     click_button 'Submit request'
 
     expect(page).to_not have_text('Apply for low income')
-    expect(page).to have_text('You have applied for Low Income Tickets.')
+    expect(page).to have_text('You have applied for a Low Income Ticket.')
     expect(page.html).to include(User.last.membership_code.code)
 
     LowIncomeRequest.last.approve!
