@@ -1,24 +1,89 @@
-<% if @event %>
-  <%= render partial: '/events/event' %>
-<% else %>
-  <h1>Hello <%= current_user.name %></h1>
-  <p>You are a member of London Decompression.</p>
-  <p>Thanks for being a member. Tickets and volunteering are not live yet, but we will email you as soon as they are.</p>
-  <p>In the meantime, get news from our <a href="https://londondecom.org/">website</a>.</p>
-<% end %>
-
-<hr />
-
 <% if current_user.low_income_request %>
   <% if current_user.low_income_request.status == 'approved' %>
     <p>Your request for Low Income has been approved. When tickets are available, you will be able to purchase a low income ticket.</p>
   <% elsif current_user.low_income_request.status == 'rejected' %>
     <p>Your request for Low Income has been rejected.</p>
   <% else %>
-    <p>You have applied for Low Income Tickets. You will be notified when it has been reviewed.</p>
+    <p>You have applied for a Low Income ticket. You will be notified when it has been reviewed.</p>
   <% end %>
 <% else %>
   <% if !@event || @event.available_tickets_for_code(current_user.membership_number) > 0 %>
     <%= link_to 'Apply for low income', new_low_income_request_path %>
   <% end %>
 <% end %>
+
+<hr />
+
+<% if @event %>
+  <%= render partial: '/events/event' %>
+<% else %>
+  <h1>Hey <%= current_user.name %></h1>
+
+  <p>Tickets for <strong>London Decom 2023: FERAL RESURRECTION</strong> will be available to buy here on <strong>Sunday 22nd October at midday (GMT)</strong>.</p>
+
+  <style>
+    .container_deets{
+      display: flex;
+      width: 100%;
+    }
+    
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 98%;
+    }
+    
+    .leftcol {
+        width: 50%;
+        padding-right: 40px;
+        padding-top: 10px;
+        padding-left: 10px;
+        font-style: italic;
+    }
+    
+    .rightcol {
+        width: 50%;
+        padding-top: 10px;
+        padding-right:10px;
+    }
+  </style>
+
+  <img class="center" src="https://londondecom.org/wp-content/uploads/2023/10/members-banner-2023.jpg">
+  
+  <div class="container_deets">
+  
+    <div class="leftcol">
+      <p><strong>London Decom 2023: FERAL RESURRECTION</strong></p>
+      
+      <p>Descending upon a new industrial, brutalist setting, we co-create nature’s future after human civilisation has passed.</p>
+      
+      <p>Amongst the post-apocalyptic ruins, unleashing wild behaviours and primitive inhibitions, feral creatures in all forms awaken to reclaim what’s left behind in this post-apocalyptic fantasy world.</p>
+      
+      <p>This is our feral resurrection, where we reclaim our primal desires, to transgress the cages of society, break free, and be reborn.</p>
+      
+      <p>Now is the moment to transform, to choose your new path. Will you transform through a journey of metamorphosis? Or perhaps embrace your feral nature, and pursue the pleasures of wild debauchery?...</p> 
+      
+      <p>Join us for a night of feral resurrection</p>
+    </div>
+  
+    <div class="rightcol">
+      <p><strong>Where:</strong> The Cause, 60 Dock Rd, London E16 1YZ  - <a href="https://maps.app.goo.gl/j3PGXWEoM55joWrV8">Google Maps</a>
+      <br><strong>When:</strong> Saturday 18th November 2023, 7pm-9pm outdoors only, indoors from 9pm. Until 5am, last entry at 2am.</p>
+      
+      <p><strong>Bring ID!</strong> Only an original passport or driving licence will be accepted (no photocopies or digital versions!). No re-entry allowed.</p>
+          
+      <p>Standard ticket: £25 (+£2.80 booking fee)
+      <br>Low income ticket: £15 (+£1.96 booking fee)</p>
+      
+      <p>One ticket per member - tell your friends to sign up as a member now :)</p>
+      
+      <p>Once you have bought a ticket, you will be able to sign up for volunteer roles.</p>
+    </div>
+  </div>
+
+<% end %>
+
+
+
+
