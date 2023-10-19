@@ -14,7 +14,7 @@ RSpec.feature 'Low Income', type: :feature do
     create(:event)
     login
 
-    click_link 'Apply for low income'
+    click_link 'Apply for low income', match: :first
     fill_in 'Please let us know why you believe you need a low income ticket', with: 'My reason'
     click_button 'Submit request'
 
