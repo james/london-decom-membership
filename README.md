@@ -1,10 +1,10 @@
 # London Decompression Membership
 
-<div align="center" markdown="1">
+Decompression Membership system is website that allows you to have event pages and signups setup for a Decompression event.
 
-Test status: [![CircleCI](https://circleci.com/gh/james/london-decom-membership.svg?style=svg)](https://circleci.com/gh/james/london-decom-membership)
+## Status
 
-</div>
+[![CircleCI](https://circleci.com/gh/james/london-decom-membership.svg?style=shield)](https://circleci.com/gh/james/london-decom-membership)
 
 ## Running locally
 
@@ -135,6 +135,8 @@ When you create an event as an admin user you will notice there is an active sta
 
 You will need to have an event in EventBrite for the system to work, as we rely on data stored against the EventBrite event for the system pages.
 
+When creating the event, you can put an event into Draft without having any EventBrite data, but once it goes to Prerelease or above, it will be required.
+
 ### Active Flag
 
 * Active event means that this is the current active event that we will pull forward to the front-end
@@ -147,3 +149,6 @@ You will need to have an event in EventBrite for the system to work, as we rely 
 * Live - Shockingly means the event is live and users can book tickets
 * Ended - Event has finished
 
+### Note
+
+The fields `Event Timings`, `Theme Details` and `Further Information` are multiline and will save the line breaks, meaning what you type in the box will be what you get (within reason) on the front end.
