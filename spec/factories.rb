@@ -20,6 +20,18 @@ FactoryBot.define do
     name { 'London Decompression 2019' }
     active { true }
     event_mode { :live }
+    trait :draft do
+      event_mode { :draft }
+    end
+    trait :prerelease do
+      event_mode { :prerelease }
+    end
+    trait :live do
+      event_mode { :live }
+    end
+    trait :ended do
+      event_mode { :ended }
+    end
   end
 
   factory :volunteer do
