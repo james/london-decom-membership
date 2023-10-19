@@ -5,7 +5,7 @@
 <% elsif @event.ended? %>
   <p>Event has ended</p>
 <% else %>
-  <p>Event is currently in <%= @event.event_mode.titleize %></p>
+  <p>Event is currently in <%= @event.event_mode&.titleize %></p>
 <% end %>
 
 <div class="accordion">
