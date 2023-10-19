@@ -4,7 +4,7 @@
   <% elsif current_user.low_income_request.status == 'rejected' %>
     <p>Your request for Low Income has been rejected.</p>
   <% else %>
-    <p>You have applied for Low Income Tickets. You will be notified when it has been reviewed.</p>
+    <p>You have applied for a Low Income Ticket. You will be notified when it has been reviewed.</p>
   <% end %>
 <% else %>
   <% if !@event || @event.prerelease? || @event.available_tickets_for_code(current_user.membership_number) > 0 %>
