@@ -134,7 +134,7 @@
 <hr>
 
 <p>Here is the crucial info</p>
-<% if @event.theme_image_url? %>
+<% if @event.theme_image_url.present? %>
   <%= image_tag @event.theme_image_url, style: 'width: 100%;' %>
 <% end %>
 
@@ -145,27 +145,20 @@
   </div>
 
   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-    <p>Where: <%= @event.location %></p>
-    <p>Map: <%= link_to 'Google Maps Location', @event.maps_location_url %></p>
+    <p><b>Where:</b> <%= @event.location %></p>
+    <p><b>Map:</b> <%= link_to 'Google Maps Location', @event.maps_location_url %></p>
     <% if @event.eventbrite_event.eventbrite_event.start.local.nil? %>
-      <p>When: <%= simple_format(@event.event_timings) %></p>
+      <p><b>When:</b> <%= simple_format(@event.event_timings) %></p>
     <% else %>
-      <p>When: <%= Date.parse(@event.eventbrite_event.eventbrite_event.start.local).strftime("%A %d %B %Y") %> GMT <%= simple_format(@event.event_timings) %></p>
+      <p><b>When:</b> <%= Date.parse(@event.eventbrite_event.eventbrite_event.start.local).strftime("%A %d %B %Y") %> GMT <%= simple_format(@event.event_timings) %></p>
     <% end %>
-    <p>Further Information: <%= @event.further_information %></p>
+    <p><b>Further Information:</b> <%= @event.further_information %></p>
+    <p><b>Ticket Information:</b></p>
     <p>
-      Standard ticket: £25 (+£2.80 booking fee)
-      <br>
-      Low income ticket: £15 (+£1.96 booking fee)
-      <br>
+      <%= simple_format(@event.ticket_price_info) %>
       <%= render partial: '/tickets/low_income' %>
     </p>
-    <p>
-      One ticket per member - tell your friends to sign up as a member now :&#41;
-    </p>
-    <p>
-      Once you have bought a ticket, you will be able to sign up for volunteer roles.
-    </p>
+    <p><%= simple_format(@event.ticket_information) %></p>
   </div>
 </div>
 

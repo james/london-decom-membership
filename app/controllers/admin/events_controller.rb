@@ -13,7 +13,6 @@ class Admin::EventsController < AdminController
 
   def create
     @event = Event.new(event_params)
-    @event.validate
     if @event.save
       redirect_to admin_events_path(@event)
     else
@@ -41,7 +40,7 @@ class Admin::EventsController < AdminController
       :name, :eventbrite_token, :eventbrite_id, :active,
       :ticket_sale_start_date, :theme, :theme_details, :theme_image_url,
       :location, :maps_location_url, :event_timings, :further_information,
-      :event_date, :event_mode
+      :ticket_price_info, :ticket_information, :event_date, :event_mode
     )
   end
 end
