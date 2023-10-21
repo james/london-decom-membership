@@ -1,65 +1,77 @@
 <h1><%= @event.name %></h1>
 
-<% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
-  <p>
-    You have bought the
-    <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
-    available to you. Look below to see how you can participate.
-  </p>
-<% elsif current_user.ticket_type != :general %>
-  <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
-  <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
-    Buy
-    <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
-  </button>
-  <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
-  <script type="text/javascript">
-      var modalCloseCallback = function() {
-        location.reload();
-      };
-
-      window.EBWidgets.createWidget({
-          widgetType: 'checkout',
-          eventId: <%= @event.eventbrite_id %>,
-          modal: true,
-          modalTriggerElementId: 'eventbrite-buy-link',
-          onWidgetModalClose: modalCloseCallback,
-          promoCode: '<%= current_user.membership_number %>'
-      });
-  </script>
-<% else %>
-  <p>
-    <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
-      You have already bought
-      <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>.
-      You can buy
-      <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'more ticket') %>.
+<p>
+  <% if @event.prerelease? && !current_user.early_access %>
+    <% if @event.ticket_sale_start_date.nil? %>
+      Tickets for our next event will be available to buy here soon, watch this space!.
     <% else %>
-      You can buy
-      <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
+      Tickets for our next event will be available to buy here on <%= @event.ticket_sale_start_date.strftime("%d/%m/%Y at %I:%M:%S %p") %> (GMT).
     <% end %>
-  </p>
-  <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
-  <script type="text/javascript">
-      var modalCloseCallback = function() {
-        location.reload();
-      };
+  <% elsif @event.live? || current_user.early_access %>
+    <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
+      <p>
+        You have bought the
+        <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
+        available to you. Look below to see how you can participate.
+      </p>
+    <% elsif current_user.ticket_type != :general %>
+      <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+      <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
+        Buy
+        <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
+      </button>
+      <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
+      <script type="text/javascript">
+          var modalCloseCallback = function() {
+            location.reload();
+          };
 
-      window.EBWidgets.createWidget({
-          widgetType: 'checkout',
-          eventId: <%= @event.eventbrite_id %>,
-          modal: true,
-          modalTriggerElementId: 'eventbrite-buy-link',
-          onWidgetModalClose: modalCloseCallback,
-          promoCode: '<%= current_user.membership_number %>'
-      });
-  </script>
-  <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
-    Buy
-    <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
-  </button>
-  <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
-<% end %>
+          window.EBWidgets.createWidget({
+              widgetType: 'checkout',
+              eventId: <%= @event.eventbrite_id %>,
+              modal: true,
+              modalTriggerElementId: 'eventbrite-buy-link',
+              onWidgetModalClose: modalCloseCallback,
+              promoCode: '<%= current_user.membership_number %>'
+          });
+      </script>
+    <% else %>
+      <p style="margin-bottom: 0">
+        <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
+          You have already bought
+          <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>.
+          You can buy
+          <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'more ticket') %>.
+        <% else %>
+          You can buy
+          <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
+        <% end %>
+      </p>
+      <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+      <script type="text/javascript">
+          var modalCloseCallback = function() {
+            location.reload();
+          };
+
+          window.EBWidgets.createWidget({
+              widgetType: 'checkout',
+              eventId: <%= @event.eventbrite_id %>,
+              modal: true,
+              modalTriggerElementId: 'eventbrite-buy-link',
+              onWidgetModalClose: modalCloseCallback,
+              promoCode: '<%= current_user.membership_number %>'
+          });
+      </script>
+      <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
+        Buy
+        <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
+      </button>
+      <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
+    <% end %>
+  <% end %>
+
+  <%= render partial: '/tickets/low_income' %>
+</p>
 
 <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
   <hr />
@@ -78,7 +90,7 @@
             <% else %>
               <p>The leads for this role should be in contact with you very soon.</p>
             <% end %>
-            <%= link_to 'cancel', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
+            <%= link_to 'Click here to remove yourself from this role', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
             <% if volunteer.lead? %>
               <p>
                 You are a lead for this role:
@@ -99,9 +111,9 @@
   <% else %>
     <h2>Sign up to participate</h2>
 
-    <p>Congratulations, you’ve got your ticket for Decom! Now how would you like to participate? Participation and Communal Effort are two of the 10 Burning Man principles, and volunteering at the event is the perfect way to get into the spirit of the event as well as give the Gift of your time back to your Decompression community.</p>
+    <p>Congratulations, you've got your ticket for Decom! Now how would you like to participate? Participation and Communal Effort are two of the 10 Burning Man principles, and volunteering at the event is the perfect way to get into the spirit of the event as well as give the Gift of your time back to your Decompression community.</p>
 
-    <p>There’s opportunities to get involved before the day, on the day in the creation of the venue and throughout the event from entry to strike with a special shout out for those both willing and able to do some sober hours.</p>
+    <p>There's opportunities to get involved before the day, on the day in the creation of the venue and throughout the event from entry to strike with a special shout out for those both willing and able to do some sober hours.</p>
 
     <p>We welcome and respect the stranger with no prerequisites for participation, so take a little look and see what tickles your fancy - shifts are usually 2 hours long, so fear not - plenty of time left to party!</p>
   <% end %>
@@ -118,5 +130,36 @@
     <% end %>
   </div>
 <% end %>
+
+<hr>
+
+<p>Here is the crucial info</p>
+<% if @event.theme_image_url.present? %>
+  <%= image_tag @event.theme_image_url, style: 'width: 100%;' %>
+<% end %>
+
+<div class="row mt-3">
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+    <p><strong><%= @event.name %>: <%= @event.theme %></strong></p>
+    <%= simple_format(@event.theme_details) %>
+  </div>
+
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+    <p><strong>Where:</strong> <%= @event.location %></p>
+    <p><strong>Map:</strong> <%= link_to 'Google Maps Location', @event.maps_location_url %></p>
+    <% if @event.eventbrite_event.eventbrite_event.start.local.nil? %>
+      <p><strong>When:</strong> <%= simple_format(@event.event_timings) %></p>
+    <% else %>
+      <p><strong>When:</strong> <%= @event.eventbrite_start_time.strftime("%A %d %B %Y") %> GMT <%= simple_format(@event.event_timings) %></p>
+    <% end %>
+    <p><strong>Further Information:</strong> <%= @event.further_information %></p>
+    <p><strong>Ticket Information:</strong></p>
+    <p>
+      <%= simple_format(@event.ticket_price_info) %>
+      <%= render partial: '/tickets/low_income' %>
+    </p>
+    <p><%= simple_format(@event.ticket_information) %></p>
+  </div>
+</div>
 
 <p>If you have any questions about volunteering, feel free to email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a></p>

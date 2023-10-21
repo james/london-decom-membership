@@ -1,5 +1,8 @@
 class Event < ApplicationRecord
   has_many :volunteer_roles, dependent: :destroy
+  validates :name, presence: true
+
+  enum event_mode: %i[draft prerelease live ended]
 
   def self.active(early_access: false)
     if early_access
@@ -7,6 +10,10 @@ class Event < ApplicationRecord
     else
       where(active: true).first
     end
+  end
+
+  def eventbrite_start_time
+    Date.parse(eventbrite_event.eventbrite_event.start.local)
   end
 
   def eventbrite_event

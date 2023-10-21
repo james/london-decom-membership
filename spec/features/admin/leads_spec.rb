@@ -9,7 +9,7 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     create(:user, email: 'lead@example.com', name: 'New Lead')
     role = create(:volunteer_role, name: 'Role1')
     click_link 'Events'
-    click_link 'London Decompression 2019'
+    click_link 'Open'
     click_link 'Volunteer Roles'
     click_link '0 leads'
     select 'New Lead (lead@example.com)', from: 'Find member to make a lead'
@@ -28,7 +28,7 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     role = create(:volunteer_role, name: 'Role1')
     create(:volunteer, user: user, volunteer_role: role)
     click_link 'Events'
-    click_link 'London Decompression 2019'
+    click_link 'Open'
     click_link 'Volunteer Roles'
     click_link '0 leads'
     select 'New Lead (lead@example.com)', from: 'Find member to make a lead'
@@ -47,7 +47,7 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     role = create(:volunteer_role, name: 'Role1')
     create(:volunteer, user: user, volunteer_role: role, lead: true)
     click_link 'Events'
-    click_link 'London Decompression 2019'
+    click_link 'Open'
     click_link 'Volunteer Roles'
     click_link '1 lead'
     click_link 'remove'

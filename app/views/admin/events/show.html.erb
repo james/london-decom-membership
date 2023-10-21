@@ -1,1 +1,61 @@
-<%= link_to 'Volunteer Roles', admin_event_volunteer_roles_path(@event) %>
+<h1><%= @event.name %></h1>
+
+<% if @event.live? %>
+  <p>Event is currently active (publicly viewable)</p>
+<% elsif @event.ended? %>
+  <p>Event has ended</p>
+<% else %>
+  <p>Event is currently in <%= @event.event_mode&.titleize %></p>
+<% end %>
+
+<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="eventHeading">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#eventDetailsCollapse" aria-expanded="true" aria-controls="eventDetailsCollapse">
+        Event Details
+      </button>
+    </h2>
+    <div id="eventDetailsCollapse" class="accordion-collapse collapse show" aria-labelledby="eventHeading" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <p>Ticket Sale Start Date: <%= @event.ticket_sale_start_date %></p>
+        <p>Theme: <%= @event.theme %></p>
+        <p>Theme Details: <%= simple_format(@event.theme_details) %></p>
+        <p>Theme Image Url: <%= @event.theme_image_url %></p>
+        <p>Location: <%= @event.location %></p>
+        <p>Maps Location Url: <%= @event.maps_location_url %></p>
+        <p>Event Timings: <%= simple_format(@event.event_timings) %></p>
+        <p>Further Information: <%= simple_format(@event.further_information) %></p>
+        <p>Ticket Price Information: <%= simple_format(@event.ticket_price_info) %></p>
+        <p>Ticket Information: <%= simple_format(@event.ticket_information) %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<%= link_to 'Volunteer Roles', admin_event_volunteer_roles_path(@event), class: "btn btn-secondary mb-3" %>
+<%= link_to 'Edit Event', edit_admin_event_path(@event), class: "btn btn-danger mb-3" %>
+<p>
+  <small class="text-muted">
+    Right now events cannot be deleted, if it is desperately needed, click: <%= mail_to "geeks@londondecom.org", "geeks@londondecom.org", subject: "Event Deletion from Members website (Event ID #{@event.id})" %> to send an email to us!
+  </small>
+</p>
+
+<%# TODO: Make this section for developer admins only or super users %>
+
+<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="techHeading">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#techCollapse" aria-expanded="false" aria-controls="techCollapse">
+        Technical Information
+      </button>
+    </h2>
+    <div id="techCollapse" class="accordion-collapse collapse" aria-labelledby="techHeading" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <pre>Event Created At: <%= @event.created_at %></pre>
+        <pre>Event Last Updated At: <%= @event.updated_at %></pre>
+      </div>
+    </div>
+  </div>
+</div>
