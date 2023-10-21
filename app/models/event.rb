@@ -4,7 +4,7 @@ class Event < ApplicationRecord
   validates :eventbrite_token, presence: true, if: :active?
   validates :eventbrite_id, presence: true, if: :active?
 
-  enum event_mode: [:draft, :prerelease, :live, :ended]
+  enum event_mode: %i[draft prerelease live ended]
 
   def self.active(early_access: false)
     if early_access
@@ -12,6 +12,10 @@ class Event < ApplicationRecord
     else
       where(active: true).first
     end
+  end
+
+  def eventbrite_start_time
+    Date.parse(eventbrite_event.eventbrite_event.start.local)
   end
 
   def eventbrite_event

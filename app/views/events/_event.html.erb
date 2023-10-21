@@ -140,20 +140,20 @@
 
 <div class="row mt-3">
   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-    <p><b><%= @event.name %>: <%= @event.theme %></b></p>
+    <p><strong><%= @event.name %>: <%= @event.theme %></strong></p>
     <%= simple_format(@event.theme_details) %>
   </div>
 
   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-    <p><b>Where:</b> <%= @event.location %></p>
-    <p><b>Map:</b> <%= link_to 'Google Maps Location', @event.maps_location_url %></p>
+    <p><strong>Where:</strong> <%= @event.location %></p>
+    <p><strong>Map:</strong> <%= link_to 'Google Maps Location', @event.maps_location_url %></p>
     <% if @event.eventbrite_event.eventbrite_event.start.local.nil? %>
-      <p><b>When:</b> <%= simple_format(@event.event_timings) %></p>
+      <p><strong>When:</strong> <%= simple_format(@event.event_timings) %></p>
     <% else %>
-      <p><b>When:</b> <%= Date.parse(@event.eventbrite_event.eventbrite_event.start.local).strftime("%A %d %B %Y") %> GMT <%= simple_format(@event.event_timings) %></p>
+      <p><strong>When:</strong> <%= @event.eventbrite_start_time.strftime("%A %d %B %Y") %> GMT <%= simple_format(@event.event_timings) %></p>
     <% end %>
-    <p><b>Further Information:</b> <%= @event.further_information %></p>
-    <p><b>Ticket Information:</b></p>
+    <p><strong>Further Information:</strong> <%= @event.further_information %></p>
+    <p><strong>Ticket Information:</strong></p>
     <p>
       <%= simple_format(@event.ticket_price_info) %>
       <%= render partial: '/tickets/low_income' %>
