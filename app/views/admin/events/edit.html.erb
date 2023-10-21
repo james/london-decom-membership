@@ -1,5 +1,5 @@
 <%= bootstrap_form_for [:admin, @event] do |form| %>
   <%= render partial: 'form', locals: {form: form} %>
-  <%= form.submit 'Update Event' %>
+  <%= form.submit 'Update Event', :disabled => @event.eventbrite_token.nil? || @event.eventbrite_id.nil? %>
   <%= link_to 'Back', :back, class: "btn btn-secondary" %>
 <% end %>

@@ -1,8 +1,6 @@
 class Event < ApplicationRecord
   has_many :volunteer_roles, dependent: :destroy
   validates :name, presence: true
-  validates :eventbrite_token, presence: true, if: :active?
-  validates :eventbrite_id, presence: true, if: :active?
 
   enum event_mode: %i[draft prerelease live ended]
 

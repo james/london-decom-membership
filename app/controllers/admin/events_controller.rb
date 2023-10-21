@@ -26,6 +26,7 @@ class Admin::EventsController < AdminController
 
   def update
     @event = Event.find(params[:id])
+
     if @event.update(event_params)
       redirect_to admin_event_path(@event)
     else
@@ -33,11 +34,11 @@ class Admin::EventsController < AdminController
     end
   end
 
-  #  private
+  private
 
   def event_params
     params.require(:event).permit(
-      :name, :eventbrite_token, :eventbrite_id, :active,
+      :name, :active,
       :ticket_sale_start_date, :theme, :theme_details, :theme_image_url,
       :location, :maps_location_url, :event_timings, :further_information,
       :ticket_price_info, :ticket_information, :event_date, :event_mode
