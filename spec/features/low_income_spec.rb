@@ -9,6 +9,38 @@ RSpec.feature 'Low Income', type: :feature do
     expect(page).to_not have_text('Apply for low income')
   end
 
+  scenario 'prerelease event and user has 1 available tickets can apply for low income' do
+    stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
+    create(:event, :prerelease)
+    login
+
+    expect(page).to have_text('Apply for low income')
+  end
+
+  scenario 'prerelease event and user has 0 available tickets can no longer apply for low income' do
+    stub_eventbrite_event(available_tickets_for_code: 0, tickets_sold_for_code: 1)
+    create(:event, :prerelease)
+    login
+
+    expect(page).to_not have_text('Apply for low income')
+  end
+
+  scenario 'live event and user has 1 available tickets can apply for low income' do
+    stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
+    create(:event, :live)
+    login
+
+    expect(page).to have_text('Apply for low income')
+  end
+
+  scenario 'live event and user has 0 available tickets can no longer apply for low income' do
+    stub_eventbrite_event(available_tickets_for_code: 0, tickets_sold_for_code: 1)
+    create(:event, :live)
+    login
+
+    expect(page).to_not have_text('Apply for low income')
+  end
+
   scenario 'user has 1 available tickets and bought none' do
     stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
     create(:event)
