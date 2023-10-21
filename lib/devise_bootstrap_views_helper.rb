@@ -19,6 +19,4 @@ module DeviseBootstrapViewsHelper
 
     html.html_safe
   end
-
-  module_function :bootstrap_devise_error_messages!
 end
