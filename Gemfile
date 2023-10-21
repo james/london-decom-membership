@@ -16,7 +16,7 @@ gem 'rubocop', '0.74'
 gem 'rollbar'
 
 gem 'devise'
-gem 'devise-bootstrap-views', '~> 1.0'
+gem 'devise-i18n'
 
 gem 'bootstrap'
 gem 'jquery-rails'
