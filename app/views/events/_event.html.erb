@@ -97,11 +97,7 @@
   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
     <p><strong>Where:</strong> <%= @event.location %></p>
     <p><strong>Map:</strong> <%= link_to 'Google Maps Location', @event.maps_location_url %></p>
-    <% if @event.eventbrite_event.eventbrite_event.start.local.nil? %>
       <p><strong>When:</strong> <%= simple_format(@event.event_timings) %></p>
-    <% else %>
-      <p><strong>When:</strong> <%= @event.eventbrite_start_time.strftime("%A %d %B %Y") %> GMT <%= simple_format(@event.event_timings) %></p>
-    <% end %>
     <p><strong>Further Information:</strong> <%= @event.further_information %></p>
     <p><strong>Ticket Information:</strong></p>
     <p>
