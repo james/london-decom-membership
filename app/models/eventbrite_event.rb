@@ -8,7 +8,9 @@ class EventbriteEvent
   end
 
   def eventbrite_event
-    @eventbrite_event ||= EventbriteSDK::Event.retrieve(id: eventbrite_id)
+    @eventbrite_event ||= Rails.cache.fetch("eventbrite/event/#{eventbrite_id}", expires_in: 1.hour) do
+      EventbriteSDK::Event.retrieve(id: eventbrite_id)
+    end
   end
 
   delegate :organization_id, to: :eventbrite_event
@@ -35,11 +37,14 @@ class EventbriteEvent
   def discount_code(code)
     return @discount_code if @discount_code
 
-    response = HTTP.get(
-      "https://www.eventbriteapi.com/v3/organizations/#{organization_id}/discounts/" \
-      "?scope=event&code=#{code}&event_id=#{eventbrite_id}&token=#{eventbrite_token}"
-    )
-    discounts = JSON.parse(response)['discounts']
+    discounts = Rails.cache.fetch("eventbrite/discounts/#{eventbrite_id}/#{code}", expires_in: 30.minutes) do
+      response = HTTP.get(
+        "https://www.eventbriteapi.com/v3/organizations/#{organization_id}/discounts/" \
+        "?scope=event&code=#{code}&event_id=#{eventbrite_id}&token=#{eventbrite_token}"
+      )
+      JSON.parse(response)['discounts']
+    end
+
     raise EventbriteDiscountCodeNotFound, "Code #{code} does not exist in Eventbrite" if discounts.empty?
 
     @discount_code = discounts[0]

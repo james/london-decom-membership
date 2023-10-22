@@ -51,13 +51,26 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  if ENV['REDIS_URL'].present? && ENV['REDIS_PORT'].present?
+    config.cache_store = :redis_cache_store, {
+      url: "redis://#{ENV['REDIS_URL']}:#{ENV['REDIS_PORT']}",
+      db: 0,
+      namespace: 'cache'
+    }
+
+    config.session_store :redis_store,
+                         servers: ["redis://#{ENV['REDIS_URL']}:#{ENV['REDIS_PORT']}/0/session"],
+                         expire_after: 90.minutes,
+                         key: "_#{Rails.application.class.module_parent_name.downcase}_session",
+                         threadsafe: true,
+                         secure: true
+  end
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
