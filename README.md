@@ -99,6 +99,9 @@ Once enabled, it uses the `HOST_NAME` environment variable to populate the `data
 
 In your Plausible analytics account, from the logged in page, click `add website`, fill in the data for the site e.g `members.londondecom.org` and you are done! Once the site is live and analytics are enabled it will start recording!
 
+### REDIS_URL & REDIS_PORT
+
+Add these values to enable the REDIS caching, by default we don't do any caching on test and production, but in dev, you can enable caching (in memory) by running `rails dev:cache` to toggle local caching.
 
 ## Making admin users
 
