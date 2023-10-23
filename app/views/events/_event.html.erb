@@ -15,26 +15,12 @@
         available to you. Look below to see how you can participate.
       </p>
     <% elsif current_user.ticket_type != :general %>
-      <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
       <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
         Buy
         <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
       </button>
       <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
-      <script type="text/javascript">
-          var modalCloseCallback = function() {
-            location.reload();
-          };
 
-          window.EBWidgets.createWidget({
-              widgetType: 'checkout',
-              eventId: <%= @event.eventbrite_id %>,
-              modal: true,
-              modalTriggerElementId: 'eventbrite-buy-link',
-              onWidgetModalClose: modalCloseCallback,
-              promoCode: '<%= current_user.membership_number %>'
-          });
-      </script>
     <% else %>
       <p style="margin-bottom: 0">
         <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
@@ -47,21 +33,6 @@
           <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
         <% end %>
       </p>
-      <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
-      <script type="text/javascript">
-          var modalCloseCallback = function() {
-            location.reload();
-          };
-
-          window.EBWidgets.createWidget({
-              widgetType: 'checkout',
-              eventId: <%= @event.eventbrite_id %>,
-              modal: true,
-              modalTriggerElementId: 'eventbrite-buy-link',
-              onWidgetModalClose: modalCloseCallback,
-              promoCode: '<%= current_user.membership_number %>'
-          });
-      </script>
       <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
         Buy
         <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
@@ -168,3 +139,29 @@
     <p><%= simple_format(@event.ticket_information) %></p>
   </div>
 </div>
+
+<p>If you have any questions about volunteering, feel free to email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a></p>
+
+<% if current_user.ticket_type != :general || @event.available_tickets_for_code(current_user.membership_number) > 0 %>
+<script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+<script type="text/javascript">
+    var orderCompleteCallback = function() {
+      const request = $.ajax({
+        type: 'PATCH',
+        url: "/events/<%= @event.id %>/clear_discount_from_cache?eventbrite_id=<%= @event.eventbrite_id %>&code=<%= current_user.membership_number %>"
+      });
+      request.done((response) => {
+        location.reload();
+      });
+    };
+
+    window.EBWidgets.createWidget({
+      widgetType: 'checkout',
+      eventId: <%= @event.eventbrite_id %>,
+      modal: true,
+      modalTriggerElementId: 'eventbrite-buy-link',
+      onOrderComplete: orderCompleteCallback,
+      promoCode: '<%= current_user.membership_number %>'
+    });
+</script>
+<% end %>

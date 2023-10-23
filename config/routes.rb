@@ -25,7 +25,8 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :events, only: %i[] do
+  resources :events, only: %i[patch] do
+    patch :clear_discount_from_cache
     resources :volunteer_roles, only: [] do
       resources :volunteers, only: %i[index new create destroy update]
     end
