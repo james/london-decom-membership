@@ -57,7 +57,24 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  if ENV['REDIS_URL'] && ENV['REDIS_PORT']
+    config.cache_store = :redis_cache_store, {
+      url: ENV['REDIS_URL'], port: ENV['REDIS_PORT'], db: 0, namespace: 'cache',
+      expires_in: 90.minutes
+    }
+
+    config.session_store :redis_store,
+                         servers: [{
+                           url: ENV['REDIS_URL'],
+                           port: ENV['REDIS_PORT'],
+                           db: 0,
+                           namespace: 'session'
+                         }],
+                         expire_after: 90.minutes,
+                         key: "_#{Rails.application.class.module_parent_name.downcase}_session",
+                         threadsafe: true,
+                         secure: true
+  end
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
