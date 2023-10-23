@@ -10,6 +10,7 @@ RSpec.feature 'Low Income', type: :feature do
   end
 
   scenario 'prerelease event and user has 1 available tickets can apply for low income' do
+    pending 'disabled for the year'
     stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
     create(:event, :prerelease)
     login
@@ -26,6 +27,7 @@ RSpec.feature 'Low Income', type: :feature do
   end
 
   scenario 'live event and user has 1 available tickets can apply for low income' do
+    pending 'disabled for the year'
     stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
     create(:event, :live)
     login
@@ -42,6 +44,7 @@ RSpec.feature 'Low Income', type: :feature do
   end
 
   scenario 'user has 1 available tickets and bought none' do
+    pending 'disabled for the year'
     stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
     create(:event)
     login
