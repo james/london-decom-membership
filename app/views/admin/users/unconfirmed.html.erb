@@ -16,7 +16,7 @@
       <td><%= user.email %></td>
       <td><%= distance_of_time_in_words(user.created_at.to_time - Time.now) %></td>
       <td>
-        <% if user.has_confirmation_period_expired? %>
+        <% if user.confirmation_period_expired? %>
           <%= button_to 'Resend Confirmation', resend_email_admin_user_path(user), method: :post %>
         <% else %>
           Last confirmation sent <%= distance_of_time_in_words(user.confirmation_sent_at.to_time - Time.now) %> ago

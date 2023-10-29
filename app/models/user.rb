@@ -92,8 +92,8 @@ class User < ApplicationRecord
     Rollbar.error(e)
   end
 
-  def has_confirmation_period_expired?
-    confirmation_period_expired?
+  def confirmation_period_expired?
+    super
   end
 
   private
