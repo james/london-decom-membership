@@ -106,29 +106,28 @@
 
   <% if current_user.volunteers_for_event(@event).any? %>
     <h2>Have you more to give?</h2>
-
     <p>You can apply for more than one role if you like.</p>
   <% else %>
-    <h2>Sign up to participate</h2>
-
-    <p>Congratulations, you've got your ticket for Decom! Now how would you like to participate? Participation and Communal Effort are two of the 10 Burning Man principles, and volunteering at the event is the perfect way to get into the spirit of the event as well as give the Gift of your time back to your Decompression community.</p>
-
-    <p>There's opportunities to get involved before the day, on the day in the creation of the venue and throughout the event from entry to strike with a special shout out for those both willing and able to do some sober hours.</p>
-
-    <p>We welcome and respect the stranger with no prerequisites for participation, so take a little look and see what tickles your fancy - shifts are usually 2 hours long, so fear not - plenty of time left to party!</p>
+    <h2>Volunteer opportunities</h2>
+    <p>Congratulations, you've got your ticket for Decom!</p>
+    <p>Now, which team would you like to gift some of your time to? ;&#41;</p>
   <% end %>
 
   <div class="list-group">
     <% @volunteer_roles.each do |volunteer_role| %>
-      <a href="<%= new_event_volunteer_role_volunteer_path(@event, volunteer_role) %>" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
-        <div>
+      <div class="row border">
+        <div class="col-8">
           <h5><%= volunteer_role.name %></h5>
           <%= simple_format volunteer_role.brief_description %>
         </div>
-        <span class="badge badge-primary badge-pill">Sign up now</span>
-      </a>
+        <div class="col-4 d-flex justify-content-end" style="align-items: start; padding-top: 5px">
+          <a href="<%= new_event_volunteer_role_volunteer_path(@event, volunteer_role) %>" class="btn btn-primary">Volunteer</a>
+        </div>
+      </div>
     <% end %>
   </div>
+  <br />
+  <p>If you have any questions about volunteering, feel free to email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a></p>
 <% end %>
 
 <hr>
@@ -161,5 +160,3 @@
     <p><%= simple_format(@event.ticket_information) %></p>
   </div>
 </div>
-
-<p>If you have any questions about volunteering, feel free to email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a></p>

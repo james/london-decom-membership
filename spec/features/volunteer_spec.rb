@@ -5,7 +5,7 @@ RSpec.feature 'Volunteering', type: :feature do
     stub_eventbrite_event(tickets_sold_for_code: 0)
     create(:event)
     login
-    expect(page).to_not have_text('Sign up to volunteer')
+    expect(page).to_not have_text('Volunteer opportunities')
   end
 
   scenario 'signing up to volunteer successfully' do
@@ -15,7 +15,7 @@ RSpec.feature 'Volunteering', type: :feature do
     login
 
     expect(page).to have_text('Ranger')
-    click_link 'Ranger'
+    click_link 'Volunteer'
     expect(page).to have_text('A description of rangering')
     fill_in 'Phone', with: '07777777'
     fill_in 'Additional comments', with: 'some addition comments'
