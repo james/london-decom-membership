@@ -71,6 +71,14 @@
   <% end %>
 
   <%= render partial: '/tickets/low_income' %>
+
+  <% if @event.tickets_sold_for_code(current_user.membership_number) == 0 %>
+    <p>
+      <strong>
+        Bought a transferred ticket and can't see the volunteer opportunities on this page? Drop an email to <a href="mailto:members@londondecom.org">members@londondecom.org</a> and we'll sort you out!
+      </strong>
+    </p>
+  <% end %>
 </p>
 
 <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
