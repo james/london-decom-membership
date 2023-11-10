@@ -13,19 +13,17 @@
     <th></th>
   </tr>
   <% @volunteer_roles.each do |volunteer_role| %>
-    <% cache volunteer_role do %>
-      <tr>
-        <td><%= volunteer_role.name %></td>
-        <td><%= volunteer_role.brief_description %></td>
-        <td><%= volunteer_role.description %></td>
-        <td><%= volunteer_role.priority %></td>
-        <td><%= volunteer_role.hidden %></td>
-        <td><%= link_to 'edit', edit_admin_event_volunteer_role_path(@event, volunteer_role) %></td>
-        <td><%= link_to pluralize(volunteer_role.leads.count, 'lead'), admin_event_volunteer_role_volunteers_path(@event, volunteer_role) %></td>
-        <td><%= link_to pluralize(volunteer_role.volunteers.count, 'volunteer'), event_volunteer_role_volunteers_path(@event, volunteer_role) %></td>
-        <td><%= button_to 'destroy', admin_event_volunteer_role_path(@event, volunteer_role), method: :delete, data: {confirm: 'Are you sure? This is irreversible'} %></td>
-      </tr>
-    <% end %>
+    <tr>
+      <td><%= volunteer_role.name %></td>
+      <td><%= volunteer_role.brief_description %></td>
+      <td><%= volunteer_role.description %></td>
+      <td><%= volunteer_role.priority %></td>
+      <td><%= volunteer_role.hidden %></td>
+      <td><%= link_to 'edit', edit_admin_event_volunteer_role_path(@event, volunteer_role) %></td>
+      <td><%= link_to pluralize(volunteer_role.leads.count, 'lead'), admin_event_volunteer_role_volunteers_path(@event, volunteer_role) %></td>
+      <td><%= link_to pluralize(volunteer_role.volunteers.count, 'volunteer'), event_volunteer_role_volunteers_path(@event, volunteer_role) %></td>
+      <td><%= button_to 'destroy', admin_event_volunteer_role_path(@event, volunteer_role), method: :delete, data: {confirm: 'Are you sure? This is irreversible'} %></td>
+    </tr>
   <% end %>
 </table>
 
