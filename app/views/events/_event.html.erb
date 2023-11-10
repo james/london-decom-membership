@@ -59,25 +59,27 @@
 
     <div class="list-group">
       <% current_user.volunteers_for_event(@event).each do |volunteer| %>
-        <div class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <h5><%= volunteer.volunteer_role.name %></h5>
-            <% if volunteer.state == 'confirmed' %>
-              <p>You are confirmed as a volunteer</p>
-            <% elsif volunteer.state == 'contacted' %>
-              <p>You have been contacted by a lead</p>
-            <% else %>
-              <p>The leads for this role should be in contact with you very soon.</p>
-            <% end %>
-            <%= link_to 'Click here to remove yourself from this role', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
-            <% if volunteer.lead? %>
-              <p>
-                You are a lead for this role:
-                <%= link_to 'view volunteers', event_volunteer_role_volunteers_path(@event, volunteer.volunteer_role) %>
-              </p>
-            <% end %>
+        <% cache volunteer do %>
+          <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <h5><%= volunteer.volunteer_role.name %></h5>
+              <% if volunteer.state == 'confirmed' %>
+                <p>You are confirmed as a volunteer</p>
+              <% elsif volunteer.state == 'contacted' %>
+                <p>You have been contacted by a lead</p>
+              <% else %>
+                <p>The leads for this role should be in contact with you very soon.</p>
+              <% end %>
+              <%= link_to 'Click here to remove yourself from this role', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
+              <% if volunteer.lead? %>
+                <p>
+                  You are a lead for this role:
+                  <%= link_to 'view volunteers', event_volunteer_role_volunteers_path(@event, volunteer.volunteer_role) %>
+                </p>
+              <% end %>
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
 
       <hr />
@@ -94,15 +96,17 @@
 
   <div class="list-group">
     <% @volunteer_roles.each do |volunteer_role| %>
-      <div class="row border">
-        <div class="col-8">
-          <h5><%= volunteer_role.name %></h5>
-          <%= simple_format volunteer_role.brief_description %>
+      <% cache volunteer_role do %>
+        <div class="row border">
+          <div class="col-8">
+            <h5><%= volunteer_role.name %></h5>
+            <%= simple_format volunteer_role.brief_description %>
+          </div>
+          <div class="col-4 d-flex justify-content-end" style="align-items: start; padding-top: 5px">
+            <a href="<%= new_event_volunteer_role_volunteer_path(@event, volunteer_role) %>" class="btn btn-primary">Volunteer</a>
+          </div>
         </div>
-        <div class="col-4 d-flex justify-content-end" style="align-items: start; padding-top: 5px">
-          <a href="<%= new_event_volunteer_role_volunteer_path(@event, volunteer_role) %>" class="btn btn-primary">Volunteer</a>
-        </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
   <br />

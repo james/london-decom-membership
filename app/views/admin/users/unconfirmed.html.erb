@@ -9,10 +9,12 @@
     <th>Confirmation Link</th>
   </tr>
   <% @users.each do |user| %>
-    <tr>
+    <% cache user do %>
+      <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
       <td><%= link_to 'Link', confirmation_url(user, confirmation_token: user.confirmation_token) %></td>
-    </tr>
+      </tr>
+    <% end %>
   <% end %>
 </table>

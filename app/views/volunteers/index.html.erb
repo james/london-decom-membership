@@ -20,25 +20,27 @@
     <th></th>
   </tr>
   <% @volunteers.each do |volunteer| %>
-    <tr>
-      <td><%= volunteer.user.name %></td>
-      <td><%= volunteer.user.email %></td>
-      <td><%= volunteer.phone %></td>
-      <td><%= volunteer.additional_comments %></td>
-      <td>
-        <%= volunteer.state %>
-        <% if volunteer.next_state %>
-          <%= form_for [@event, @volunteer_role, volunteer] do |form| %>
-            <%= form.hidden_field :state, value: volunteer.next_state %>
-            <%= form.submit "Mark as #{volunteer.next_state}" %>
+    <% cache volunteer do %>
+      <tr>
+        <td><%= volunteer.user.name %></td>
+        <td><%= volunteer.user.email %></td>
+        <td><%= volunteer.phone %></td>
+        <td><%= volunteer.additional_comments %></td>
+        <td>
+          <%= volunteer.state %>
+          <% if volunteer.next_state %>
+            <%= form_for [@event, @volunteer_role, volunteer] do |form| %>
+              <%= form.hidden_field :state, value: volunteer.next_state %>
+              <%= form.submit "Mark as #{volunteer.next_state}" %>
+            <% end %>
           <% end %>
-        <% end %>
-      </td>
-      <td>
-        <%= form_for [@event, @volunteer_role, volunteer], method: :delete do |form| %>
-          <%= form.submit "remove", data: {confirm: 'Are you sure?'} %>
-        <% end %>
-      </td>
-    </tr>
+        </td>
+        <td>
+          <%= form_for [@event, @volunteer_role, volunteer], method: :delete do |form| %>
+            <%= form.submit "remove", data: {confirm: 'Are you sure?'} %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
 </table>

@@ -17,14 +17,16 @@
     <th>Actions</th>
   </tr>
   <% @users.each do |user| %>
-    <tr>
-      <td><%= user.name %></td>
-      <td><%= user.email %></td>
-      <td><%= user.admin? %></td>
-      <td><%= user.early_access? %></td>
-      <td><%= user.created_at.to_s(:long) %></td>
-      <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
-    </tr>
+    <% cache user do %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.admin? %></td>
+        <td><%= user.early_access? %></td>
+        <td><%= user.created_at.to_s(:long) %></td>
+        <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
+      </tr>
+    <% end %>
   <% end %>
 </table>
 
