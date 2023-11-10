@@ -15,26 +15,12 @@
         available to you. Look below to see how you can participate.
       </p>
     <% elsif current_user.ticket_type != :general %>
-      <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
       <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
         Buy
         <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
       </button>
       <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
-      <script type="text/javascript">
-          var modalCloseCallback = function() {
-            location.reload();
-          };
 
-          window.EBWidgets.createWidget({
-              widgetType: 'checkout',
-              eventId: <%= @event.eventbrite_id %>,
-              modal: true,
-              modalTriggerElementId: 'eventbrite-buy-link',
-              onWidgetModalClose: modalCloseCallback,
-              promoCode: '<%= current_user.membership_number %>'
-          });
-      </script>
     <% else %>
       <p style="margin-bottom: 0">
         <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
@@ -47,21 +33,6 @@
           <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
         <% end %>
       </p>
-      <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
-      <script type="text/javascript">
-          var modalCloseCallback = function() {
-            location.reload();
-          };
-
-          window.EBWidgets.createWidget({
-              widgetType: 'checkout',
-              eventId: <%= @event.eventbrite_id %>,
-              modal: true,
-              modalTriggerElementId: 'eventbrite-buy-link',
-              onWidgetModalClose: modalCloseCallback,
-              promoCode: '<%= current_user.membership_number %>'
-          });
-      </script>
       <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
         Buy
         <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
@@ -88,25 +59,27 @@
 
     <div class="list-group">
       <% current_user.volunteers_for_event(@event).each do |volunteer| %>
-        <div class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <h5><%= volunteer.volunteer_role.name %></h5>
-            <% if volunteer.state == 'confirmed' %>
-              <p>You are confirmed as a volunteer</p>
-            <% elsif volunteer.state == 'contacted' %>
-              <p>You have been contacted by a lead</p>
-            <% else %>
-              <p>The leads for this role should be in contact with you very soon.</p>
-            <% end %>
-            <%= link_to 'Click here to remove yourself from this role', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
-            <% if volunteer.lead? %>
-              <p>
-                You are a lead for this role:
-                <%= link_to 'view volunteers', event_volunteer_role_volunteers_path(@event, volunteer.volunteer_role) %>
-              </p>
-            <% end %>
+        <% cache volunteer do %>
+          <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <h5><%= volunteer.volunteer_role.name %></h5>
+              <% if volunteer.state == 'confirmed' %>
+                <p>You are confirmed as a volunteer</p>
+              <% elsif volunteer.state == 'contacted' %>
+                <p>You have been contacted by a lead</p>
+              <% else %>
+                <p>The leads for this role should be in contact with you very soon.</p>
+              <% end %>
+              <%= link_to 'Click here to remove yourself from this role', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
+              <% if volunteer.lead? %>
+                <p>
+                  You are a lead for this role:
+                  <%= link_to 'view volunteers', event_volunteer_role_volunteers_path(@event, volunteer.volunteer_role) %>
+                </p>
+              <% end %>
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
 
       <hr />
@@ -123,15 +96,17 @@
 
   <div class="list-group">
     <% @volunteer_roles.each do |volunteer_role| %>
-      <div class="row border">
-        <div class="col-8">
-          <h5><%= volunteer_role.name %></h5>
-          <%= simple_format volunteer_role.brief_description %>
+      <% cache volunteer_role do %>
+        <div class="row border">
+          <div class="col-8">
+            <h5><%= volunteer_role.name %></h5>
+            <%= simple_format volunteer_role.brief_description %>
+          </div>
+          <div class="col-4 d-flex justify-content-end" style="align-items: start; padding-top: 5px">
+            <a href="<%= new_event_volunteer_role_volunteer_path(@event, volunteer_role) %>" class="btn btn-primary">Volunteer</a>
+          </div>
         </div>
-        <div class="col-4 d-flex justify-content-end" style="align-items: start; padding-top: 5px">
-          <a href="<%= new_event_volunteer_role_volunteer_path(@event, volunteer_role) %>" class="btn btn-primary">Volunteer</a>
-        </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
   <br />
@@ -168,3 +143,29 @@
     <p><%= simple_format(@event.ticket_information) %></p>
   </div>
 </div>
+
+<p>If you have any questions about volunteering, feel free to email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a></p>
+
+<% if current_user.ticket_type != :general || @event.available_tickets_for_code(current_user.membership_number) > 0 %>
+<script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+<script type="text/javascript">
+    var orderCompleteCallback = function() {
+      const request = $.ajax({
+        type: 'PATCH',
+        url: "/events/<%= @event.id %>/clear_discount_from_cache?eventbrite_id=<%= @event.eventbrite_id %>&code=<%= current_user.membership_number %>"
+      });
+      request.done((response) => {
+        location.reload();
+      });
+    };
+
+    window.EBWidgets.createWidget({
+      widgetType: 'checkout',
+      eventId: <%= @event.eventbrite_id %>,
+      modal: true,
+      modalTriggerElementId: 'eventbrite-buy-link',
+      onOrderComplete: orderCompleteCallback,
+      promoCode: '<%= current_user.membership_number %>'
+    });
+</script>
+<% end %>

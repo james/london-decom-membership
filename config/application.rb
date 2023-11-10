@@ -20,5 +20,24 @@ module LondonDecomMembership
     config.action_mailer.postmark_settings = {
       api_token: ENV['POSTMARK_API_TOKEN']
     }
+
+    if (ENV['REDIS_URL'] && ENV['REDIS_PORT']) && !Rails.env.test?
+      config.cache_store = :redis_cache_store, {
+        url: ENV['REDIS_URL'], port: ENV['REDIS_PORT'], db: 0, namespace: 'cache',
+        expires_in: 90.minutes
+      }
+
+      config.session_store :redis_store,
+                           servers: [{
+                             url: ENV['REDIS_URL'],
+                             port: ENV['REDIS_PORT'],
+                             db: 0,
+                             namespace: 'session'
+                           }],
+                           expire_after: 90.minutes,
+                           key: "_#{Rails.application.class.module_parent_name.downcase}_session",
+                           threadsafe: true,
+                           secure: true
+    end
   end
 end
