@@ -1,6 +1,8 @@
 <% if @event and !@event.draft? %>
   <% if @event.ended? %>
-    <%= render partial: '/events/event_ended' %>
+    <center>
+      <%= render partial: '/events/event_ended' %>
+    </center>
   <% else %>
     <%= render partial: '/events/event' %>
   <% end %>
