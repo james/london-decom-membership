@@ -67,7 +67,12 @@ class User < ApplicationRecord
     # that later on, this is more important
     gibbon.lists(list_id).members(email_hash).actions.delete_permanent.create
   rescue Gibbon::MailChimpError => e
-    Rollbar.error(e)
+    # Note: the reason for this is even if we check if the user exists, we'd get
+    #       a 404 response from MailChimp and whilst we shouldn't exclude errors
+    #       there is little benefit to reporting this error
+    if e.status_code != 404
+      Rollbar.error(e)
+    end
   end
 
   def update_mailchimp
