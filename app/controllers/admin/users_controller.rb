@@ -29,11 +29,6 @@ class Admin::UsersController < AdminController
     redirect_to action: :index
   end
 
-  def resend_email
-    @user = User.find(params[:id])
-    @user.resend_confirmation_instructions
-  end
-
   def give_direct_sale
     @user = User.find(params[:id])
     direct_sale_code = DirectSaleCode.available.first

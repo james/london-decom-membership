@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       end
       member do
         patch :give_direct_sale
-        post :resend_email
       end
     end
     resources :membership_codes
