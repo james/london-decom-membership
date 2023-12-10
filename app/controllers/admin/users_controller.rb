@@ -19,6 +19,13 @@ class Admin::UsersController < AdminController
   def update
     @user = User.find(params[:id])
     @user.update!(user_params)
+    @user.update_mailchimp
+    redirect_to action: :index
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
     redirect_to action: :index
   end
 

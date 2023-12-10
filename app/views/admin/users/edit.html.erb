@@ -7,6 +7,10 @@
   <%= form.submit 'Update user details' %>
 <% end %>
 
+<div class="mt-3">
+  <%= button_to 'Delete', admin_user_path(@user), method: :delete, data: {confirm: 'Are you sure? This is irreversible'}, class: "btn btn-danger" %>
+</div>
+
 <hr>
 
 <% if @user.ticket_type == :direct %>
