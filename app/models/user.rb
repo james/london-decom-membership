@@ -24,6 +24,8 @@ class User < ApplicationRecord
   scope :confirmed, -> { where('confirmed_at IS NOT NULL') }
   scope :unconfirmed, -> { where('confirmed_at IS NULL') }
 
+  before_destroy :delete_mailchimp_user
+
   def ticket_type
     if low_income_request && low_income_request.status == 'approved'
       :low_income
@@ -57,6 +59,22 @@ class User < ApplicationRecord
     Digest::MD5.hexdigest(email)
   end
 
+  def delete_mailchimp_user
+    return if ENV['MAILCHIMP_TOKEN'].blank?
+
+    # To ensure we don't have any issues, delete the user fully.
+    # This will mean they will need to resubscribe and fill out a form, but we can address
+    # that later on, this is more important
+    gibbon.lists(list_id).members(email_hash).actions.delete_permanent.create
+  rescue Gibbon::MailChimpError => e
+    # Note: the reason for this is even if we check if the user exists, we'd get
+    #       a 404 response from MailChimp and whilst we shouldn't exclude errors
+    #       there is little benefit to reporting this error
+    if e.status_code != 404
+      Rollbar.error(e)
+    end
+  end
+
   def update_mailchimp
     return if ENV['MAILCHIMP_TOKEN'].blank?
 
@@ -77,6 +95,10 @@ class User < ApplicationRecord
     )
   rescue Gibbon::MailChimpError => e
     Rollbar.error(e)
+  end
+
+  def confirmation_period_expired?
+    super
   end
 
   private

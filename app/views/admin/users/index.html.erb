@@ -1,6 +1,6 @@
 <h2>Members</h2>
 
-<p>There are currently <%= User.confirmed.count %> members</p>
+<p>There is currently <%= pluralize(User.confirmed.count, 'member') %></p>
 
 <%= form_tag nil, method: :get do %>
   <%= text_field_tag :q, params[:q] %>
