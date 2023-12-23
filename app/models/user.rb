@@ -70,9 +70,7 @@ class User < ApplicationRecord
     # Note: the reason for this is even if we check if the user exists, we'd get
     #       a 404 response from MailChimp and whilst we shouldn't exclude errors
     #       there is little benefit to reporting this error
-    if e.status_code != 404
-      Rollbar.error(e)
-    end
+    Rollbar.error(e) if e.status_code != 404
   end
 
   def update_mailchimp
