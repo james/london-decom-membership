@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.6'
+ruby '3.3.0'
 
 gem 'rails', '~> 6.1'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 5'
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 gem 'terser'
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
