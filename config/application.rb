@@ -21,16 +21,16 @@ module LondonDecomMembership
       api_token: ENV['POSTMARK_API_TOKEN']
     }
 
-    if (ENV['REDIS_URL'] && ENV['REDIS_PORT']) && !Rails.env.test?
+    if (ENV.fetch('REDIS_URL', nil) && ENV.fetch('REDIS_PORT', nil)) && !Rails.env.test?
       config.cache_store = :redis_cache_store, {
-        url: ENV['REDIS_URL'], port: ENV['REDIS_PORT'], db: 0, namespace: 'cache',
+        url: ENV.fetch('REDIS_URL', nil), port: ENV.fetch('REDIS_PORT', nil), db: 0, namespace: 'cache',
         expires_in: 90.minutes
       }
 
       config.session_store :redis_store,
                            servers: [{
-                             url: ENV['REDIS_URL'],
-                             port: ENV['REDIS_PORT'],
+                             url: ENV.fetch('REDIS_URL', nil),
+                             port: ENV.fetch('REDIS_PORT', nil),
                              db: 0,
                              namespace: 'session'
                            }],

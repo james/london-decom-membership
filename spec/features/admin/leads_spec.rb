@@ -26,7 +26,7 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     login(admin: true)
     user = create(:user, email: 'lead@example.com', name: 'New Lead')
     role = create(:volunteer_role, name: 'Role1')
-    create(:volunteer, user: user, volunteer_role: role)
+    create(:volunteer, user:, volunteer_role: role)
     click_link 'Events'
     click_link 'Open'
     click_link 'Volunteer Roles'
@@ -45,7 +45,7 @@ RSpec.feature 'Volunteer Roles Admin', type: :feature do
     login(admin: true)
     user = create(:user, email: 'lead@example.com', name: 'New Lead')
     role = create(:volunteer_role, name: 'Role1')
-    create(:volunteer, user: user, volunteer_role: role, lead: true)
+    create(:volunteer, user:, volunteer_role: role, lead: true)
     click_link 'Events'
     click_link 'Open'
     click_link 'Volunteer Roles'

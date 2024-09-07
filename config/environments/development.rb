@@ -29,7 +29,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = ENV['USE_LOCAL_SSL']
+  config.force_ssl = ENV.fetch('USE_LOCAL_SSL', false)
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -61,7 +61,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { host: ENV['HOST_NAME'] || 'localhost', port: 3000, protocol: 'https' }
-  logger = ActiveSupport::Logger.new(STDOUT)
+  logger = ActiveSupport::Logger.new($stdout)
   logger.formatter = config.log_formatter
   config.logger = ActiveSupport::TaggedLogging.new(logger)
 end

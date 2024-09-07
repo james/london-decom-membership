@@ -42,10 +42,10 @@ RSpec.feature 'Volunteering', type: :feature do
 
   scenario 'cancelling a volunteering' do
     volunteer_role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
-    lead = create(:volunteer, volunteer_role: volunteer_role, lead: true).user
+    lead = create(:volunteer, volunteer_role:, lead: true).user
     stub_eventbrite_event(tickets_sold_for_code: 1)
     login
-    create(:volunteer, user: @user, volunteer_role: volunteer_role)
+    create(:volunteer, user: @user, volunteer_role:)
 
     visit root_path
     click_link 'Click here to remove yourself from this role'

@@ -1,6 +1,8 @@
 class EventbriteDiscountCodeNotFound < StandardError; end
+
 class EventbriteEvent
   attr_accessor :eventbrite_token, :eventbrite_id
+
   def initialize(eventbrite_token, eventbrite_id)
     @eventbrite_token = eventbrite_token
     @eventbrite_id = eventbrite_id
@@ -15,7 +17,7 @@ class EventbriteEvent
 
   delegate :organization_id, to: :eventbrite_event
 
-  # note: only used by rake tasks
+  # NOTE: only used by rake tasks
   def fetch_all_discounts
     discounts = []
     page = 1
