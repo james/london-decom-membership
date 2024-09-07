@@ -16,11 +16,6 @@ module LondonDecomMembership
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.action_mailer.delivery_method = :postmark
-    config.action_mailer.postmark_settings = {
-      api_token: ENV['POSTMARK_API_TOKEN']
-    }
-
     if (ENV.fetch('REDIS_URL', nil) && ENV.fetch('REDIS_PORT', nil)) && !Rails.env.test?
       config.cache_store = :redis_cache_store, {
         url: ENV.fetch('REDIS_URL', nil), port: ENV.fetch('REDIS_PORT', nil), db: 0, namespace: 'cache',
