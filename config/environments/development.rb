@@ -42,6 +42,8 @@ Rails.application.configure do
     port: ENV.fetch('MAILCATCHER_SMTP_PORT', 1025)
   }
   config.action_mailer.raise_delivery_errors = false
+  # Sets the URL in the email for things like activating a user!
+  config.action_mailer.default_url_options = { host: ENV['HOST_NAME'] || 'localhost', port: 3000, protocol: 'https' }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -67,7 +69,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.action_mailer.default_url_options = { host: ENV['HOST_NAME'] || 'localhost', port: 3000, protocol: 'https' }
   logger = ActiveSupport::Logger.new($stdout)
   logger.formatter = config.log_formatter
   config.logger = ActiveSupport::TaggedLogging.new(logger)
