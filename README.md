@@ -205,3 +205,15 @@ When creating the event, you can put an event into Draft without having any Even
 ### Note
 
 The fields `Event Timings`, `Theme Details` and `Further Information` are multiline and will save the line breaks, meaning what you type in the box will be what you get (within reason) on the front end.
+
+## Scheduler
+
+We are now using `whenever` to schedule rake tasks using cron.
+
+Locally you don't need to worry about this, if you do want to test out the cron, simply run `whenever --update-crontab --set environment='development'`
+
+On the server it will automatically run the required command to set up the cron events.
+
+Currently we have the following scheduled tasks running:
+
+`users:purge_old_users` - Runs weekly at 3am, removed any user who hasn't confirmed their account in a year
