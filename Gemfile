@@ -51,6 +51,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.1'
   gem 'httplog'
+  gem 'faker'
 end
 
 group :test do

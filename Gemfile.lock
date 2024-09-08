@@ -140,6 +140,8 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
+    faker (3.4.2)
+      i18n (>= 1.8.11, < 2)
     faraday (2.11.0)
       faraday-net_http (>= 2.0, < 3.4)
       logger
@@ -489,6 +491,7 @@ DEPENDENCIES
   dotenv-rails
   eventbrite_sdk
   factory_bot_rails
+  faker
   gibbon
   http
   httplog
