@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>LondonDecomMembership</title>
+    <title>London Decompression Membership</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -16,9 +16,9 @@
   </head>
 
   <body>
-    <% if !Rails.env.production? %>
+    <% unless Rails.env.production? %>
       <div class="alert alert-danger dev_notice" role="alert">
-        This is a non-prod instance of the memebers website, changes are to be expected!
+        This is a non-prod instance of the members website, changes are to be expected!
       </div>
     <% end %>
     <div class="page-header">
@@ -89,7 +89,8 @@
                   <%= flash[:alert] %>
                 </div>
               <% end %>
-            <%= yield %>
+              <%= yield %>
+            </div>
           </div>
         </div>
       </div>
