@@ -10,16 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_20_175852) do
-
+ActiveRecord::Schema[7.2].define(version: 2024_09_08_091401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "direct_sale_codes", force: :cascade do |t|
     t.string "code"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_direct_sale_codes_on_user_id"
   end
 
@@ -27,10 +26,10 @@ ActiveRecord::Schema.define(version: 2023_10_20_175852) do
     t.string "eventbrite_token"
     t.string "eventbrite_id"
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "active", default: false, null: false
-    t.datetime "ticket_sale_start_date"
+    t.datetime "ticket_sale_start_date", precision: nil
     t.text "theme"
     t.text "theme_details"
     t.text "theme_image_url"
@@ -38,7 +37,7 @@ ActiveRecord::Schema.define(version: 2023_10_20_175852) do
     t.text "maps_location_url"
     t.text "event_timings"
     t.text "further_information"
-    t.datetime "event_date"
+    t.datetime "event_date", precision: nil
     t.integer "event_mode"
     t.text "ticket_price_info"
     t.text "ticket_information"
@@ -47,8 +46,8 @@ ActiveRecord::Schema.define(version: 2023_10_20_175852) do
   create_table "low_income_codes", force: :cascade do |t|
     t.string "code"
     t.bigint "low_income_request_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["low_income_request_id"], name: "index_low_income_codes_on_low_income_request_id"
   end
 
@@ -57,16 +56,16 @@ ActiveRecord::Schema.define(version: 2023_10_20_175852) do
     t.text "request_reason"
     t.string "status"
     t.text "status_reason"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_low_income_requests_on_user_id"
   end
 
   create_table "membership_codes", force: :cascade do |t|
     t.string "code"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_membership_codes_on_user_id"
   end
 
@@ -75,17 +74,17 @@ ActiveRecord::Schema.define(version: 2023_10_20_175852) do
     t.string "encrypted_password", default: "", null: false
     t.string "name"
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "admin"
     t.boolean "marketing_opt_in", default: false, null: false
     t.boolean "early_access"
@@ -98,8 +97,8 @@ ActiveRecord::Schema.define(version: 2023_10_20_175852) do
   create_table "volunteer_roles", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "event_id"
     t.boolean "hidden"
     t.text "brief_description"
@@ -110,8 +109,8 @@ ActiveRecord::Schema.define(version: 2023_10_20_175852) do
   create_table "volunteers", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "volunteer_role_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "lead", default: false, null: false
     t.string "state", default: "new"
     t.string "phone"

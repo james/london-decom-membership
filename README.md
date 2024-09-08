@@ -119,7 +119,23 @@ We don't use any caching outside of Redis at the current time, and if not enable
 
 This is being used to both prevent excess calls to Eventbrite and speed up page loading via [fragment caching](https://guides.rubyonrails.org/caching_with_rails.html#fragment-caching)
 
+### ROLLBAR_ACCESS_TOKEN
+
+Enables the Rollbar gem to upload application errors into the Rollbar portal.
+
 ## Development Only Environment Variables
+
+### USE_LOCAL_SSL
+
+This is not a requirement at all, however, if you want to use an SSL cert whilst developing the site, you can set this to true and the site will now be under `https`!
+
+When you launch the site via command line, you will need to run the command `rails s -b 'ssl://localhost:3000?key=../server.key&cert=../server.crt'`
+
+Update the paths of the `.key` and `.crt` files as needed.
+
+### DATABASE_URL
+
+This is ONLY if your PostgreSQL server is not on the same machine.
 
 ### MAILCATCHER_SMTP_IP_ADDRESS & MAILCATCHER_SMTP_PORT
 
@@ -128,6 +144,8 @@ By default these will default to `127.0.0.1` and `1025` respectively, however, i
 #### Development Note
 
 In dev, you can enable caching (in memory) by running `rails dev:cache` to toggle local caching.
+
+It will handle Action Controller caching, which is disabled by default in lower environments, but active in production.
 
 This will use the `:memory_store` cache, however, if any of the redis values are set, it is superseded by them.
 
