@@ -45,7 +45,12 @@ class VolunteersController < ApplicationController
     @volunteer = @volunteer_role.volunteers.find(params[:id])
     @volunteer.destroy
     flash[:notice] = "#{@volunteer.user.name} has been removed as a volunteer"
-    redirect_to event_volunteer_role_volunteers_path(@event, @volunteer_role)
+
+    if current_user.lead_for?(@volunteer_role)
+      redirect_to event_volunteer_role_volunteers_path(@event, @volunteer_role)
+    else
+      redirect_to root_path
+    end
   end
 
   def volunteer_cancelling
