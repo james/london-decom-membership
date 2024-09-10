@@ -17,7 +17,7 @@
 
 <%= bootstrap_form_for [:admin, @event, @volunteer_role, Volunteer.new] do |form| %>
   <%= form.select :user_id,
-                  User.pluck(:id, :name, :email).collect {|u| ["#{u[1]} (#{u[2]})", u[0]]},
+                  User.confirmed.pluck(:id, :name, :email).collect {|u| ["#{u[1]} (#{u[2]})", u[0]]},
                   {label: 'Find member to make a lead'},
                   {class: 'selectpicker', data: { 'live-search': 'true' }}
   %>
