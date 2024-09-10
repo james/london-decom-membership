@@ -19,7 +19,7 @@ class VolunteersController < ApplicationController
     @volunteer = current_user.volunteers.build(volunteer_params)
     if @volunteer.save
       LeadsMailer.new_volunteer(@volunteer).deliver_now
-      redirect_to root_path
+      redirect_to event_volunteering_index_path(@event)
     else
       render action: :new
     end
@@ -45,7 +45,12 @@ class VolunteersController < ApplicationController
     @volunteer = @volunteer_role.volunteers.find(params[:id])
     @volunteer.destroy
     flash[:notice] = "#{@volunteer.user.name} has been removed as a volunteer"
-    redirect_to event_volunteer_role_volunteers_path(@event, @volunteer_role)
+
+    if current_user.lead_for?(@volunteer_role)
+      redirect_to event_volunteer_role_volunteers_path(@event, @volunteer_role)
+    else
+      redirect_to root_path
+    end
   end
 
   def volunteer_cancelling
@@ -53,7 +58,7 @@ class VolunteersController < ApplicationController
     @volunteer.destroy
     LeadsMailer.cancelled_volunteer(@volunteer).deliver_now
     flash[:notice] = "You are no longer volunteering for #{@volunteer_role.name}"
-    redirect_to root_path
+    redirect_to event_volunteering_index_path(@event)
   end
 
   def find_event
@@ -76,6 +81,7 @@ class VolunteersController < ApplicationController
   def authenticate_lead
     return if current_user.admin? || Volunteer.find_by(user: current_user, volunteer_role: @volunteer_role, lead: true)
 
-    render plain: 'You are not permitted to view this'
+    flash[:alert] = 'You are not permitted to view that page'
+    redirect_to root_path
   end
 end
