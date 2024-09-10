@@ -17,6 +17,7 @@
     <th>Phone</th>
     <th>Comments</th>
     <th>State</th>
+    <th>Next State</th>
     <th></th>
   </tr>
   <% @volunteers.each do |volunteer| %>
@@ -28,6 +29,8 @@
         <td><%= volunteer.additional_comments %></td>
         <td>
           <%= volunteer.state %>
+        </td>
+        <td>
           <% if volunteer.next_state %>
             <%= form_for [@event, @volunteer_role, volunteer] do |form| %>
               <%= form.hidden_field :state, value: volunteer.next_state %>
