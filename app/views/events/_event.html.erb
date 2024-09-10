@@ -54,63 +54,8 @@
 
 <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
   <hr />
-  <% if current_user.volunteers_for_event(@event).any? %>
-    <h2>You've signed up to volunteer for:</h2>
-
-    <div class="list-group">
-      <% current_user.volunteers_for_event(@event).each do |volunteer| %>
-        <% cache volunteer do %>
-          <div class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-              <h5><%= volunteer.volunteer_role.name %></h5>
-              <% if volunteer.state == 'confirmed' %>
-                <p>You are confirmed as a volunteer</p>
-              <% elsif volunteer.state == 'contacted' %>
-                <p>You have been contacted by a lead</p>
-              <% else %>
-                <p>The leads for this role should be in contact with you very soon.</p>
-              <% end %>
-              <%= link_to 'Click here to remove yourself from this role', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'} %>
-              <% if volunteer.lead? %>
-                <p>
-                  You are a lead for this role:
-                  <%= link_to 'view volunteers', event_volunteer_role_volunteers_path(@event, volunteer.volunteer_role) %>
-                </p>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-
-      <hr />
-  <% end %>
-
-  <% if current_user.volunteers_for_event(@event).any? %>
-    <h2>Have you more to give?</h2>
-    <p>You can apply for more than one role if you like.</p>
-  <% else %>
-    <h2>Volunteer opportunities</h2>
-    <p>Congratulations, you've got your ticket for Decom!</p>
-    <p>Now, which team would you like to gift some of your time to? ;&#41;</p>
-  <% end %>
-
-  <div class="list-group">
-    <% @volunteer_roles.each do |volunteer_role| %>
-      <% cache volunteer_role do %>
-        <div class="row border">
-          <div class="col-8">
-            <h5><%= volunteer_role.name %></h5>
-            <%= simple_format volunteer_role.brief_description %>
-          </div>
-          <div class="col-4 d-flex justify-content-end" style="align-items: start; padding-top: 5px">
-            <a href="<%= new_event_volunteer_role_volunteer_path(@event, volunteer_role) %>" class="btn btn-primary">Volunteer</a>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-  <br />
-  <p>If you have any questions about volunteering, feel free to email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a></p>
+  <%= render partial: 'volunteers/applied_list' %>
+  <%= render partial: 'volunteers/list' %>
 <% end %>
 
 <hr>

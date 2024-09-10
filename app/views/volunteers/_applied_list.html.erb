@@ -1,0 +1,36 @@
+<% if current_user.volunteers_for_event(@event).any? %>
+  <h2>You've signed up to volunteer for:</h2>
+
+  <div class="list-group">
+    <% current_user.volunteers_for_event(@event).each do |volunteer| %>
+      <% cache volunteer do %>
+        <div class="list-group-item">
+          <div class="row">
+            <div class="col-md-8 col-12">
+              <h5><%= volunteer.volunteer_role.name %></h5>
+              <% if volunteer.state == 'confirmed' %>
+                <p>You are confirmed as a volunteer</p>
+              <% elsif volunteer.state == 'contacted' %>
+                <p>You have been contacted by a lead</p>
+              <% else %>
+                <% if volunteer.lead? %>
+                  <p>As you are the lead for this role, please get in contact with those who have applied as soon as possible!</p>
+                <% else %>
+                  <p>The leads for this role should be in contact with you very soon.</p>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="col-md-4 col-12 d-flex justify-content-md-end justify-content-center align-items-center" style="align-items: start; padding-top: 5px">
+              <% if volunteer.lead? %>
+                <%= link_to 'View Volunteers', event_volunteer_role_volunteers_path(@event, volunteer.volunteer_role), class: "btn btn-primary me-1"  %>
+              <% end %>
+              <%= link_to 'Un-Volunteer', event_volunteer_role_volunteer_path(@event, volunteer.volunteer_role, volunteer), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <hr />
+  </div>
+<% end %>
