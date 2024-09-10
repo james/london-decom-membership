@@ -48,7 +48,7 @@ RSpec.feature 'Volunteering', type: :feature do
     create(:volunteer, user: @user, volunteer_role:)
 
     visit root_path
-    click_link 'Click here to remove yourself from this role'
+    click_link 'Un-Volunteer'
     expect(page).to have_content('You are no longer volunteering for Ranger')
     expect(@user.volunteers.count).to eq(0)
 

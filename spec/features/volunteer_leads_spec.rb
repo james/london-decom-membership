@@ -11,8 +11,8 @@ RSpec.feature 'Volunteering leads', type: :feature do
     create(:volunteer, volunteer_role: role, user: @user, lead: true)
 
     visit root_path
-    expect(page).to have_content('You are a lead for this role')
-    click_link 'view volunteers'
+    expect(page).to have_content('As you are the lead for this role')
+    click_link 'View Volunteers'
     expect(page).to have_content(volunteer1.email)
     expect(page).to have_content(volunteer2.email)
     expect(page).to_not have_content(not_a_volunteer.email)
@@ -67,8 +67,21 @@ RSpec.feature 'Volunteering leads', type: :feature do
     role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
     create(:volunteer, volunteer_role: role, user: @user, lead: false)
     visit root_path
-    expect(page).to_not have_content('You are a lead for this role')
+    expect(page).to_not have_content('As you are the lead for this role')
     visit event_volunteer_role_volunteers_path(role.event, role)
     expect(page).to have_text('You are not permitted to view this')
+  end
+
+  scenario 'viewing the volunteers after removing self as lead' do
+    stub_eventbrite_event(tickets_sold_for_code: 1)
+    login
+    role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
+    create(:volunteer, volunteer_role: role, user: @user, lead: true)
+
+    visit root_path
+    click_link 'View Volunteers'
+    visit root_path
+    click_link 'Un-Volunteer'
+    expect(page).to_not have_text("You've signed up to volunteer for:")
   end
 end
