@@ -12,6 +12,16 @@ class Event < ApplicationRecord
     end
   end
 
+  def low_income_open?
+    are_missing = !low_income_requests_start.present? && !low_income_requests_end.present?
+    outside_window = Time.zone.now.before?(low_income_requests_start) || Time.zone.now.after?(low_income_requests_end)
+    if are_missing || outside_window
+      false
+    else
+      event_mode == 'prerelease'
+    end
+  end
+
   def eventbrite_start_time
     Date.parse(eventbrite_event.eventbrite_event.start.local)
   end

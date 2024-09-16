@@ -1,11 +1,40 @@
-<h1><%= @event.name %></h1>
+<h1>
+  <%= @event.name %>
+  <% if @event.active? %>
+    <span class="badge bg-success">Active</span>
+  <% else %>
+    <span class="badge bg-danger">Inactive</span>
+  <% end %>
+</h1>
 
-<% if @event.live? %>
+<% if @event.live? && @event.active? %>
   <p>Event is currently active (publicly viewable)</p>
+<% elsif @event.live? && !@event.active? %>
+  <p>Event is marked live, but isn't set to be active! (Only those with direct sales or Early Access will be able to see the event)</p>
 <% elsif @event.ended? %>
   <p>Event has ended</p>
 <% else %>
-  <p>Event is currently in <%= @event.event_mode&.titleize %></p>
+  <p>Event is currently in <%= @event.event_mode&.titleize %> mode</p>
+<% end %>
+
+<% if @event.ticket_sale_start_date.present? %>
+  <% if Time.now.utc.before? @event.ticket_sale_start_date %>
+    <p>Ticket sales start in <%= distance_of_time_in_words(Time.zone.now - @event.ticket_sale_start_date) %></p>
+  <% else %>
+    <p>Ticket sales started <%= distance_of_time_in_words(Time.zone.now - @event.ticket_sale_start_date) %> ago</p>
+  <% end %>
+<% end %>
+
+<% if @event.low_income_requests_start.present? && @event.low_income_requests_end.present? %>
+  <% if @event.low_income_open? %>
+    <p>Low income applications are currently open and will close in <%= distance_of_time_in_words(Time.zone.now - @event.low_income_requests_end) %></p>
+  <% else %>
+    <% if Time.zone.now > @event.low_income_requests_end %>
+      <p>Low income application window has closed, you can still however provide people with low income request access</p>
+    <% else %>
+      <p>Low income application window is currently closed, but will open in <%= distance_of_time_in_words(Time.zone.now - @event.low_income_requests_start) %></p>
+    <% end %>
+  <% end %>
 <% end %>
 
 <div class="accordion">
@@ -17,16 +46,38 @@
     </h2>
     <div id="eventDetailsCollapse" class="accordion-collapse collapse show" aria-labelledby="eventHeading" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <p>Ticket Sale Start Date: <%= @event.ticket_sale_start_date %></p>
-        <p>Theme: <%= @event.theme %></p>
-        <p>Theme Details: <%= simple_format(@event.theme_details) %></p>
-        <p>Theme Image Url: <%= @event.theme_image_url %></p>
-        <p>Location: <%= @event.location %></p>
-        <p>Maps Location Url: <%= @event.maps_location_url %></p>
-        <p>Event Timings: <%= simple_format(@event.event_timings) %></p>
-        <p>Further Information: <%= simple_format(@event.further_information) %></p>
-        <p>Ticket Price Information: <%= simple_format(@event.ticket_price_info) %></p>
-        <p>Ticket Information: <%= simple_format(@event.ticket_information) %></p>
+        <p>Ticket Sale Start Date: <%= @event.ticket_sale_start_date.present? ? @event.ticket_sale_start_date.to_fs(:decom_standard) : 'No set sale date' %></p>
+        <% if @event.low_income_requests_start.present? && @event.low_income_requests_end.present? %>
+          <p>Low income request window is between <%= @event.low_income_requests_start.to_fs(:decom_standard) %> and <%= @event.low_income_requests_end.to_fs(:decom_standard) %></p>
+        <% else %>
+          <p>No low income request window has been set</p>
+        <% end %>
+        <h2>Theme:</h2>
+        <p><%= @event.theme %></p>
+        <h2>Theme Details:</h2>
+        <p><%= simple_format(@event.theme_details) %></p>
+        <h2>Theme Image Url:</h2>
+        <% if @event.theme_image_url.present? %>
+          <p><%= link_to @event.theme_image_url, @event.theme_image_url %></p>
+        <% else %>
+          <p>No image link provided :(</p>
+        <% end %>
+        <h2>Location:</h2>
+        <p><%= @event.location %></p>
+        <h2>Maps Location Url:</h2>
+        <% if @event.maps_location_url.present? %>
+          <p><%= link_to @event.maps_location_url, @event.maps_location_url %></p>
+        <% else %>
+          <p>No Google Maps link provided :(</p>
+        <% end %>
+        <h2>Event Timings:</h2>
+        <p><%= simple_format(@event.event_timings) %></p>
+        <h2>Further Information:</h2>
+        <p><%= simple_format(@event.further_information) %></p>
+        <h2>Ticket Price Information:</h2>
+        <p><%= simple_format(@event.ticket_price_info) %></p>
+        <h2>Ticket Information:</h2>
+        <p><%= simple_format(@event.ticket_information) %></p>
       </div>
     </div>
   </div>
