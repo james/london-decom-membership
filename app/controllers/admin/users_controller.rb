@@ -23,6 +23,12 @@ class Admin::UsersController < AdminController
     redirect_to action: :index
   end
 
+  def resend_email
+    @user = User.find(params[:id])
+    @user.resend_confirmation_instructions
+    redirect_to action: :unconfirmed
+  end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy
