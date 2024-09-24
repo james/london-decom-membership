@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def index
     if current_user
       @event = Event.active(early_access: current_user.early_access)
-      @volunteer_roles = @event.volunteer_roles.available_for_user(current_user).all if @event
+      @volunteer_roles = @event.volunteer_roles.available_for_user(current_user).all if @event && !@event.ended?
     else
       @user = User.new
       render :registration

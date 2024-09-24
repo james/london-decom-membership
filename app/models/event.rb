@@ -2,7 +2,7 @@ class Event < ApplicationRecord
   has_many :volunteer_roles, dependent: :destroy
   validates :name, presence: true
 
-  enum event_mode: %i[draft prerelease live ended]
+  enum :event_mode, [:draft, :prerelease, :live, :ended]
 
   def self.active(early_access: false)
     if early_access
