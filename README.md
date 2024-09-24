@@ -10,8 +10,12 @@ Decompression Membership system is website that allows you to have event pages a
 
 To run this application locally for development, you will need to install:
 
-- ruby 2.7.6 (I recommend `rvm`, but you could use `rbenv` or any other technique. The version is specified in `.ruby-version`)
-- Postgresql (I use Postgres.app on OSX)
+- Ruby 3.3.5
+    - We recommend `rvm`, but you could use `rbenv` or any other technique. The version is specified in `.ruby-version`
+- [PostgreSQL](https://www.postgresql.org/download/)
+    - For installation on a Mac, we suggest [Postgres.app](https://postgresapp.com/)
+    - For viewing on other OS's [PgAdmin4](https://www.pgadmin.org/download/pgadmin-4-windows/)
+- [Optional] [Redis](https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/install-redis-on-windows/)
 
 You then need to navigate to the repository's root and run:
 
@@ -170,7 +174,7 @@ For members to be able to buy tickets using their accounts, membership codes nee
 * Log into the membership app with an admin account, and go to the admin 'Membership Codes' page.
 * Ensure you have enough membership codes generated for your need. Be generous (if you have 1,000 people, maybe generate 1,500 codes). This is to ensure we don't run out of access tokens. If not, generate some codes.
 * Download the CSV file on that page.
-* Update: Eventbrite has restricted uploads to 500 at a time, so use a (CSV splitter)[https://extendsclass.com/csv-splitter.html] to split your file if you have more than 500 codes
+    * Update: Eventbrite has restricted uploads to 500 at a time, so use a [CSV splitter](https://extendsclass.com/csv-splitter.html) to split your file if you have more than 500 codes
 * Go to "Manage" for your Eventbrite event. Go to "Tickets" then "Promo Codes".
 * Add your first file
 * From "Ticket Limit", choose "Limited To", and then input the number of tickets you want each member to be allowed to buy. Our current plan is to allow 1 ticket per member.
