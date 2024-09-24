@@ -9,7 +9,7 @@ jobs:
           PGHOST: localhost
           PGUSER: london-decom-membership
           RAILS_ENV: test
-      - image: postgres:9.5
+      - image: cimg/postgres:14.6
         environment:
           POSTGRES_USER: london-decom-membership
           POSTGRES_DB: london-decom-membership_test
