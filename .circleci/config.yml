@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/london-decom-membership
     docker:
-      - image: cimg/ruby:2.7.6-browsers
+      - image: cimg/ruby:3.3.5-browsers
         environment:
           PGHOST: localhost
           PGUSER: london-decom-membership
