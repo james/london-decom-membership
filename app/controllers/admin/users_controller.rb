@@ -26,7 +26,11 @@ class Admin::UsersController < AdminController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to action: :index
+    if @user.confirmed?
+      redirect_to action: :index
+    else
+      redirect_to action: :unconfirmed
+    end
   end
 
   def give_direct_sale
