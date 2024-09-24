@@ -6,7 +6,7 @@ RSpec.describe VolunteerRole, type: :model do
     let!(:volunteer_role1) { create(:volunteer_role) }
     let!(:volunteer_role2) { create(:volunteer_role) }
     it 'filters out roles that a user has already signed up for' do
-      create(:volunteer, user: user, volunteer_role: volunteer_role1)
+      create(:volunteer, user:, volunteer_role: volunteer_role1)
       expect(VolunteerRole.available_for_user(user).all).to eq([volunteer_role2])
     end
 

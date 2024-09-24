@@ -52,7 +52,7 @@ class User < ApplicationRecord
   end
 
   def lead_for?(volunteer_role)
-    volunteers.where(volunteer_role: volunteer_role, lead: true).present?
+    volunteers.where(volunteer_role:, lead: true).present?
   end
 
   def email_hash
@@ -66,7 +66,7 @@ class User < ApplicationRecord
     #       toggle for doing a GDPR delete, but that's a future change
     gibbon.lists(list_id).members(email_hash).delete
   rescue Gibbon::MailChimpError => e
-    # Note: the reason for this is even if we check if the user exists, we'd get
+    # NOTE: the reason for this is even if we check if the user exists, we'd get
     #       a 404 response from MailChimp and whilst we shouldn't exclude errors
     #       there is little benefit to reporting this error
     Rollbar.error(e) if e.status_code != 404
@@ -105,7 +105,7 @@ class User < ApplicationRecord
   end
 
   def gibbon
-    @gibbon ||= Gibbon::Request.new(api_key: ENV['MAILCHIMP_TOKEN'])
+    @gibbon ||= Gibbon::Request.new(api_key: ENV.fetch('MAILCHIMP_TOKEN', nil))
   end
 
   def list_id

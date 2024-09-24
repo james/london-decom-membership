@@ -25,26 +25,26 @@ RSpec.describe User, type: :model do
       @user_stub = stub_request(:put, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623')
                    .with(
                      body: {
-                       'email_address': 'james@abscond.org',
-                       'status': 'subscribed',
-                       'merge_fields': { 'NAME': 'James Darling' }
+                       email_address: 'james@abscond.org',
+                       status: 'subscribed',
+                       merge_fields: { NAME: 'James Darling' }
                      }
                    )
       @full_tag_stub = stub_request(:post, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623/tags')
                        .with(
                          body: {
-                           'tags': [
-                             { 'name': 'member', 'status': 'active' },
-                             { 'name': 'member-marketing', 'status': 'active' }
+                           tags: [
+                             { name: 'member', status: 'active' },
+                             { name: 'member-marketing', status: 'active' }
                            ]
                          }
                        )
       @member_only_tag_stub = stub_request(:post, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623/tags')
                               .with(
                                 body: {
-                                  'tags': [
-                                    { 'name': 'member', 'status': 'active' },
-                                    { 'name': 'member-marketing', 'status': 'inactive' }
+                                  tags: [
+                                    { name: 'member', status: 'active' },
+                                    { name: 'member-marketing', status: 'inactive' }
                                   ]
                                 }
                               )
@@ -81,22 +81,22 @@ RSpec.describe User, type: :model do
       @user_stub = stub_request(:put, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623')
                    .with(
                      body: {
-                       'email_address': 'james@abscond.org',
-                       'status': 'subscribed',
-                       'merge_fields': { 'NAME': 'James Darling' }
+                       email_address: 'james@abscond.org',
+                       status: 'subscribed',
+                       merge_fields: { NAME: 'James Darling' }
                      }
                    )
       @member_only_tag_stub = stub_request(:post, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623/tags')
                               .with(
                                 body: {
-                                  'tags': [
-                                    { 'name': 'member', 'status': 'active' },
-                                    { 'name': 'member-marketing', 'status': 'inactive' }
+                                  tags: [
+                                    { name: 'member', status: 'active' },
+                                    { name: 'member-marketing', status: 'inactive' }
                                   ]
                                 }
                               )
       @deleted_stub = stub_request(:delete, 'https://us3.api.mailchimp.com/3.0/lists/1234/members/2585df46821f60e7ea95e8cb7f495623')
-                      .to_return(status: 200, body: '', headers: {})
+                      .with(body: '')
     end
 
     it 'should delete a user on Mailchimp' do
