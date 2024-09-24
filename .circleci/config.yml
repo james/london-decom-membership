@@ -4,12 +4,12 @@ jobs:
   build:
     working_directory: ~/london-decom-membership
     docker:
-      - image: cimg/ruby:2.7.6-browsers
+      - image: cimg/ruby:3.3.5-browsers
         environment:
           PGHOST: localhost
           PGUSER: london-decom-membership
           RAILS_ENV: test
-      - image: postgres:9.5
+      - image: cimg/postgres:14.6
         environment:
           POSTGRES_USER: london-decom-membership
           POSTGRES_DB: london-decom-membership_test
