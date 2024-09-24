@@ -19,7 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update_resource(resource, params)
     result = resource.update_with_password(params)
-    resource.update_mailchimp
+    resource.update_mailchimp if result
     result
   end
 
