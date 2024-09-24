@@ -5,7 +5,7 @@ ARG RUBY_VERSION=3.3.5
 FROM ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
-WORKDIR /app
+WORKDIR /rails
 
 # Set production environment
 ENV BUNDLE_DEPLOYMENT="1" \
@@ -65,12 +65,12 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libsqlite3-0 postgresql-client file vim curl gzip && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libsqlite3-0 postgresql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
-COPY --from=build /app /app
+COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
