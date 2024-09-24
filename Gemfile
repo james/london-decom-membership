@@ -52,6 +52,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.1'
   gem 'httplog'
   gem 'faker'
+  gem 'dockerfile-rails', '>= 1.6'
 end
 
 group :test do

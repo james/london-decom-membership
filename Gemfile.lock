@@ -137,6 +137,8 @@ GEM
     devise-i18n (1.12.1)
       devise (>= 4.9.0)
     diff-lcs (1.5.1)
+    dockerfile-rails (1.6.18)
+      rails (>= 3.0.0)
     domain_name (0.6.20240107)
     dotenv (3.1.4)
     dotenv-rails (3.1.4)
@@ -517,6 +519,7 @@ DEPENDENCIES
   dartsass-sprockets
   devise
   devise-i18n
+  dockerfile-rails (>= 1.6)
   dotenv-rails
   eventbrite_sdk
   factory_bot_rails
