@@ -9,7 +9,12 @@ class Admin::UsersController < AdminController
   end
 
   def unconfirmed
-    @users = User.unconfirmed.order(created_at: :desc)
+    if params[:q]
+      q = "%#{params[:q]}%"
+      @users = User.unconfirmed.where('name ILIKE ? OR email ILIKE ?', q, q).order(:created_at).page params[:page]
+    else
+      @users = User.unconfirmed.order(:created_at).page params[:page]
+    end
   end
 
   def edit
