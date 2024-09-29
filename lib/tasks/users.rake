@@ -4,7 +4,7 @@ namespace :users do
     purged_users = 0
     User.unconfirmed.order(created_at: :asc).each do |user|
       unconfirmed_duration = Time.now - user.confirmation_sent_at.to_time
-      one_year_in_seconds = 31556952
+      one_year_in_seconds = 1.year.in_seconds
       next unless unconfirmed_duration >= one_year_in_seconds
 
       Rollbar.debug('Removing stale user account', email: user.email)
