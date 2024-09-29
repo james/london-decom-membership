@@ -14,11 +14,12 @@ class Event < ApplicationRecord
 
   def low_income_open?
     are_missing = !low_income_requests_start.present? && !low_income_requests_end.present?
-    outside_window = Time.zone.now.before?(low_income_requests_start) || Time.zone.now.after?(low_income_requests_end)
-    if are_missing || outside_window
+    if are_missing
       false
     else
-      event_mode == 'prerelease'
+      inside_window = !Time.zone.now.before?(low_income_requests_start) &&
+                      !Time.zone.now.after?(low_income_requests_end)
+      inside_window && event_mode == 'prerelease'
     end
   end
 

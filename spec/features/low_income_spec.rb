@@ -1,20 +1,33 @@
 require 'rails_helper'
 
 RSpec.feature 'Low Income', type: :feature do
-  scenario 'user has 2 available tickets and bought 2' do
-    stub_eventbrite_event(available_tickets_for_code: 0, tickets_sold_for_code: 2)
-    create(:event)
-    login
-
-    expect(page).to_not have_text('Apply for low income')
-  end
-
   scenario 'prerelease event and user has 1 available tickets can apply for low income' do
     stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
     create(:event, :prerelease)
     login
 
     expect(page).to have_text('Apply for low income')
+  end
+
+  scenario "prerelease event and user has 1 available tickets but low income window isn't set" do
+    stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
+    create(:event, :prerelease, low_income_requests_start: nil, low_income_requests_end: nil)
+    login
+
+    expect(page).to_not have_text('Apply for low income')
+  end
+
+  scenario "prerelease event and user has 1 available tickets but low income window isn't open yet" do
+    stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
+    create(
+      :event,
+      :prerelease,
+      low_income_requests_start: Time.zone.now.advance(weeks: 1),
+      low_income_requests_end: Time.zone.now.advance(weeks: 2)
+    )
+    login
+
+    expect(page).to_not have_text('Apply for low income')
   end
 
   scenario 'prerelease event and user has 0 available tickets can no longer apply for low income' do
@@ -25,9 +38,9 @@ RSpec.feature 'Low Income', type: :feature do
     expect(page).to_not have_text('Apply for low income')
   end
 
-  scenario 'live event and user has 0 available tickets can no longer apply for low income' do
-    stub_eventbrite_event(available_tickets_for_code: 0, tickets_sold_for_code: 1)
-    create(:event, :live)
+  scenario 'prerelease event and user has 1 available tickets but the low income window has closed' do
+    stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
+    create(:event, :prerelease, low_income_requests_end: Time.zone.now.advance(weeks: -1))
     login
 
     expect(page).to_not have_text('Apply for low income')
@@ -76,9 +89,17 @@ RSpec.feature 'Low Income', type: :feature do
     expect(page.html).to include(User.last.membership_code.code)
   end
 
-  scenario 'prerelease event and user has 1 available tickets but the low income window has closed' do
-    stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
-    create(:event, :prerelease, low_income_requests_end: Time.zone.now.advance(weeks: -1))
+  scenario 'live event and user has 0 available tickets can no longer apply for low income' do
+    stub_eventbrite_event(available_tickets_for_code: 0, tickets_sold_for_code: 1)
+    create(:event, :live)
+    login
+
+    expect(page).to_not have_text('Apply for low income')
+  end
+
+  scenario 'user has 2 available tickets and bought 2' do
+    stub_eventbrite_event(available_tickets_for_code: 0, tickets_sold_for_code: 2)
+    create(:event)
     login
 
     expect(page).to_not have_text('Apply for low income')
