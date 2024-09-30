@@ -40,7 +40,7 @@ RSpec.feature 'Low Income', type: :feature do
 
   scenario 'prerelease event and user has 1 available tickets but the low income window has closed' do
     stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
-    create(:event, :prerelease, low_income_requests_end: Time.zone.now.advance(weeks: -1))
+    create(:event, :prerelease, low_income_requests_end: Time.zone.now.advance(days: -6))
     login
 
     expect(page).to_not have_text('Apply for low income')
@@ -107,7 +107,7 @@ RSpec.feature 'Low Income', type: :feature do
 
   scenario 'live event and user has 1 available tickets but the low income window has closed' do
     stub_eventbrite_event(available_tickets_for_code: 1, tickets_sold_for_code: 0)
-    create(:event, low_income_requests_end: Time.zone.now.advance(weeks: -1))
+    create(:event, low_income_requests_end: Time.zone.now.advance(days: -6))
     login
 
     expect(page).to_not have_text('Apply for low income')
