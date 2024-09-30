@@ -11,7 +11,9 @@ RSpec.feature 'Volunteering leads', type: :feature do
     create(:volunteer, volunteer_role: role, user: @user, lead: true)
 
     visit root_path
+    click_link 'Volunteering'
     expect(page).to have_content('As you are the lead for this role')
+
     click_link 'View Volunteers'
     expect(page).to have_content(volunteer1.email)
     expect(page).to have_content(volunteer2.email)
@@ -67,6 +69,7 @@ RSpec.feature 'Volunteering leads', type: :feature do
     role = create(:volunteer_role, name: 'Ranger', description: 'A description of rangering')
     create(:volunteer, volunteer_role: role, user: @user, lead: false)
     visit root_path
+    click_link 'Volunteering'
     expect(page).to_not have_content('As you are the lead for this role')
     visit event_volunteer_role_volunteers_path(role.event, role)
     expect(page).to have_text('You are not permitted to view that page')
@@ -79,8 +82,9 @@ RSpec.feature 'Volunteering leads', type: :feature do
     create(:volunteer, volunteer_role: role, user: @user, lead: true)
 
     visit root_path
+    click_link 'Volunteering'
     click_link 'View Volunteers'
-    visit root_path
+    click_link 'Volunteering'
     click_link 'Un-Volunteer'
     expect(page).to_not have_text("You've signed up to volunteer for:")
   end

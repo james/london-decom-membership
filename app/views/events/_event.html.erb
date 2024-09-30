@@ -46,11 +46,7 @@
   <% end %>
 <% end %>
 
-<% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
-  <hr />
-  <%= render partial: 'volunteers/applied_list' %>
-  <%= render partial: 'volunteers/list' %>
-<% end %>
+<p>Looking to volunteer? We now have a <%= link_to 'dedicated page', event_volunteering_index_path(@event) %> for volunteering during London Decompression!</p>
 
 <hr>
 
@@ -82,8 +78,6 @@
     <p><%= simple_format(@event.ticket_information, {}, { sanitize_options: { attributes: %w[target href] }}) %></p>
   </div>
 </div>
-
-<p>If you have any questions about volunteering, feel free to email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a></p>
 
 <% if current_user.ticket_type != :general || @event.available_tickets_for_code(current_user.membership_number) > 0 %>
 <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>

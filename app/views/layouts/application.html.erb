@@ -52,6 +52,11 @@
                     <li class="nav-item">
                       <%= link_to 'Profile', edit_user_registration_path, class: 'nav-link' %>
                     </li>
+                    <% if @event && (@event.active || current_user.admin?) %>
+                      <li class="nav-item">
+                        <%= link_to 'Volunteering', event_volunteering_index_path(@event), class: 'nav-link' %>
+                      </li>
+                    <% end %>
                     <% if current_user.admin? %>
                       <li class="nav-item">
                         <%= link_to 'Users', admin_users_path, class: 'nav-link' %>

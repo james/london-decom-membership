@@ -1,13 +1,4 @@
 <% if @volunteer_roles.any? %>
-  <% if current_user.volunteers_for_event(@event).any? %>
-    <h2>Have you more to give?</h2>
-    <p>You can apply for more than one role if you like.</p>
-  <% else  %>
-    <h2>Volunteer opportunities</h2>
-    <p>Congratulations, you've got your ticket for Decom!</p>
-    <p>Now, which team would you like to gift some of your time to? ;&#41;</p>
-  <% end %>
-
   <div class="list-group">
     <% @volunteer_roles.each do |volunteer_role| %>
       <% cache volunteer_role do %>

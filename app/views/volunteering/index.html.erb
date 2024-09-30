@@ -1,0 +1,14 @@
+<% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
+  <% if current_user.volunteers_for_event(@event).any? %>
+    <h2>Thank you for volunteering</h2>
+  <% else  %>
+    <h2>Volunteer</h2>
+    <p>Volunteer to help run Decom and be part of a great community running an incredible event. The more you put in the more you get out.</p>
+    <p>There is a volunteer role for everyone so have a look through the opportunities below and click ‘volunteer’ to apply for any you would like to do.</p>
+  <% end %>
+  <p>If you’ve got questions about volunteering you can email <a href="mailto:volunteers@londondecom.org">volunteers@londondecom.org</a></p>
+  <%= render partial: 'volunteering/applied_list' %>
+  <%= render partial: 'volunteering/list' %>
+<% else %>
+  <p>Once you purchase a ticket, all the volunteering roles will be open for you to apply to!</p>
+<% end %>

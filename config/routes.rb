@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :volunteer_roles, only: [] do
       resources :volunteers, only: %i[index new create destroy update]
     end
+    resources :volunteering, only: %i[index]
   end
   resources :low_income_requests
   root to: 'home#index'

@@ -14,6 +14,7 @@ RSpec.feature 'Volunteering', type: :feature do
     stub_eventbrite_event(tickets_sold_for_code: 1)
     login
 
+    click_link 'Volunteering'
     expect(page).to have_text('Ranger')
     click_link 'Volunteer'
     expect(page).to have_text('A description of rangering')
@@ -33,10 +34,10 @@ RSpec.feature 'Volunteering', type: :feature do
     expect(page).to have_text('The leads for this role should be in contact with you very soon')
     volunteer = @user.volunteers.last
     volunteer.update(state: 'contacted')
-    visit root_path
+    visit event_volunteering_index_path(:event)
     expect(page).to have_text('You have been contacted by a lead')
     volunteer.update(state: 'confirmed')
-    visit root_path
+    visit event_volunteering_index_path(:event)
     expect(page).to have_text('You are confirmed as a volunteer')
   end
 
@@ -47,7 +48,7 @@ RSpec.feature 'Volunteering', type: :feature do
     login
     create(:volunteer, user: @user, volunteer_role:)
 
-    visit root_path
+    click_link 'Volunteering'
     click_link 'Un-Volunteer'
     expect(page).to have_content('You are no longer volunteering for Ranger')
     expect(@user.volunteers.count).to eq(0)
