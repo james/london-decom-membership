@@ -9,7 +9,12 @@ class Admin::UsersController < AdminController
   end
 
   def unconfirmed
-    @users = User.unconfirmed.order(created_at: :desc)
+    if params[:q]
+      q = "%#{params[:q]}%"
+      @users = User.unconfirmed.where('name ILIKE ? OR email ILIKE ?', q, q).order(:created_at).page params[:page]
+    else
+      @users = User.unconfirmed.order(:created_at).page params[:page]
+    end
   end
 
   def edit
@@ -21,6 +26,12 @@ class Admin::UsersController < AdminController
     @user.update!(user_params)
     @user.update_mailchimp
     redirect_to action: :index
+  end
+
+  def resend_email
+    @user = User.find(params[:id])
+    @user.resend_confirmation_instructions
+    redirect_to action: :unconfirmed
   end
 
   def destroy
