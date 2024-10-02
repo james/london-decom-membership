@@ -41,7 +41,8 @@ class Admin::EventsController < AdminController
       :name, :active,
       :ticket_sale_start_date, :theme, :theme_details, :theme_image_url,
       :location, :maps_location_url, :event_timings, :further_information,
-      :ticket_price_info, :ticket_information, :event_date, :event_mode
+      :ticket_price_info, :ticket_information, :event_date, :event_mode,
+      :low_income_requests_start, :low_income_requests_end
     )
   end
 end

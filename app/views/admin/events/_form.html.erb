@@ -1,53 +1,58 @@
 <section>
-<h1>Basic Info</h1>
-<%= form.text_field :name %>
-<%= form.check_box :active %>
-<%= form.select(:event_mode, Event.event_modes.keys.map {|event_mode| [event_mode.titleize, event_mode]}, {}, {:onChange => "checkEventMode();"}) %>
-<% if @event.eventbrite_token.nil? || @event.eventbrite_id.nil? %>
-<div id="missing_eb_warning" class="alert alert-warning" role="alert" style="display: hidden">
-  <p>
-    There is no EventBrite data for this event, so cannot be updated, please contact <%= mail_to "geeks@londondecom.org", "geeks@londondecom.org", subject: "Missing EventBrite Data for Event ID #{@event.id}" %> to get the data added.
-  </p>
-</div>
-<% end %>
+  <h1>Basic Info</h1>
+  <%= form.text_field :name %>
+  <%= form.check_box :active %>
+  <%= form.select(:event_mode, Event.event_modes.keys.map {|event_mode| [event_mode.titleize, event_mode]}, {}, {:onChange => "checkEventMode();"}) %>
+  <% if @event.eventbrite_token.nil? || @event.eventbrite_id.nil? %>
+    <div id="missing_eb_warning" class="alert alert-warning" role="alert" style="display: none">
+      <p>
+        There is no EventBrite data for this event, so cannot be updated, please contact <%= mail_to "geeks@londondecom.org", "geeks@londondecom.org", subject: "Missing EventBrite Data for Event ID #{@event.id}" %> to get the data added.
+      </p>
+    </div>
+  <% end %>
 </section>
 
 <section>
-<h1>Location</h1>
-<%= form.text_field :location %>
-<%= form.text_field :maps_location_url %>
+  <h1>Low Income Tickets</h1>
+  <%= form.datetime_local_field :low_income_requests_start %>
+  <%= form.datetime_local_field :low_income_requests_end %>
 </section>
 
 <section>
-<h1>Date and Time</h1>
-<%= form.datetime_local_field :ticket_sale_start_date %>
-<%= form.text_area :event_timings %>
+  <h1>Location</h1>
+  <%= form.text_field :location %>
+  <%= form.text_field :maps_location_url %>
 </section>
 
 <section>
-<h1>Theme</h1>
-<%= form.text_field :theme %>
-<%= form.text_area :theme_details %>
-<%= form.text_field :theme_image_url %>
+  <h1>Date and Time</h1>
+  <%= form.datetime_local_field :ticket_sale_start_date %>
+  <%= form.text_area :event_timings %>
 </section>
 
 <section>
-<h1>Further Information</h1>
-<%= form.text_area :further_information %>
-<%= form.text_area :ticket_price_info %>
-<%= form.text_area :ticket_information %>
+  <h1>Theme</h1>
+  <%= form.text_field :theme %>
+  <%= form.text_area :theme_details %>
+  <%= form.text_field :theme_image_url %>
+</section>
+
+<section>
+  <h1>Further Information</h1>
+  <%= form.text_area :further_information %>
+  <%= form.text_area :ticket_price_info %>
+  <%= form.text_area :ticket_information %>
 </section>
 
 <script>
-  function checkEventMode(eventMode) {
+  function checkEventMode() {
     <% if @event.eventbrite_token.nil? || @event.eventbrite_id.nil? %>
-    var selection = document.getElementById('event_event_mode');
-    var warning = document.getElementById('missing_eb_warning');
-    var currentValue = selection.value;
-    console.log(currentValue);
-    if (currentValue == "prerelease") {
+    const selection = document.getElementById('event_event_mode');
+    const warning = document.getElementById('missing_eb_warning');
+    const currentValue = selection.value;
+    if (currentValue === "prerelease") {
       warning.style.display = "block";
-    } else if (currentValue == "live") {
+    } else if (currentValue === "live") {
       warning.style.display = "block";
     } else {
       warning.style.display = "none";

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_08_091401) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_15_235553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_08_091401) do
     t.integer "event_mode"
     t.text "ticket_price_info"
     t.text "ticket_information"
+    t.datetime "low_income_requests_start", precision: nil
+    t.datetime "low_income_requests_end", precision: nil
   end
 
   create_table "low_income_codes", force: :cascade do |t|

@@ -5,7 +5,7 @@
     <% if @event.ticket_sale_start_date.nil? %>
       Tickets for our next event will be available to buy here soon, watch this space!.
     <% else %>
-      Tickets for our next event will be available to buy here on <%= @event.ticket_sale_start_date.strftime("%d/%m/%Y at %I:%M:%S %p") %> (GMT).
+      Tickets for our next event will be available to buy here on <%= @event.ticket_sale_start_date.to_fs(:decom_standard) %> (GMT).
     <% end %>
   <% elsif @event.live? || current_user.early_access %>
     <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
@@ -41,9 +41,8 @@
     <% end %>
   <% end %>
 
-  <%= render partial: '/tickets/low_income' %>
-
   <% if @event.tickets_sold_for_code(current_user.membership_number) == 0 %>
+    <%= render partial: '/tickets/low_income' %>
     <p>
       <strong>
         Bought a transferred ticket and can't see the volunteer opportunities on this page? Drop an email to <a href="mailto:members@londondecom.org">members@londondecom.org</a> and we'll sort you out!

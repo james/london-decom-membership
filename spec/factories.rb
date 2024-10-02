@@ -20,6 +20,8 @@ FactoryBot.define do
     name { 'London Decompression 2019' }
     active { true }
     event_mode { :live }
+    low_income_requests_start { Time.now.utc.advance(weeks: -1) }
+    low_income_requests_end { Time.now.utc.advance(weeks: 1) }
     trait :draft do
       event_mode { :draft }
     end
