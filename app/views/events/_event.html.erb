@@ -1,55 +1,49 @@
 <h1><%= @event.name %></h1>
 
-<p>
-  <% if @event.prerelease? && !current_user.early_access %>
-    <% if @event.ticket_sale_start_date.nil? %>
-      Tickets for our next event will be available to buy here soon, watch this space!.
-    <% else %>
-      Tickets for our next event will be available to buy here on <%= @event.ticket_sale_start_date.to_fs(:decom_standard) %> (GMT).
-    <% end %>
-  <% elsif @event.live? || current_user.early_access %>
-    <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
-      <p>
-        You have bought the
-        <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
-        available to you. Look below to see how you can participate.
-      </p>
-    <% elsif current_user.ticket_type != :general %>
-      <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
-        Buy
-        <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
-      </button>
-      <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
-
-    <% else %>
-      <p style="margin-bottom: 0">
-        <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
-          You have already bought
-          <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>.
-          You can buy
-          <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'more ticket') %>.
-        <% else %>
-          You can buy
-          <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
-        <% end %>
-      </p>
-      <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
-        Buy
-        <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
-      </button>
-      <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
-    <% end %>
+<% if @event.prerelease? && !current_user.early_access %>
+  <% if @event.ticket_sale_start_date.nil? %>
+    Tickets for our next event will be available to buy here soon, watch this space!
+  <% else %>
+    Tickets for our next event will be available to buy here on <%= @event.ticket_sale_start_date.to_fs(:decom_standard) %> (GMT).
   <% end %>
+<% elsif @event.live? || current_user.early_access %>
+  <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
+    <p>
+      You have bought the
+      <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>
+      available to you. Look below to see how you can participate.
+    </p>
+  <% else %>
+    <p>
+      <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
+        You have already bought
+        <%= pluralize(@event.tickets_sold_for_code(current_user.membership_number), 'ticket') %>.
+        You can buy
+        <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'more ticket') %>.
+      <% else %>
+        You can buy
+        <%= pluralize(@event.available_tickets_for_code(current_user.membership_number), 'ticket') %>.
+      <% end %>
+    </p>
+    <button id="eventbrite-buy-link" type="button" class="btn btn-primary">
+      Buy
+      <%= 'Ticket'.pluralize(@event.available_tickets_for_code(current_user.membership_number)) %>
+    </button>
+    <p><i class="text-muted">By obtaining a ticket, whether purchased directly, gifted, resold or transferred in any way, I consent to my personal information (including sensitive personal data) being processed in line with the Data Protection Act. I consent for this information to be used for event operation, event safety, community safeguarding and consent related purposes including the sharing of information with third parties for these purposes. Where applicable, third parties are also subject to relevant data protection legislation.</i></p>
+  <% end %>
+<% end %>
 
-  <% if @event.tickets_sold_for_code(current_user.membership_number) == 0 %>
-    <%= render partial: '/tickets/low_income' %>
+<% if @event.tickets_sold_for_code(current_user.membership_number) == 0 %>
+  <%= render partial: '/tickets/low_income' %>
+
+  <% if @event.live? || current_user.early_access %>
     <p>
       <strong>
         Bought a transferred ticket and can't see the volunteer opportunities on this page? Drop an email to <a href="mailto:members@londondecom.org">members@londondecom.org</a> and we'll sort you out!
       </strong>
     </p>
   <% end %>
-</p>
+<% end %>
 
 <% if @event.tickets_sold_for_code(current_user.membership_number) > 0 %>
   <hr />
@@ -82,6 +76,7 @@
       <% end %>
 
       <hr />
+    </div>
   <% end %>
 
   <% if current_user.volunteers_for_event(@event).any? %>
@@ -114,20 +109,20 @@
 
 <hr>
 
-<p>Here is the crucial info</p>
+<h2>Here is the crucial info</h2>
 <% if @event.theme_image_url.present? %>
   <%= image_tag @event.theme_image_url, style: 'width: 100%;' %>
 <% end %>
 
 <div class="row mt-3">
   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-    <p><strong><%= @event.name %>: <%= @event.theme %></strong></p>
+    <h3><strong><%= @event.name %>: <%= @event.theme %></strong></h3>
     <%= simple_format(@event.theme_details) %>
   </div>
 
   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
     <p><strong>Where:</strong> <%= @event.location %></p>
-    <p><strong>Map:</strong> <%= link_to 'Google Maps Location', @event.maps_location_url %></p>
+    <p><strong>Map:</strong> <%= link_to 'Google Maps Location', @event.maps_location_url, target: '_blank' %></p>
     <% if @event.eventbrite_event.eventbrite_event.start.local.nil? %>
       <p><strong>When:</strong> <%= simple_format(@event.event_timings) %></p>
     <% else %>
@@ -139,7 +134,7 @@
       <%= simple_format(@event.ticket_price_info) %>
       <%= render partial: '/tickets/low_income' %>
     </p>
-    <p><%= simple_format(@event.ticket_information) %></p>
+    <p><%= simple_format(@event.ticket_information, {}, { sanitize_options: { attributes: %w[target href] }}) %></p>
   </div>
 </div>
 
