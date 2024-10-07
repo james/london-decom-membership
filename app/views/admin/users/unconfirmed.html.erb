@@ -1,6 +1,6 @@
 <h2>Unconfirmed Members</h2>
 
-<p>There are currently <%= pluralize(@users.count, 'unconfirmed member') %></p>
+<p>There are currently <%= pluralize(User.unconfirmed.count, 'unconfirmed member') %></p>
 
 <%= form_tag nil, method: :get do %>
   <%= text_field_tag :q, params[:q] %>
@@ -27,3 +27,7 @@
     </tr>
   <% end %>
 </table>
+
+<%= paginate @users, theme: 'twitter-bootstrap-4' %>
+
+<%= link_to 'Confirmed accounts', admin_users_path %>
