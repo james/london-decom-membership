@@ -23,24 +23,24 @@
   <% @volunteers.each do |volunteer| %>
     <% cache volunteer do %>
       <tr>
-        <td><%= volunteer.user.name %></td>
-        <td><%= volunteer.user.email %></td>
-        <td><%= volunteer.phone %></td>
-        <td><%= volunteer.additional_comments %></td>
-        <td>
+        <td class="align-middle"><%= volunteer.user.name %></td>
+        <td class="align-middle"><%= volunteer.user.email %></td>
+        <td class="align-middle"><%= volunteer.phone %></td>
+        <td class="align-middle"><%= volunteer.additional_comments %></td>
+        <td class="align-middle">
           <%= volunteer.state %>
         </td>
-        <td>
+        <td class="align-middle">
           <% if volunteer.next_state %>
             <%= form_for [@event, @volunteer_role, volunteer] do |form| %>
               <%= form.hidden_field :state, value: volunteer.next_state %>
-              <%= form.submit "Mark as #{volunteer.next_state}" %>
+              <%= form.submit "Mark as #{volunteer.next_state}", class: "btn btn-primary w-100" %>
             <% end %>
           <% end %>
         </td>
-        <td>
+        <td class="align-middle">
           <%= form_for [@event, @volunteer_role, volunteer], method: :delete do |form| %>
-            <%= form.submit "remove", data: {confirm: 'Are you sure?'} %>
+            <%= form.submit "remove", data: {confirm: 'Are you sure?'}, class: "btn btn-danger w-100"  %>
           <% end %>
         </td>
       </tr>
